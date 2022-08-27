@@ -1,0 +1,10 @@
+*.log
+*.pyc
+__pycache__/
+db-volumes/
+db.sqlite3
+
+
+
+# for my notes activate env
+activate.txt
