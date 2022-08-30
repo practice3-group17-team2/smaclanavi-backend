@@ -1,8 +1,8 @@
 from rest_framework import serializers
-from administer_data.models import Class
+from administer_data.models import ClassInfo
 
 
-class ClassSerializer(serializers.Serializer):
+class ClassInfoSerializer(serializers.Serializer):
     """
     id = serializers.IntegerField(read_only=True)
     title = serializers.CharField(required=False, allow_blank=True, max_length=100)
@@ -21,13 +21,13 @@ class ClassSerializer(serializers.Serializer):
 
     def create(self, validated_data):
         """
-        Create and return a new `Class` instance, given the validated data.
+        Create and return a new `ClassInfo` instance, given the validated data.
         """
-        return Class.objects.create(**validated_data)
+        return ClassInfo.objects.create(**validated_data)
 
     def update(self, instance, validated_data):
         """
-        Update and return an existing `Class` instance, given the validated data.
+        Update and return an existing `ClassInfo` instance, given the validated data.
         """
         instance.class_name = validated_data.get('class_name', instance.class_name)
         instance.phone_number = validated_data.get('phone_number', instance.phone_number)

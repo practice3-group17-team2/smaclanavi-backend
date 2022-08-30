@@ -7,7 +7,7 @@ LANGUAGE_CHOICES = sorted([(item[1][0], item[0]) for item in LEXERS])
 STYLE_CHOICES = sorted([(item, item) for item in get_all_styles()])
 
 
-class Class(models.Model):
+class ClassInfo(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     class_name = models.CharField(max_length=100)
     phone_number = models.CharField(max_length=100, blank=True, default='')
