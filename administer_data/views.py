@@ -1,48 +1,49 @@
-from rest_framework import status
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
 from administer_data.models import ClassInfo
 from administer_data.serializers import ClassInfoSerializer
+from django.http import Http404
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
 
-
-@api_view(['GET', 'POST'])
-def classInfo_list(request, format=None):
+class ClassInfoList(APIView):
     """
     List all code classInfos, or create a new classInfo.
     """
-    if request.method == 'GET':
-        classInfos = ClassInfo.objects.all()
-        serializer = ClassInfoSerializer(classInfos, many=True)
+    def get(self, request, format=None):
+        all_class_info = ClassInfo.objects.all()
+        serializer = ClassInfoSerializer(all_class_info, many=True)
         return Response(serializer.data)
 
-    elif request.method == 'POST':
+    def post(self, request, format=None):
         serializer = ClassInfoSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-@api_view(['GET', 'PUT', 'DELETE'])
-def classInfo_detail(request, pk, format=None):
+class ClassInfoDetail(APIView):
     """
-    Retrieve, update or delete a code classInfo.
+    Retrieve, update or delete a class_info instance.
     """
-    try:
-        classInfo = ClassInfo.objects.get(pk=pk)
-    except ClassInfo.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+    def get_object(self, pk):
+        try:
+            return ClassInfo.objects.get(pk=pk)
+        except ClassInfo.DoesNotExist:
+            raise Http404
 
-    if request.method == 'GET':
-        serializer = ClassInfoSerializer(classInfo)
+    def get(self, request, pk, format=None):
+        class_info = self.get_object(pk)
+        serializer = ClassInfoSerializer(class_info)
         return Response(serializer.data)
 
-    elif request.method == 'PUT':
-        serializer = ClassInfoSerializer(classInfo, data=request.data)
+    def put(self, request, pk, format=None):
+        class_info = self.get_object(pk)
+        serializer = ClassInfoSerializer(class_info, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    elif request.method == 'DELETE':
-        classInfo.delete()
+    def delete(self, request, pk, format=None):
+        class_info = self.get_object(pk)
+        class_info.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
