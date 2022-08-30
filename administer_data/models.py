@@ -9,7 +9,7 @@ STYLE_CHOICES = sorted([(item, item) for item in get_all_styles()])
 
 class Class(models.Model):
     created = models.DateTimeField(auto_now_add=True)
-    class_name = models.CharField(max_length=100, blank=True, default='')
+    class_name = models.CharField(max_length=100)
     phone_number = models.CharField(max_length=100, blank=True, default='')
     # city = models.ForeignKey()
     address = models.CharField(max_length=100, blank=True, default='')
@@ -18,6 +18,8 @@ class Class(models.Model):
     price = models.IntegerField(blank=True, default=0)
     site_url = models.URLField(blank=True, default="")
     """ 
+    created = models.DateTimeField(auto_now_add=True)
+    title = models.CharField(max_length=100, blank=True, default='')
     code = models.TextField()
     linenos = models.BooleanField(default=False)
     language = models.CharField(choices=LANGUAGE_CHOICES, default='python', max_length=100)
