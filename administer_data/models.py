@@ -16,7 +16,7 @@ class Prefecture(models.Model):
 
 class City(models.Model):
     city_name = models.CharField(max_length=20)
-    prefecture = models.ForeignKey(Prefecture, on_delete=models.SET_NULL)
+    prefecture = models.ForeignKey(Prefecture, null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         return self.city_name
@@ -51,4 +51,4 @@ class Review(models.Model):
     class_info = models.ForeignKey(ClassInfo, on_delete=models.CASCADE)
     review_text = models.TextField(max_length=200)
     faves = models.IntegerField(blank=True, default=0)
-    author = models.CharField(blank=True, default="名無し")
+    author = models.CharField(max_length=20 ,blank=True, default="名無し")
