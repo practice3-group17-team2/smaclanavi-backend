@@ -5,6 +5,8 @@ from administer_data import views
 urlpatterns = [
     path('classinfo/', views.ClassInfoList.as_view()),
     path('classinfo/<int:pk>/', views.ClassInfoDetail.as_view()),
+    path('review/', views.ReviewList.as_view()),
+    path('review/<int:pk>/', views.ReviewDetail.as_view()),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
