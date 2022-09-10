@@ -19,15 +19,11 @@ class LectureSerializer(serializers.ModelSerializer):
             model = Lecture
             fields = ['id', 'lecture_content', 'is_target_old']
 
-# class ClassInfoSerializer(serializers.ModelSerializer):
-class ClassInfoSerializer(serializers.HyperlinkedModelSerializer):
-    """
-    class Meta:
-        model = Snippet
-        fields = ['id', 'title', 'code', 'linenos', 'language', 'style']
-    """
+
+class ClassInfoSerializer(serializers.ModelSerializer):
     # reviews = serializers.PrimaryKeyRelatedField(many=True, queryset=Review.objects.all())
-    reviews = serializers.HyperlinkedIdentityField(view_name='review-detail')
+    # reviews = serializers.HyperlinkedIdentityField(view_name='review-list') # 技術力と設計との相違により断念
+    reviews = serializers.HyperlinkedRelatedField(view_name='review-detail', many=True, read_only=True)
     
     city = serializers.SlugRelatedField(
         read_only=True,
@@ -42,6 +38,7 @@ class ClassInfoSerializer(serializers.HyperlinkedModelSerializer):
         fields = ['id', 'class_name', 'phone_number', 'address', 'evaluation', 'price', 'site_url', 'city', 'lecture', 'reviews']
 
 class ReviewSerializer(serializers.ModelSerializer):
+    class_info = serializers.HyperlinkedRelatedField(view_name='classinfo-detail', queryset=ClassInfo.objects.all())
     class Meta:
         model = Review
         fields = ['id', 'class_info', 'review_text', 'faves', 'author']
