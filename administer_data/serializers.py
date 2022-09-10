@@ -25,16 +25,13 @@ class ClassInfoSerializer(serializers.ModelSerializer):
         model = Snippet
         fields = ['id', 'title', 'code', 'linenos', 'language', 'style']
     """
-  # reviews = serializers.PrimaryKeyRelatedField(many=True, queryset=Review.objects.all())
   # snippets = serializers.PrimaryKeyRelatedField(many=True, queryset=Snippet.objects.all())
-
-
+    reviews = serializers.PrimaryKeyRelatedField(many=True, queryset=Review.objects.all())
     class Meta:
         model = ClassInfo
-        fields = ['id', 'class_name', 'phone_number', 'address', 'evaluation', 'price', 'site_url', 'city', 'lecture']
-        # city, lecture
+        fields = ['id', 'class_name', 'phone_number', 'address', 'evaluation', 'price', 'site_url', 'city', 'lecture', 'reviews']
 
 class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
-            model = Review
-            fields = ['id', 'class_info', 'review_text', 'faves', 'author']
+        model = Review
+        fields = ['id', 'class_info', 'review_text', 'faves', 'author']

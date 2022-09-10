@@ -48,7 +48,7 @@ class ClassInfo(models.Model):
 
 class Review(models.Model):
     created = models.DateTimeField(auto_now_add=True)
-    class_info = models.ForeignKey(ClassInfo, on_delete=models.CASCADE)
+    class_info = models.ForeignKey(ClassInfo, on_delete=models.CASCADE, related_name='reviews')
     review_text = models.TextField(max_length=200)
     faves = models.IntegerField(blank=True, default=0)
     author = models.CharField(max_length=20 ,blank=True, default="名無し")
