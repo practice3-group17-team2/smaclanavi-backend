@@ -52,3 +52,6 @@ class Review(models.Model):
     review_text = models.TextField(max_length=200)
     faves = models.IntegerField(blank=True, default=0)
     author = models.CharField(max_length=20 ,blank=True, default="名無し")
+
+    def __str__(self) -> str:
+        return super().__str__() + ":" + self.review_text[:5]
