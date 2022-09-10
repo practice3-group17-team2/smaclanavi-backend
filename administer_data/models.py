@@ -37,7 +37,7 @@ class ClassInfo(models.Model):
     evaluation = models.IntegerField(blank=True, default=0)
     price = models.IntegerField(blank=True, default=0)
     site_url = models.URLField(blank=True, default='')
-    city = models.ForeignKey(City, on_delete=models.SET_DEFAULT, blank=True, null=True, default='')
+    city = models.ForeignKey(City, on_delete=models.SET_DEFAULT, blank=True, null=True, default=None)
     lecture = models.ManyToManyField(Lecture, related_name="class_info")
 
     class Meta:
