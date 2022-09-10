@@ -29,8 +29,14 @@ class ClassInfoSerializer(serializers.HyperlinkedModelSerializer):
     # reviews = serializers.PrimaryKeyRelatedField(many=True, queryset=Review.objects.all())
     reviews = serializers.HyperlinkedIdentityField(view_name='review-detail')
     
-    city = CitySerializer(required=False)
-    
+    city = serializers.SlugRelatedField(
+        read_only=True,
+        slug_field='city_name')
+    lecture = serializers.SlugRelatedField(
+        many=True,
+        read_only=True,
+        slug_field='lecture_content')
+
     class Meta:
         model = ClassInfo
         fields = ['id', 'class_name', 'phone_number', 'address', 'evaluation', 'price', 'site_url', 'city', 'lecture', 'reviews']
