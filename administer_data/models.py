@@ -15,30 +15,30 @@ class Prefecture(models.Model):
         return self.pref_name
 
 class City(models.Model):
-    city_name = models.CharField(max_length=20)
+    city_name  = models.CharField(max_length=20)
     prefecture = models.ForeignKey(Prefecture, null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         return self.city_name
 
 class Lecture(models.Model):
-    created = models.DateTimeField(auto_now_add=True)
+    created         = models.DateTimeField(auto_now_add=True)
     lecture_content = models.CharField(max_length=20)
-    is_target_old = models.BooleanField(blank=True, default=True)
+    is_target_old   = models.BooleanField(blank=True, default=True)
 
     def __str__(self):
         return self.lecture_content
 
 class ClassInfo(models.Model):
-    created = models.DateTimeField(auto_now_add=True)
-    class_name = models.CharField(max_length=100)
+    created      = models.DateTimeField(auto_now_add=True)
+    class_name   = models.CharField(max_length=100)
     phone_number = models.CharField(max_length=100, blank=True, default='')
-    address = models.CharField(max_length=100, blank=True, default='')
-    evaluation = models.IntegerField(blank=True, default=0)
-    price = models.IntegerField(blank=True, default=0)
-    site_url = models.URLField(blank=True, default='')
-    city = models.ForeignKey(City, on_delete=models.SET_DEFAULT, blank=True, null=True, default=None)
-    lecture = models.ManyToManyField(Lecture, related_name="class_info")
+    address      = models.CharField(max_length=100, blank=True, default='')
+    evaluation   = models.IntegerField(blank=True, default=0)
+    price        = models.IntegerField(blank=True, default=0)
+    site_url     = models.URLField(blank=True, default='')
+    city         = models.ForeignKey(City, on_delete=models.SET_DEFAULT, blank=True, null=True, default=None)
+    lecture      = models.ManyToManyField(Lecture, related_name="class_info")
 
     class Meta:
         ordering = ['created']
@@ -47,11 +47,11 @@ class ClassInfo(models.Model):
         return self.class_name
 
 class Review(models.Model):
-    created = models.DateTimeField(auto_now_add=True)
-    class_info = models.ForeignKey(ClassInfo, on_delete=models.CASCADE, related_name='reviews')
+    created     = models.DateTimeField(auto_now_add=True)
+    class_info  = models.ForeignKey(ClassInfo, on_delete=models.CASCADE, related_name='reviews')
     review_text = models.TextField(max_length=200)
-    faves = models.IntegerField(blank=True, default=0)
-    author = models.CharField(max_length=20 ,blank=True, default="名無し")
+    faves       = models.IntegerField(blank=True, default=0)
+    author      = models.CharField(max_length=20 ,blank=True, default="名無し")
 
     def __str__(self) -> str:
         return super().__str__() + ":" + self.review_text[:5]
