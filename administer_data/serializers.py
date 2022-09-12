@@ -1,7 +1,6 @@
 from rest_framework import serializers
 from administer_data.models import ClassInfo, Review
 # from administer_data.models import Lecture, Prefecture, City
-
 """ 
 class PrefectureSerializer(serializers.ModelSerializer):
     class Meta:
@@ -20,19 +19,30 @@ class LectureSerializer(serializers.ModelSerializer):
             fields = ['id', 'lecture_content', 'is_target_old']
 """
 
+
 class ClassInfoSerializer(serializers.ModelSerializer):
     # reviews = serializers.PrimaryKeyRelatedField(many=True, queryset=Review.objects.all())
     # reviews = serializers.HyperlinkedIdentityField(view_name='review-list') # 技術力と設計との相違により断念
-    reviews = serializers.HyperlinkedRelatedField(read_only=True, many=True, view_name='review-detail')
-    city    = serializers.SlugRelatedField(read_only=True, slug_field='city_name')
-    lecture = serializers.SlugRelatedField(read_only=True, many=True, slug_field='lecture_content')
+    reviews = serializers.HyperlinkedRelatedField(read_only=True,
+                                                  many=True,
+                                                  view_name='review-detail')
+    city = serializers.SlugRelatedField(read_only=True, slug_field='city_name')
+    lecture = serializers.SlugRelatedField(read_only=True,
+                                           many=True,
+                                           slug_field='lecture_content')
 
     class Meta:
-        model  = ClassInfo
-        fields = ['id', 'class_name', 'phone_number', 'city', 'address', 'lecture', 'evaluation', 'price', 'site_url', 'reviews']
+        model = ClassInfo
+        fields = [
+            'id', 'class_name', 'phone_number', 'city', 'address', 'lecture',
+            'evaluation', 'price', 'site_url', 'reviews'
+        ]
+
 
 class ReviewSerializer(serializers.ModelSerializer):
-    class_info = serializers.HyperlinkedRelatedField(view_name='classinfo-detail', queryset=ClassInfo.objects.all())
+    class_info = serializers.HyperlinkedRelatedField(
+        view_name='classinfo-detail', queryset=ClassInfo.objects.all())
+
     class Meta:
-        model  = Review
+        model = Review
         fields = ['id', 'class_info', 'review_text', 'faves', 'author']
