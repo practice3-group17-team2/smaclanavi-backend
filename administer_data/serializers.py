@@ -29,7 +29,7 @@ class ClassInfoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model  = ClassInfo
-        fields = ['id', 'class_name', 'phone_number', 'address', 'evaluation', 'price', 'site_url', 'city', 'lecture', 'reviews']
+        fields = ['id', 'class_name', 'phone_number', 'city', 'address', 'lecture', 'evaluation', 'price', 'site_url', 'reviews']
 
 class ReviewSerializer(serializers.ModelSerializer):
     class_info = serializers.HyperlinkedRelatedField(view_name='classinfo-detail', queryset=ClassInfo.objects.all())
