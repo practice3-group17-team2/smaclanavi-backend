@@ -1,6 +1,6 @@
 from rest_framework import serializers
-from administer_data.models import ClassInfo, Review
-# from administer_data.models import Lecture, Prefecture, City
+from administer_data.models import ClassInfo, Review, Lecture, City
+# from administer_data.models import Prefecture
 """ 
 class PrefectureSerializer(serializers.ModelSerializer):
     class Meta:
@@ -21,15 +21,15 @@ class LectureSerializer(serializers.ModelSerializer):
 
 
 class ClassInfoSerializer(serializers.ModelSerializer):
-    reviews = serializers.PrimaryKeyRelatedField(many=True,
-                                                 queryset=Review.objects.all())
+    reviews = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
     """ # return url list
     review_urls = serializers.HyperlinkedRelatedField(read_only=True,
                                                   many=True,
                                                   view_name='review-detail')
     """
-    city = serializers.SlugRelatedField(read_only=True, slug_field='city_name')
-    lecture = serializers.SlugRelatedField(read_only=True,
+    city = serializers.SlugRelatedField(queryset=City.objects.all(),
+                                        slug_field='city_name')
+    lecture = serializers.SlugRelatedField(queryset=Lecture.objects.all(),
                                            many=True,
                                            slug_field='lecture_content')
 
