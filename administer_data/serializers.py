@@ -20,8 +20,22 @@ class LectureSerializer(serializers.ModelSerializer):
 """
 
 
+class ReviewSerializer(serializers.ModelSerializer):
+    class_info = serializers.PrimaryKeyRelatedField(
+        queryset=ClassInfo.objects.all())
+    """
+    class_info_url = serializers.HyperlinkedRelatedField(
+        view_name='classinfo-detail', queryset=ClassInfo.objects.all())
+    """
+
+    class Meta:
+        model = Review
+        fields = ['id', 'class_info', 'review_text', 'faves', 'author']
+
+
 class ClassInfoSerializer(serializers.ModelSerializer):
-    reviews = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    # reviews = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    reviews = ReviewSerializer(many=True, read_only=True)
     """ # return url list
     review_urls = serializers.HyperlinkedRelatedField(read_only=True,
                                                   many=True,
@@ -39,16 +53,3 @@ class ClassInfoSerializer(serializers.ModelSerializer):
             'id', 'class_name', 'phone_number', 'city', 'address', 'lecture',
             'evaluation', 'price', 'site_url', 'reviews'
         ]
-
-
-class ReviewSerializer(serializers.ModelSerializer):
-    class_info = serializers.PrimaryKeyRelatedField(
-        queryset=ClassInfo.objects.all())
-    """
-    class_info_url = serializers.HyperlinkedRelatedField(
-        view_name='classinfo-detail', queryset=ClassInfo.objects.all())
-    """
-
-    class Meta:
-        model = Review
-        fields = ['id', 'class_info', 'review_text', 'faves', 'author']
