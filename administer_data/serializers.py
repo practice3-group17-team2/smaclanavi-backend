@@ -21,11 +21,13 @@ class LectureSerializer(serializers.ModelSerializer):
 
 
 class ClassInfoSerializer(serializers.ModelSerializer):
-    # reviews = serializers.PrimaryKeyRelatedField(many=True, queryset=Review.objects.all())
-    # reviews = serializers.HyperlinkedIdentityField(view_name='review-list') # 技術力と設計との相違により断念
-    reviews = serializers.HyperlinkedRelatedField(read_only=True,
+    reviews = serializers.PrimaryKeyRelatedField(many=True,
+                                                 queryset=Review.objects.all())
+    """ # return url list
+    review_urls = serializers.HyperlinkedRelatedField(read_only=True,
                                                   many=True,
                                                   view_name='review-detail')
+    """
     city = serializers.SlugRelatedField(read_only=True, slug_field='city_name')
     lecture = serializers.SlugRelatedField(read_only=True,
                                            many=True,
@@ -40,8 +42,12 @@ class ClassInfoSerializer(serializers.ModelSerializer):
 
 
 class ReviewSerializer(serializers.ModelSerializer):
-    class_info = serializers.HyperlinkedRelatedField(
+    class_info = serializers.PrimaryKeyRelatedField(
+        queryset=ClassInfo.objects.all())
+    """
+    class_info_url = serializers.HyperlinkedRelatedField(
         view_name='classinfo-detail', queryset=ClassInfo.objects.all())
+    """
 
     class Meta:
         model = Review
