@@ -1,4 +1,5 @@
 from django.db import models
+import uuid
 """ 
 from pygments.lexers import get_all_lexers
 from pygments.styles import get_all_styles
@@ -7,6 +8,17 @@ LEXERS = [item for item in get_all_lexers() if item[1]]
 LANGUAGE_CHOICES = sorted([(item[1][0], item[0]) for item in LEXERS])
 STYLE_CHOICES = sorted([(item, item) for item in get_all_styles()]) 
 """
+
+
+class AbstractUUIDModel(models.Model):
+    # id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    id = models.CharField(primary_key=True,
+                          max_length=36,
+                          default=uuid.uuid4,
+                          editable=False)
+
+    class Meta:
+        abstract = True
 
 
 class Prefecture(models.Model):
@@ -37,7 +49,7 @@ class Lecture(models.Model):
         return self.lecture_content
 
 
-class ClassInfo(models.Model):
+class ClassInfo(AbstractUUIDModel):
     created = models.DateTimeField(auto_now_add=True)
     class_name = models.CharField(max_length=100)
     phone_number = models.CharField(max_length=100, blank=True, default='')
@@ -59,7 +71,7 @@ class ClassInfo(models.Model):
         return self.class_name
 
 
-class Review(models.Model):
+class Review(AbstractUUIDModel):
     created = models.DateTimeField(auto_now_add=True)
     class_info = models.ForeignKey(ClassInfo,
                                    on_delete=models.CASCADE,
