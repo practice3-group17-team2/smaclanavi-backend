@@ -11,11 +11,12 @@ STYLE_CHOICES = sorted([(item, item) for item in get_all_styles()])
 
 
 class AbstractUUIDModel(models.Model):
-    # id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    id = models.CharField(primary_key=True,
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    # 勘違いにより追加されたcharfieldくん
+    """ id = models.CharField(primary_key=True,
                           max_length=36,
                           default=uuid.uuid4,
-                          editable=False)
+                          editable=False) """
 
     class Meta:
         abstract = True
