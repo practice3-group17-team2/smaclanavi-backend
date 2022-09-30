@@ -15,8 +15,26 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from apscheduler.schedulers.background import BackgroundScheduler
+from django_apscheduler.jobstores import DjangoJobStore, register_events, register_job
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('administer_data.urls')),
 ]
+
+scheduler = BackgroundScheduler()
+scheduler.add_jobstore(DjangoJobStore(), "default")
+
+
+@register_job(scheduler,
+              "interval",
+              seconds=3,
+              id='test_job',
+              replace_existing=True)
+def test_job():
+    print("test")
+
+
+register_events(scheduler)
+scheduler.start()
