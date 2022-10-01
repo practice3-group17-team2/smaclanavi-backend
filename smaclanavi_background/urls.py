@@ -23,9 +23,9 @@ urlpatterns = [
     path('', include('administer_data.urls')),
 ]
 
+
 scheduler = BackgroundScheduler()
 scheduler.add_jobstore(DjangoJobStore(), "default")
-
 
 @register_job(scheduler,
               "interval",
@@ -34,6 +34,14 @@ scheduler.add_jobstore(DjangoJobStore(), "default")
               replace_existing=True)
 def test_job():
     print("test")
+
+@register_job(scheduler,
+              "interval",
+              seconds=5,
+              id='test2_job',
+              replace_existing=True)
+def test2_job():
+    print("aiueo")
 
 
 register_events(scheduler)
