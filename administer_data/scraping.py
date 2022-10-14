@@ -12,7 +12,9 @@ HEADER = {
 
 #グーグル検索から検索結果のリストを返す関数
 def search_google(words):
-
+    """
+    検索する言葉を受け取ってlink_list, title_listを返す
+    """
     link_list = []
     title_list = []
 
