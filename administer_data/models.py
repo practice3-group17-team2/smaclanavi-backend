@@ -1,3 +1,4 @@
+from unittest.util import _MAX_LENGTH
 from django.db import models
 import uuid
 """ 
@@ -20,6 +21,13 @@ class AbstractUUIDModel(models.Model):
 
     class Meta:
         abstract = True
+
+class TestSaveData(models.Model):
+    """
+    スレイピングしたデータの保存を試す用のモデル
+    """
+    title = models.CharField(max_length=40)
+    url = models.URLField()
 
 
 class Prefecture(models.Model):
