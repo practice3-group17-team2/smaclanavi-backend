@@ -37,7 +37,9 @@ def search_google(words):
         link_list = [link_tag.get("href") for link_tag in links]
         title_list = [title_tag.get_text() for title_tag in titles]
 
-        print("length {}, {}".format(len(link_list), len(title_list)))
+        #デバッグ用のprint
+        #print("length {}, {}".format(len(link_list), len(title_list)))
+        
         #タイトルとリンクが不一致の場合、
         if len(link_list) != len(title_list):
             return [], []
@@ -45,6 +47,7 @@ def search_google(words):
     return link_list, title_list
 
 
+#""" 
 def main():
 
     words = input("検索ワードを入力してください")
@@ -58,3 +61,4 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         print("\nprogram was ended.\n")
         sys.exit()
+#"""
