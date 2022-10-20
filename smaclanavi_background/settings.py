@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'administer_data',
+    # for func models.py to UML automatically
+    #'django_extensions',
 ]
 
 MIDDLEWARE = [
