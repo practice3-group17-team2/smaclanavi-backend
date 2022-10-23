@@ -108,9 +108,16 @@ class UpcomingLecInfos(AbstractUUIDModel):
     is_iphone = models.BooleanField(blank=True, default=True)
     can_select_date = models.BooleanField(blank=True, default=False)
 
+    def __str__(self) -> str:
+        #return super().__str__()
+        return 'UpcomeLecInfos object ({0}, {1})'.format(self.lecture_content, self.which_class_held)
+
 
 class LecSchedule(AbstractUUIDModel):
     lec_info = models.ForeignKey(UpcomingLecInfos,
                                  on_delete=models.CASCADE,
                                  related_name="schedules")
     date = models.DateTimeField()
+
+    def __str__(self) -> str:
+        return str(self.date.date())+"_"+str(self.lec_info.lecture_content)[:7]
