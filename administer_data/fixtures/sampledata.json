@@ -1,5 +1,4 @@
-[
-    {
+[{
         "model": "administer_data.city",
         "pk": 2,
         "fields": {
@@ -35,8 +34,8 @@
         }
     },
     {
-        "model": "administer_data.classorganizer", 
-        "pk": 2, 
+        "model": "administer_data.classorganizer",
+        "pk": 2,
         "fields": {
             "organizer_name": "au"
         }
@@ -102,6 +101,39 @@
             "review_text": "hogehoge",
             "faves": 0,
             "author": "konno"
+        }
+    },
+    {
+        "model": "administer_data.upcominglecinfos",
+        "pk": "c51ec2f8-306e-4a4d-b516-cfc55125744c",
+        "fields": {
+            "created": "2022-10-23T14:22:12.938Z",
+            "updated": "2022-10-23T14:22:12.938Z",
+            "lecture_content": 1,
+            "which_class_held": "d1013537-a869-4d1c-a444-513f6d3be5d9",
+            "is_personal_lec": false,
+            "is_iphone": true,
+            "can_select_date": false
+        }
+    },
+    {
+        "model": "administer_data.lecschedule",
+        "pk": "34bd1208-3b81-4861-9328-51b53d7c61b2",
+        "fields": {
+            "created": "2022-10-23T14:32:54.981Z",
+            "updated": "2022-10-23T14:32:54.981Z",
+            "lec_info": "c51ec2f8-306e-4a4d-b516-cfc55125744c",
+            "date": "2022-10-23T14:32:50Z"
+        }
+    },
+    {
+        "model": "administer_data.lecschedule",
+        "pk": "d2c002de-4a19-4675-91c4-a2191132af4a",
+        "fields": {
+            "created": "2022-10-23T14:37:03.797Z",
+            "updated": "2022-10-23T14:37:03.797Z",
+            "lec_info": "c51ec2f8-306e-4a4d-b516-cfc55125744c",
+            "date": "2022-10-31T12:00:00Z"
         }
     }
 ]
