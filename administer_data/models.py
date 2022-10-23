@@ -1,3 +1,4 @@
+from email.policy import default
 from django.db import models
 import uuid
 """ 
@@ -17,6 +18,8 @@ class AbstractUUIDModel(models.Model):
                           max_length=36,
                           default=uuid.uuid4,
                           editable=False) """
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
 
     class Meta:
         abstract = True
@@ -50,9 +53,16 @@ class Lecture(models.Model):
         return self.lecture_content
 
 
+class ClassOrganizer(models.Model):
+    # class_org instance(pk=1) = 個人運営
+    organizer_name = models.CharField(unique=True, max_length=20)
+
+
 class ClassInfo(AbstractUUIDModel):
-    created = models.DateTimeField(auto_now_add=True)
     class_name = models.CharField(max_length=100)
+    class_organizer = models.ForeignKey(ClassOrganizer,
+                                        on_delete=models.SET_DEFAULT,
+                                        default=1)
     phone_number = models.CharField(max_length=100, blank=True, default='')
     # city instance(pk=1) = 未設定用
     city = models.ForeignKey(City,
@@ -64,6 +74,8 @@ class ClassInfo(AbstractUUIDModel):
     evaluation = models.IntegerField(blank=True, default=0)
     price = models.IntegerField(blank=True, default=0)
     site_url = models.URLField(blank=True, default='')
+    has_parking = models.BooleanField(blank=True, default=False)
+    is_barrier_free = models.BooleanField(blank=True, default=False)
 
     class Meta:
         ordering = ['created']
@@ -73,7 +85,6 @@ class ClassInfo(AbstractUUIDModel):
 
 
 class Review(AbstractUUIDModel):
-    created = models.DateTimeField(auto_now_add=True)
     class_info = models.ForeignKey(ClassInfo,
                                    on_delete=models.CASCADE,
                                    related_name='reviews')
@@ -83,3 +94,23 @@ class Review(AbstractUUIDModel):
 
     def __str__(self) -> str:
         return super().__str__() + ":" + self.review_text[:5]
+
+
+class UpcomingLecInfos(AbstractUUIDModel):
+    lecture_content = models.ForeignKey(Lecture,
+                                        on_delete=models.CASCADE,
+                                        related_name='upcoming_lecs')
+    which_class_held = models.ForeignKey(ClassInfo,
+                                         on_delete=models.CASCADE,
+                                         related_name="upcoming_lecs")
+    #updated = 複数スケジュールの最新日時を取るようにしたい
+    is_personal_lec = models.BooleanField(blank=True, default=True)
+    is_iphone = models.BooleanField(blank=True, default=True)
+    can_select_date = models.BooleanField(blank=True, default=False)
+
+
+class LecSchedule(AbstractUUIDModel):
+    lec_info = models.ForeignKey(UpcomingLecInfos,
+                                 on_delete=models.CASCADE,
+                                 related_name="schedules")
+    date = models.DateTimeField()
