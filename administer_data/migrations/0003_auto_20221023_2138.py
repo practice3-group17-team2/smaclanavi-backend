@@ -68,4 +68,9 @@ class Migration(migrations.Migration):
                 'abstract': False,
             },
         ),
+        migrations.AddField(
+            model_name='classinfo',
+            name='class_organizer',
+            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.SET_DEFAULT, to='administer_data.classorganizer'),
+        ),
     ]
