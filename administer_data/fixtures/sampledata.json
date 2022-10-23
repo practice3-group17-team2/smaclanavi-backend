@@ -35,11 +35,20 @@
         }
     },
     {
+        "model": "administer_data.classorganizer", 
+        "pk": 2, 
+        "fields": {
+            "organizer_name": "au"
+        }
+    },
+    {
         "model": "administer_data.classinfo",
         "pk": "34a331b6-e224-18a6-f13e-d8dc74ccaeea",
         "fields": {
             "created": "2022-09-15T09:45:52.304Z",
+            "updated": "2022-09-15T09:45:52.304Z",
             "class_name": "\u3042\u3044\u3046\u3048\u304a",
+            "class_organizer": 1,
             "phone_number": "",
             "city": 1,
             "address": "",
@@ -56,7 +65,9 @@
         "pk": "d1013537-a869-4d1c-a444-513f6d3be5d9",
         "fields": {
             "created": "2022-09-15T09:45:52.304Z",
+            "updated": "2022-09-15T09:45:52.304Z",
             "class_name": "TEST CLASS 1",
+            "class_organizer": 2,
             "phone_number": "xxx-xxx-xxxx",
             "city": 2,
             "address": "aaaaaaaaa",
@@ -74,6 +85,7 @@
         "pk": "2de04071-2026-fcbb-d730-79a13d39c173",
         "fields": {
             "created": "2022-09-15T09:45:52.304Z",
+            "updated": "2022-09-15T09:45:52.304Z",
             "class_info": "d1013537-a869-4d1c-a444-513f6d3be5d9",
             "review_text": "foo bar",
             "faves": 0,
@@ -85,6 +97,7 @@
         "pk": "c23cbcc5-dd70-6968-517b-cac2eb80fa4f",
         "fields": {
             "created": "2022-09-15T09:45:52.304Z",
+            "updated": "2022-09-15T09:45:52.304Z",
             "class_info": "d1013537-a869-4d1c-a444-513f6d3be5d9",
             "review_text": "hogehoge",
             "faves": 0,

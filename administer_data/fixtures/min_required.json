@@ -15,6 +15,13 @@
         }
     },
     {
+        "model": "administer_data.classorganizer",
+        "pk": 1,
+        "fields": {
+            "organizer_name": "個人"
+        }
+    }, 
+    {
         "model": "auth.user",
         "pk": 1,
         "fields": {
