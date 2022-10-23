@@ -36,6 +36,23 @@
     },
     {
         "model": "administer_data.classinfo",
+        "pk": "87654321-8765-4321-8765-432187654321",
+        "fields": {
+            "created": "1111-11-11T11:11:11.111Z",
+            "class_name": "Test simple class",
+            "phone_number": "",
+            "city": 1,
+            "address": "",
+            "evaluation": 0,
+            "price": 0,
+            "site_url": "https://www.google.com/",
+            "lecture": [
+                2
+            ]
+        }
+    },
+    {
+        "model": "administer_data.classinfo",
         "pk": "34a331b6-e224-18a6-f13e-d8dc74ccaeea",
         "fields": {
             "created": "2022-09-15T09:45:52.304Z",
@@ -67,6 +84,17 @@
                 1,
                 2
             ]
+        }
+    },
+    {
+        "model": "administer_data.review",
+        "pk": "12345678-1234-5678-1234-567812345678",
+        "fields": {
+            "created": "1111-11-11T11:11:11.111Z",
+            "class_info": "d1013537-a869-4d1c-a444-513f6d3be5d9",
+            "review_text": "simple review",
+            "faves": 0,
+            "author": ""
         }
     },
     {
