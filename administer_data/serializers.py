@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from administer_data.models import ClassInfo, Review, Lecture, City
+from administer_data.models import ClassInfo, Review, Lecture, City, ClassOrganizer
 # from administer_data.models import Prefecture
 """ 
 class PrefectureSerializer(serializers.ModelSerializer):
@@ -41,6 +41,11 @@ class ClassInfoSerializer(serializers.ModelSerializer):
                                                   many=True,
                                                   view_name='review-detail')
     """
+    organizer = serializers.SlugRelatedField(
+        queryset=ClassOrganizer.objects.all(),
+        slug_field='organizer_name',
+        source='class_organizer')
+
     city = serializers.SlugRelatedField(queryset=City.objects.all(),
                                         slug_field='city_name')
     lecture = serializers.SlugRelatedField(queryset=Lecture.objects.all(),
@@ -50,6 +55,6 @@ class ClassInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = ClassInfo
         fields = [
-            'id', 'class_name', 'phone_number', 'city', 'address', 'lecture',
-            'evaluation', 'price', 'site_url', 'reviews'
+            'id', 'class_name', 'organizer', 'phone_number', 'city', 'address',
+            'lecture', 'evaluation', 'price', 'site_url', 'reviews'
         ]
