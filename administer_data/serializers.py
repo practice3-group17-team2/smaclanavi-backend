@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from administer_data.models import ClassInfo, Review, Lecture, City, ClassOrganizer, UpcomingLecInfos, LecSchedule
 from administer_data.models import Prefecture
+from django.contrib.auth.models import User
 """ 
 class PrefectureSerializer(serializers.ModelSerializer):
     class Meta:
@@ -14,12 +15,16 @@ class LectureSerializer(serializers.ModelSerializer):
             model  = Lecture
             fields = ['id', 'lecture_content', 'is_target_old']
 """
+
+
 class CitySerializer(serializers.ModelSerializer):
-    prefecture = serializers.SlugRelatedField(queryset=Prefecture.objects.all(), slug_field='pref_name')
+    prefecture = serializers.SlugRelatedField(
+        queryset=Prefecture.objects.all(), slug_field='pref_name')
+
     class Meta:
-            model  = City
-            #fields = ['id','prefecture','city_name']
-            fields = ['prefecture', 'city_name']
+        model = City
+        #fields = ['id','prefecture','city_name']
+        fields = ['prefecture', 'city_name']
 
 
 class ReviewSerializer(serializers.ModelSerializer):
@@ -47,9 +52,6 @@ class ClassInfoSerializer(serializers.ModelSerializer):
         queryset=ClassOrganizer.objects.all(),
         slug_field='organizer_name',
         source='class_organizer')
-
-    # city = serializers.SlugRelatedField(queryset=City.objects.all(),
-    #                                    slug_field='city_name')
     city = CitySerializer()
     lecture = serializers.SlugRelatedField(queryset=Lecture.objects.all(),
                                            many=True,
@@ -63,11 +65,39 @@ class ClassInfoSerializer(serializers.ModelSerializer):
         ]
 
 
+class LecScheduleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = LecSchedule
+        fields = ['id', 'date', 'updated']
+
+
 class UpcomingLecInfoSerializer(serializers.ModelSerializer):
-    # schedules = serializers.ListField(child=serializers.DateTimeField(source='LecSchedule.date'))
+    """ 
+    schedules = serializers.ListField(child=serializers.DateTimeField(
+        source='LecSchedule.date'))
+    """
+    schedules = LecScheduleSerializer(many=True)
+    # get_updatedに対応するmethodfield
+    updated = serializers.SerializerMethodField()
+
     class Meta:
         model = UpcomingLecInfos
         fields = [
-            'id', 'lecture_content', 'which_class_held', 'is_personal_lec',
-            'is_iphone', 'can_select_date', 'created', 'updated'
+            'id', 'lecture_content', 'which_class_held', 'schedules',
+            'is_personal_lec', 'is_iphone', 'can_select_date', 'created',
+            'updated'
         ]
+
+    def get_updated(self, obj):
+        """ 複数あるschedulesのupdatedを比較して最新のupdatedをUpcominglecInfoのupdatedに設定する """
+        # 該当するインスタンスをget、modelで定義したrelatednameで逆参照をかける
+        upcomeinfo = UpcomingLecInfos.objects.get(id=obj.id)
+        related_schedules = upcomeinfo.schedules.all()
+
+        latest_date = related_schedules[0].updated
+
+        for s in related_schedules:
+            if latest_date < s.updated:
+                latest_date = s.updated
+        
+        return latest_date
