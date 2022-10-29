@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from administer_data.models import ClassInfo, Review, Lecture, City, ClassOrganizer
+from administer_data.models import ClassInfo, Review, Lecture, City, ClassOrganizer, UpcomingLecInfos, LecSchedule
 # from administer_data.models import Prefecture
 """ 
 class PrefectureSerializer(serializers.ModelSerializer):
@@ -57,4 +57,14 @@ class ClassInfoSerializer(serializers.ModelSerializer):
         fields = [
             'id', 'class_name', 'organizer', 'phone_number', 'city', 'address',
             'lecture', 'evaluation', 'price', 'site_url', 'reviews'
+        ]
+
+
+class UpcomingLecInfoSerializer(serializers.ModelSerializer):
+    # schedules = serializers.ListField(child=serializers.DateTimeField(source='LecSchedule.date'))
+    class Meta:
+        model = UpcomingLecInfos
+        fields = [
+            'id', 'lecture_content', 'which_class_held', 'is_personal_lec',
+            'is_iphone', 'can_select_date', 'created', 'updated'
         ]
