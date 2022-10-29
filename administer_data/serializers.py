@@ -1,16 +1,12 @@
 from rest_framework import serializers
 from administer_data.models import ClassInfo, Review, Lecture, City, ClassOrganizer, UpcomingLecInfos, LecSchedule
-# from administer_data.models import Prefecture
+from administer_data.models import Prefecture
 """ 
 class PrefectureSerializer(serializers.ModelSerializer):
     class Meta:
             model  = Prefecture
             fields = ['id', 'pref_name']
 
-class CitySerializer(serializers.ModelSerializer):
-    class Meta:
-            model  = City
-            fields = ['id','city_name', 'prefecture']
 
 
 class LectureSerializer(serializers.ModelSerializer):
@@ -18,6 +14,12 @@ class LectureSerializer(serializers.ModelSerializer):
             model  = Lecture
             fields = ['id', 'lecture_content', 'is_target_old']
 """
+class CitySerializer(serializers.ModelSerializer):
+    prefecture = serializers.SlugRelatedField(queryset=Prefecture.objects.all(), slug_field='pref_name')
+    class Meta:
+            model  = City
+            #fields = ['id','prefecture','city_name']
+            fields = ['prefecture', 'city_name']
 
 
 class ReviewSerializer(serializers.ModelSerializer):
@@ -46,8 +48,9 @@ class ClassInfoSerializer(serializers.ModelSerializer):
         slug_field='organizer_name',
         source='class_organizer')
 
-    city = serializers.SlugRelatedField(queryset=City.objects.all(),
-                                        slug_field='city_name')
+    # city = serializers.SlugRelatedField(queryset=City.objects.all(),
+    #                                    slug_field='city_name')
+    city = CitySerializer()
     lecture = serializers.SlugRelatedField(queryset=Lecture.objects.all(),
                                            many=True,
                                            slug_field='lecture_content')
