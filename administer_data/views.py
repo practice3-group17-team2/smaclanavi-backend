@@ -1,6 +1,7 @@
-from administer_data.models import ClassInfo, Review, UpcomingLecInfos
-from administer_data.serializers import ClassInfoSerializer, ReviewSerializer, UpcomingLecInfoSerializer
-from rest_framework import generics
+# from administer_data.models import ClassInfo, Review, UpcomingLecInfos
+# from administer_data.serializers import ClassInfoSerializer, ReviewSerializer, UpcomingLecInfoSerializer
+from administer_data import models, serializers
+from rest_framework import viewsets
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
@@ -9,40 +10,24 @@ from rest_framework.reverse import reverse
 @api_view(['GET'])
 def api_root(request, format=None):
     return Response({
-        'classinfo':
+        'classinfos':
         reverse('classinfo-list', request=request, format=format),
         'reviews':
         reverse('review-list', request=request, format=format),
         'lecinfos':
-        reverse('lecinfos-list', request=request, format=format)
+        reverse('lecinfo-list', request=request, format=format)
     })
 
-
-class ClassInfoList(generics.ListCreateAPIView):
-    queryset = ClassInfo.objects.all()
-    serializer_class = ClassInfoSerializer
-
-
-class ClassInfoDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = ClassInfo.objects.all()
-    serializer_class = ClassInfoSerializer
+class ClassInfoViewSet(viewsets.ModelViewSet):
+    queryset = models.ClassInfo.objects.all()
+    serializer_class = serializers.ClassInfoSerializer
 
 
-class ReviewList(generics.ListCreateAPIView):
-    queryset = Review.objects.all()
-    serializer_class = ReviewSerializer
+class ReviewViewSet(viewsets.ModelViewSet):
+    queryset = models.Review.objects.all()
+    serializer_class = serializers.ReviewSerializer
 
 
-class ReviewDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Review.objects.all()
-    serializer_class = ReviewSerializer
-
-
-class UpcomingLecInfoList(generics.ListCreateAPIView):
-    queryset = UpcomingLecInfos.objects.all()
-    serializer_class = UpcomingLecInfoSerializer
-
-
-class UpcomingLecInfodetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = UpcomingLecInfos.objects.all()
-    serializer_class = UpcomingLecInfoSerializer
+class UpcomingLecInfoViewSet(viewsets.ModelViewSet):
+    queryset = models.UpcomingLecInfos.objects.all()
+    serializer_class = serializers.UpcomingLecInfoSerializer
