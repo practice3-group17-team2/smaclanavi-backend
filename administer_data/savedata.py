@@ -1,4 +1,4 @@
-from administer_data.scraping import search_google
+from administer_data.scraping_old import search_google
 from administer_data.models import TestSaveData
 
 def save_data():
@@ -11,8 +11,8 @@ def save_data():
     for i in range(len(link_ls)):
         if i==5:
             break
-        TestSaveData.objects.create(title=title_ls[i], url=link_ls[i])
-
+        #TestSaveData.objects.create(title=title_ls[i], url=link_ls[i])
+        print(title_ls[i], link_ls[i])
 
 if __name__ == "__main__":
     save_data()
