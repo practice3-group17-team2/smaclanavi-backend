@@ -4,7 +4,7 @@ __pycache__/
 db-volumes/
 db.sqlite3
 
-
+chromedriver.exe
 
 # for my notes activate env
 activate.txt
