@@ -72,10 +72,10 @@ class ScrapingSeleBase(ScrapingBase):
 
 
 class IsNeedSele(ScrapingBase):
+
     @classmethod
     def test(cls, url, selecter):
         return cls.scrape_data(url, selecter)
-
 
 
 # class SBgetAreaURLs():
@@ -96,7 +96,7 @@ class SoftbankShopScraping(ScrapingSeleBase):
     }
 
     test_area_url = ScrapingBase.url_from_format(area_url_format,
-                                            **test_args["tokyo-kita"])
+                                                 **test_args["tokyo-kita"])
     shop_link_selecter = "#js-shop-list > ul > li > div.shop-page-u96-shop-list-item_headder > h3 > a"
 
     @classmethod
@@ -108,12 +108,45 @@ class SoftbankShopScraping(ScrapingSeleBase):
     @classmethod
     def scraping_shop(cls) -> list:
         """ 店舗のurlのリストを返す """
-        shop_links_a = cls.scrape_data(cls.area_url, cls.shop_link_selecter)
+        shop_links_a = cls.scrape_data(cls.test_area_url,
+                                       cls.shop_link_selecter)
         shop_links = [link_tag.get("href") for link_tag in shop_links_a]
         return shop_links
 
-# class SBgetShopInfo(ScrapingSeleBase):
-""" 各店舗の詳細情報を取得 """
+
+class SBgetShopInfo(ScrapingBase):
+    """
+    shopURLで取得したURLから
+    店舗名、住所、電話番号、設備などを取得
+
+    name, organizer, phone_num, address, lecture, 
+    price, site_url, has_parking, is_barrier_free 
+    """
+    base_table_sel = "#contents > div.bgWh > div > div > div.column-matchHeight > div > div:nth-child(1) > section > table > tbody"
+    shop_selecters = {
+        "name":
+        base_table_sel + " > tr:nth-child(1) > td",
+        "phone":
+        base_table_sel + " > tr:nth-child(4) > td > span",
+        "parking":
+        base_table_sel + " > tr:nth-child(5) > td",
+        "barrier_free":
+        base_table_sel + " > tr:nth-child(6) > td",
+        "address":
+        "#contents > section.shop-page-u96-detail-section.bgWh > div > div.shop-page-u96-detail > div.shop-page-u96-detail-box-left > p",
+    }
+
+    @classmethod
+    def scraping_info(cls, url):
+        datas = {}
+        for key, selecter in cls.shop_selecters.items():
+            tmp_data = cls.scrape_data(url, selecter)
+
+            # tagはbeautifulsoupのTagクラス
+            tmp_data = tmp_data[0].string
+            tmp_data = str(tmp_data).replace("　", " ")
+            datas[key] = tmp_data
+        return datas
 
 
 #グーグル検索から検索結果のリストを返す関数

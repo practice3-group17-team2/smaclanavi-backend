@@ -4,6 +4,7 @@ from .savedata import save_data
 from .scraping import SoftbankShopScraping as sss
 from .scraping import ScrapingSeleBase as ssb
 from .scraping import IsNeedSele
+from .scraping import SBgetShopInfo
 
 # Create your tests here.
 
@@ -11,19 +12,28 @@ from .scraping import IsNeedSele
 #     def test_save_data(self):
 #         save_data()
 
+class TestDefault(TestCase):
+    def test_scrape_shop_info(self):
+        # 赤羽店
+        url = "https://www.softbank.jp/shop/search/detail/TD20/"
+        data = SBgetShopInfo.scraping_info(url)
+        print(data)
+
+
 class TestIsNeedSele(TestCase):
     """ 
     urlとセレクターを使ってseleniumなしで
     スクレイピングできるか試すクラス 
     """
     url  = "https://www.softbank.jp/shop/search/detail/TD20/"
-    selecter = "#contents > section.shop-page-u96-detail-section.bgWh > div > div.shop-page-u96-detail > div.shop-page-u96-detail-box-left > h1"
+    # selecter = ""
+    selecter = "#contents > div.bgWh > div > div > div.column-matchHeight > div > div:nth-child(1) > section > table > tbody > tr:nth-child(1) > td"
     def test_isneed_selenium(self):
         result = IsNeedSele.test(self.url, self.selecter)
         print(result)
         self.assertNotEqual(result, [])
 
-
+""" 
 class URLTest(TestCase):
     # def test_check_st_var(self):
     #     sss.debug_check_st_var()
@@ -40,7 +50,7 @@ class URLTest(TestCase):
         # ['/shop/search/detail/TD43/?cid=tpsk_191119_mobile',
         # '/shop/search/detail/TD20/?cid=tpsk_191119_mobile']
         self.assertEqual(result, ls)
-
+ """
 
 
     
