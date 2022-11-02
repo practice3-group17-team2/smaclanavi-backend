@@ -1,5 +1,4 @@
 import sys, bs4, requests
-from typing_extensions import override
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
@@ -72,24 +71,37 @@ class ScrapingSeleBase(ScrapingBase):
         return ret
 
 
+class IsNeedSele(ScrapingBase):
+    @classmethod
+    def test(cls, url, selecter):
+        return cls.scrape_data(url, selecter)
+
+
+
+# class SBgetAreaURLs():
+""" 店舗の地域絞り込み検索から各地域ページのURLを取得 """
+
+
+# class SBgetShopURLs(...):
 class SoftbankShopScraping(ScrapingSeleBase):
     # ソフトバンク 東京都北区
     # https://www.softbank.jp/shop/search/list/?spadv=on&pref=13&area=131172&cid=tpsk_191119_mobile
     area_url_format = "https://www.softbank.jp/shop/search/list/?spadv=on&pref={0[pref]}&area={0[area]}&cid=tpsk_191119_mobile"
 
-    tmp_args = {
+    test_args = {
         "tokyo-kita": {
             "pref": 13,
             "area": 131172,
         },
     }
 
-    area_url = ScrapingBase.url_from_format(area_url_format,
-                                            **tmp_args["tokyo-kita"])
+    test_area_url = ScrapingBase.url_from_format(area_url_format,
+                                            **test_args["tokyo-kita"])
     shop_link_selecter = "#js-shop-list > ul > li > div.shop-page-u96-shop-list-item_headder > h3 > a"
 
     @classmethod
-    def check_st_var(cls):
+    def debug_check_st_var(cls):
+        """ 生成した各パラメータ確認用 """
         print(cls.area_url)
         print(cls.shop_link_selecter)
 
@@ -99,6 +111,9 @@ class SoftbankShopScraping(ScrapingSeleBase):
         shop_links_a = cls.scrape_data(cls.area_url, cls.shop_link_selecter)
         shop_links = [link_tag.get("href") for link_tag in shop_links_a]
         return shop_links
+
+# class SBgetShopInfo(ScrapingSeleBase):
+""" 各店舗の詳細情報を取得 """
 
 
 #グーグル検索から検索結果のリストを返す関数

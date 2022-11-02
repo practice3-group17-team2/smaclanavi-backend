@@ -3,6 +3,7 @@ from django.test import TestCase
 from .savedata import save_data
 from .scraping import SoftbankShopScraping as sss
 from .scraping import ScrapingSeleBase as ssb
+from .scraping import IsNeedSele
 
 # Create your tests here.
 
@@ -10,10 +11,22 @@ from .scraping import ScrapingSeleBase as ssb
 #     def test_save_data(self):
 #         save_data()
 
+class TestIsNeedSele(TestCase):
+    """ 
+    urlとセレクターを使ってseleniumなしで
+    スクレイピングできるか試すクラス 
+    """
+    url  = "https://www.softbank.jp/shop/search/detail/TD20/"
+    selecter = "#contents > section.shop-page-u96-detail-section.bgWh > div > div.shop-page-u96-detail > div.shop-page-u96-detail-box-left > h1"
+    def test_isneed_selenium(self):
+        result = IsNeedSele.test(self.url, self.selecter)
+        print(result)
+        self.assertNotEqual(result, [])
+
 
 class URLTest(TestCase):
     # def test_check_st_var(self):
-    #     sss.check_st_var()
+    #     sss.debug_check_st_var()
 
     def test_scraping_shop(self):
         # 想定した答え
@@ -28,18 +41,15 @@ class URLTest(TestCase):
         # '/shop/search/detail/TD20/?cid=tpsk_191119_mobile']
         self.assertEqual(result, ls)
 
-    """ 
-    def test_scrape_data(self):
-        print("aiueo", sss.scrape_data(sss.area_url, sss.shop_link_selecter))
-
-    def test_scraping_sele_crawling(self):
-        ssb.crawling_data(sss.area_url)
-
-    def test_scraping_sele(self):
-        print(ssb.scrape_data(sss.area_url, sss.shop_link_selecter))
-    """
 
 
-# url = "https://www.softbank.jp/shop/search/list/?spadv=on&pref=13&area=131172&cid=tpsk_191119_mobile"
-# selecter = "#js-shop-list > ul > li > div.shop-page-u96-shop-list-item_headder > h3 > a"
-# selecter = "#js-shop-list > ul.shop-page-u96-shop-list"
+    
+    # def test_scrape_data(self):
+    #     print("aiueo", sss.scrape_data(sss.area_url, sss.shop_link_selecter))
+
+    # def test_scraping_sele_crawling(self):
+    #     ssb.crawling_data(sss.area_url)
+
+    # def test_scraping_sele(self):
+    #     print(ssb.scrape_data(sss.area_url, sss.shop_link_selecter))
+   
