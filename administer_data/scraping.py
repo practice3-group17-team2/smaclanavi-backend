@@ -78,12 +78,19 @@ class IsNeedSele(ScrapingBase):
         return cls.scrape_data(url, selecter)
 
 
-# class SBgetAreaURLs():
-""" 店舗の地域絞り込み検索から各地域ページのURLを取得 """
+class SBgetAreaURLs(ScrapingBase):
+    """
+    絞り込み検索のところから各地域のURLのid部分を抽出
+    {pref, area}の組を取得
+    """
+    pass
 
 
-# class SBgetShopURLs(...):
-class SoftbankShopScraping(ScrapingSeleBase):
+class SBgetShopURLs(ScrapingSeleBase):
+    """
+    areaで取得した各地域のidから生成されたURLを受け取り、
+    該当する店舗たちのURLを取得する
+    """
     # ソフトバンク 東京都北区
     # https://www.softbank.jp/shop/search/list/?spadv=on&pref=13&area=131172&cid=tpsk_191119_mobile
     area_url_format = "https://www.softbank.jp/shop/search/list/?spadv=on&pref={0[pref]}&area={0[area]}&cid=tpsk_191119_mobile"
@@ -106,10 +113,10 @@ class SoftbankShopScraping(ScrapingSeleBase):
         print(cls.shop_link_selecter)
 
     @classmethod
-    def scraping_shop(cls) -> list:
+    def scraping_shop_urls(cls, url) -> list:
         """ 店舗のurlのリストを返す """
-        shop_links_a = cls.scrape_data(cls.test_area_url,
-                                       cls.shop_link_selecter)
+        # shop_links_a = cls.scrape_data(cls.test_area_url,cls.shop_link_selecter)
+        shop_links_a = cls.scrape_data(url,cls.shop_link_selecter)
         shop_links = [link_tag.get("href") for link_tag in shop_links_a]
         return shop_links
 
@@ -138,6 +145,9 @@ class SBgetShopInfo(ScrapingBase):
 
     @classmethod
     def scraping_info(cls, url):
+        """ 
+        クラス変数のセレクターの辞書をループ回してスクレイピング、各種情報を取得
+        """
         datas = {}
         for key, selecter in cls.shop_selecters.items():
             tmp_data = cls.scrape_data(url, selecter)
