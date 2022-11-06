@@ -1,11 +1,8 @@
 from django.test import TestCase
 
 from .savedata import save_data
-from .scraping import SBgetShopURLs as sss
-from .scraping import ScrapingSeleBase as ssb
-from .scraping import IsNeedSele
-from .scraping import SBgetShopInfo
-from .scraping import SBgetShopURLs
+from .scraping import ScrapingBase, ScrapingSeleBase
+from .scraping import SBgetAreaURLs, SBgetShopURLs, SBgetShopInfo
 
 # Create your tests here.
 
@@ -40,49 +37,81 @@ class TestDefault(TestCase):
         print(datas)
 
 
-
-
-class TestIsNeedSele(TestCase):
+"""
+manage.py test administer_data.tests.TestURLNeedSele
+"""
+class TestURLNeedSele(TestCase):
     """ 
     urlとセレクターを使ってseleniumなしで
     スクレイピングできるか試すクラス 
     """
-    url  = "https://www.softbank.jp/shop/search/detail/TD20/"
-    # selecter = ""
-    selecter = "#contents > div.bgWh > div > div > div.column-matchHeight > div > div:nth-child(1) > section > table > tbody > tr:nth-child(1) > td"
+    urls = {
+        "area_urls": "https://www.softbank.jp/shop/search/list/?pref=13",
+        "shop_urls":"https://www.softbank.jp/shop/search/list/?spadv=on&pref=13&area=131172&cid=tpsk_191119_mobile",
+        "shop_infos": "",
+    }
+
+    url = urls["area_urls"]
+    selectors = {
+        "area_urls": "#contents > section > div > div.shop-page-u96-loaded-contents.is-loaded > div.shop-page-u96-shop-search-container > div.shop-page-u96-shop-search-pulldown > div:nth-child(2) > select > option",
+        "shop_urls": "#js-shop-list > ul > li > div.shop-page-u96-shop-list-item_headder > h3 > a",
+        "shop_infos": "",
+    }
+
+    selector = selectors["area_urls"]
+    
+    
+    # manage.py test administer_data.tests.TestURLNeedSele.test_isneed_selenium
     def test_isneed_selenium(self):
-        result = IsNeedSele.test(self.url, self.selecter)
-        print(result)
+        """ 
+        こいつがassertion出さないならseleniumの必要はない
+        """
+        result = ScrapingBase.scrape_data(self.url, self.selector)
+        print("Test debug print:", result)
         self.assertNotEqual(result, [])
+        return result
+    
+    # manage.py test administer_data.tests.TestURLNeedSele.test_selenium
+    def test_selenium(self):
+        result = ScrapingSeleBase.scrape_data(self.url, self.selector)
+        print("Test debug print:", result)
+        self.assertNotEqual(result, [])
+        return result
 
-""" 
-class URLTest(TestCase):
-    # def test_check_st_var(self):
-    #     sss.debug_check_st_var()
+    def compare_bs4_sele(self):
+        tmp1 = ScrapingBase.scrape_data(self.url, self.selector)
+        tmp2 = ScrapingSeleBase.scrape_data(self.url, self.selector)
+        self.assertEqual(tmp1, tmp2)
 
-    def test_scraping_shop(self):
+
+"""
+manage.py test administer_data.tests.TestSBgetShopURLs
+"""
+class TestSBgetShopURLs(TestCase):
+    def test_scrape_shop_urls(self):
+        # 東京都北区のURL
         url = "https://www.softbank.jp/shop/search/list/?spadv=on&pref=13&area=131172&cid=tpsk_191119_mobile"
         # 想定した答え
         ls = [
             '/shop/search/detail/TD43/?cid=tpsk_191119_mobile',
             '/shop/search/detail/TD20/?cid=tpsk_191119_mobile'
         ]
-        result = sss.scraping_shop_urls(url)
+        result = SBgetShopURLs.scrape_shop_urls(url)
         print(result)
         # 結果
         # ['/shop/search/detail/TD43/?cid=tpsk_191119_mobile',
         # '/shop/search/detail/TD20/?cid=tpsk_191119_mobile']
         self.assertEqual(result, ls)
- """
+
 
 
     
     # def test_scrape_data(self):
-    #     print("aiueo", sss.scrape_data(sss.area_url, sss.shop_link_selecter))
+    #     print("aiueo", sss.scrape_data(sss.area_url, sss.shop_link_selector))
 
     # def test_scraping_sele_crawling(self):
     #     ssb.crawling_data(sss.area_url)
 
     # def test_scraping_sele(self):
-    #     print(ssb.scrape_data(sss.area_url, sss.shop_link_selecter))
+    #     print(ssb.scrape_data(sss.area_url, sss.shop_link_selector))
    
