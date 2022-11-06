@@ -1,8 +1,8 @@
 from django.test import TestCase
 
 from .savedata import save_data
-from .scraping import ScrapingBase, ScrapingSeleBase
-from .scraping import SBgetAreaURLs, SBgetShopURLs, SBgetShopInfo
+from .scraping.scraping import ScrapingBase, ScrapingSeleBase
+from .scraping.sb_scraping import SBgetAreaURLs, SBgetShopURLs, SBgetShopInfo
 
 # Create your tests here.
 
@@ -11,16 +11,12 @@ from .scraping import SBgetAreaURLs, SBgetShopURLs, SBgetShopInfo
 #         save_data()
 
 
-class TestDefault(TestCase):
+""" 
+manage.py test administer_data.tests.TestSB
+"""
+class TestSB(TestCase):
 
-    def test_scrape_shop_info(self):
-        """ 
-        店舗単体の情報取得
-        """
-        # 赤羽店
-        url = "https://www.softbank.jp/shop/search/detail/TD20/"
-        data = SBgetShopInfo.scraping_info(url)
-        print(data)
+    
 
     def test_scrape_shops(self):
         """ 
@@ -29,12 +25,11 @@ class TestDefault(TestCase):
         datas = {}
         base_url = "https://www.softbank.jp"
         url = "https://www.softbank.jp/shop/search/list/?spadv=on&pref=13&area=131172&cid=tpsk_191119_mobile"
-        shop_url_xs = SBgetShopURLs.scraping_shop_urls(url)
+        shop_url_xs = SBgetShopURLs.scrape_shop_urls(url)
         print(shop_url_xs, "\n" * 3)
 
         for shop_url in shop_url_xs:
-            shop_url = base_url + shop_url
-            data = SBgetShopInfo.scraping_info(shop_url)
+            data = SBgetShopInfo.scrape_info(shop_url)
             datas[data["name"]] = data
         print(datas)
 
@@ -82,7 +77,7 @@ class TestURLNeedSele(TestCase):
         return result
 
     # manage.py test administer_data.tests.TestURLNeedSele.test_selenium
-    def test_selenium(self):
+    """ def test_selenium(self):
         result = ScrapingSeleBase.scrape_data(self.url, self.selector)
         print("Test debug print:", result)
         self.assertNotEqual(result, [])
@@ -91,16 +86,24 @@ class TestURLNeedSele(TestCase):
     def compare_bs4_sele(self):
         tmp1 = ScrapingBase.scrape_data(self.url, self.selector)
         tmp2 = ScrapingSeleBase.scrape_data(self.url, self.selector)
-        self.assertEqual(tmp1, tmp2)
+        self.assertEqual(tmp1, tmp2) """
+
+
+class TestSBgetShopInfo(TestCase):
+    def test_scrape_shop_info(self):
+        """ 
+        店舗単体の情報取得
+        """
+        # 赤羽店
+        url = "https://www.softbank.jp/shop/search/detail/TD20/"
+        data = SBgetShopInfo.scrape_info(url)
+        print(data)
 
 
 """
 manage.py test administer_data.tests.TestSBgetShopURLs
 """
-
-
 class TestSBgetShopURLs(TestCase):
-
     def test_scrape_shop_urls(self):
         # 東京都北区のURL
         url = "https://www.softbank.jp/shop/search/list/?spadv=on&pref=13&area=131172&cid=tpsk_191119_mobile"
@@ -116,11 +119,12 @@ class TestSBgetShopURLs(TestCase):
         # '/shop/search/detail/TD20/?cid=tpsk_191119_mobile']
         self.assertEqual(result, ls)
 
-    # def test_scrape_data(self):
-    #     print("aiueo", sss.scrape_data(sss.area_url, sss.shop_link_selector))
 
-    # def test_scraping_sele_crawling(self):
-    #     ssb.crawling_data(sss.area_url)
-
-    # def test_scraping_sele(self):
-    #     print(ssb.scrape_data(sss.area_url, sss.shop_link_selector))
+"""
+manage.py test administer_data.tests.TestSBgetAreaURLs
+"""
+class TestSBgetAreaURLs(TestCase):
+    url = "https://www.softbank.jp/shop/search/list/?pref=13"
+    def test_scrape_area_urls(self):
+        result = SBgetAreaURLs.scrape_area_urls(self.url)
+        print(result)
