@@ -1,4 +1,4 @@
-import sys, bs4, requests
+import sys, bs4, requests, re
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
@@ -89,14 +89,15 @@ class ScrapingSeleBase(ScrapingBase):
 
 
 
-class SBgetAreaURLs(ScrapingBase):
+class SBgetAreaURLs(ScrapingSeleBase):
     """
     検索する都道府県を指定して、絞り込み検索のところから各地域のURLのid部分を抽出
     {pref, area}の組を取得
     """
     pref_url_format = "https://www.softbank.jp/shop/search/list/?pref={0[pref]}"
+    area_option_selecter = "#contents > section > div > div.shop-page-u96-loaded-contents.is-loaded > div.shop-page-u96-shop-search-container > div.shop-page-u96-shop-search-pulldown > div:nth-child(2) > select > option"
 
-    pref_dict = {
+    pref_id_dict = {
         "01": "北海道",
         "02": "青森県",
         "03": "岩手県",
@@ -146,6 +147,7 @@ class SBgetAreaURLs(ScrapingBase):
         "47": "沖縄県"
     }
 
+
     @classmethod
     def is_in_pref_dict(cls, key:str) -> bool:
         """
@@ -153,14 +155,36 @@ class SBgetAreaURLs(ScrapingBase):
         """
         if not 0 < int(key) < 48:
             return False
-        return key in cls.pref_dict.keys
+        return key in cls.pref_id_dict.keys()
+    
+    @classmethod
+    def shape_data(cls, tags:list):
+        """ 
+        空白改行まみれの地域の文字列を整形, 辞書にまとめて返す
+        key = tag.get("value")
+        value = tag.text
+        """
+        ret = {}
+        area_re = re.compile(r'.+')
+        del_space_re = re.compile(r'\s')
+        for option_tag in tags:
+            exist_value = option_tag.get("value")
+            if not exist_value:
+                continue
+            area_txt = area_re.search(option_tag.text).group()
+            area_txt = del_space_re.sub("", area_txt)
+            ret[exist_value] = area_txt
+        return ret
+
 
     @classmethod
     def scrape_area_urls(cls, url):
-        pass
-
-    
-
+        # if not cls.is_in_pref_dict(key):
+        #     print("Error:invalid key")
+        #     return []
+        area_option_tags = cls.scrape_data(url, cls.area_option_selecter)
+        area_options = cls.shape_data(area_option_tags)
+        return area_options
 
     
 
@@ -194,8 +218,9 @@ class SBgetShopURLs(ScrapingSeleBase):
     def scrape_shop_urls(cls, url) -> list:
         """ 店舗のurlのリストを返す """
         # shop_links_a = cls.scrape_data(cls.test_area_url,cls.shop_link_selector)
-        shop_links_a = cls.scrape_data(url, cls.shop_link_selector)
-        shop_links = [link_tag.get("href") for link_tag in shop_links_a]
+        shop_link_tags = cls.scrape_data(url, cls.shop_link_selector)
+        base_url = "https://www.softbank.jp"
+        shop_links = [base_url+link_tag.get("href") for link_tag in shop_link_tags]
         return shop_links
 
 
