@@ -21,7 +21,9 @@ class ScrapingBase:
     #                           Chrome/105.0.0.0 Safari/537.36'}
     @classmethod
     def url_from_format(cls, url_format: str, **kwargs) -> str:
-        """url_format.format(**kwargs)をするだけの関数"""
+        """
+        url_format.format(**kwargs)をする。formatした結果のURLを返す
+        """
         url = ""
         try:
             url = url_format.format(kwargs)
@@ -38,7 +40,7 @@ class ScrapingBase:
 
     @classmethod
     def scrape_data(cls, url: str, selector: str) -> list:
-        """urlからselectorに該当する要素を抽出して返す関数"""
+        """urlからselectorに該当する要素を全て抽出して返す関数"""
         ret = None
         try:
             result = cls.crawl_data(url)
@@ -96,9 +98,16 @@ def search_google(words):
     link_list = []
     title_list = []
 
+    TIMEOUT = 10
+    HEADER = {
+        'User-Agent':
+        'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:63.0) Gecko/20100101 Firefox/63.0'
+    }
+
+
     try:
         url = "https://www.google.co.jp/search?q=" + words + "&num=" + SEARCH_NUM + "&start=0"
-        result = requests.get(url, timeout=sb.TIMEOUT, headers=sb.HEADER)
+        result = requests.get(url, timeout=TIMEOUT, headers=HEADER)
 
         result.raise_for_status()
     except Exception as e:

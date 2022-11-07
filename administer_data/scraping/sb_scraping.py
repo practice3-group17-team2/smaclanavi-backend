@@ -1,5 +1,6 @@
-import re
+import re, time
 from .scraping import ScrapingBase, ScrapingSeleBase
+
 
 class SBgetAreaURLs(ScrapingSeleBase):
     """
@@ -59,22 +60,20 @@ class SBgetAreaURLs(ScrapingSeleBase):
         "47": "沖縄県"
     }
 
-
     @classmethod
-    def is_in_pref_dict(cls, key:str) -> bool:
+    def check_pref_dict_key(cls, key: str) -> bool:
         """
         keyはstr型、二桁じゃないとだめ、"01"~"47"
         """
         if not 0 < int(key) < 48:
             return False
         return key in cls.pref_id_dict.keys()
-    
+
     @classmethod
-    def shape_data(cls, tags:list):
+    def shape_data(cls, pref_key: str, tags: list):
         """ 
         空白改行まみれの地域の文字列を整形, 辞書にまとめて返す
-        key = tag.get("value")
-        value = tag.text
+        {(pref_key, area_key): 地域名}
         """
         ret = {}
         area_re = re.compile(r'.+')
@@ -85,17 +84,22 @@ class SBgetAreaURLs(ScrapingSeleBase):
                 continue
             area_txt = area_re.search(option_tag.text).group()
             area_txt = del_space_re.sub("", area_txt)
-            ret[exist_value] = area_txt
+            ret[pref_key, exist_value] = area_txt
         return ret
 
-
     @classmethod
-    def scrape_area_urls(cls, url):
-        # if not cls.is_in_pref_dict(key):
-        #     print("Error:invalid key")
-        #     return []
+    def scrape_area_keys(cls, key: str) -> dict:
+        """
+        県ごとのkeyを受け取って県と地域のkey、地域名の辞書を返す
+        """
+        if type(key) != str:
+            raise TypeError("key must be str object")
+        if not cls.check_pref_dict_key(key):
+            print("Error:invalid key")
+            return {}
+        url = cls.url_from_format(cls.pref_url_format, **{"pref": key})
         area_option_tags = cls.scrape_data(url, cls.area_option_selecter)
-        area_options = cls.shape_data(area_option_tags)
+        area_options = cls.shape_data(key, area_option_tags)
         return area_options
 
 
@@ -109,14 +113,14 @@ class SBgetShopURLs(ScrapingSeleBase):
     area_url_format = "https://www.softbank.jp/shop/search/list/?spadv=on&pref={0[pref]}&area={0[area]}&cid=tpsk_191119_mobile"
     shop_link_selector = "#js-shop-list > ul > li > div.shop-page-u96-shop-list-item_headder > h3 > a"
 
-    test_args = {
-        "tokyo-kita": {
-            "pref": 13,
-            "area": 131172,
-        },
-    }
-    test_area_url = ScrapingBase.url_from_format(area_url_format,
-                                                 **test_args["tokyo-kita"])
+    # test_args = {
+    #     "tokyo-kita": {
+    #         "pref": 13,
+    #         "area": 131172,
+    #     },
+    # }
+    # test_area_url = ScrapingBase.url_from_format(area_url_format,
+    #                                              **test_args["tokyo-kita"])
 
     @classmethod
     def debug_check_st_var(cls):
@@ -125,12 +129,21 @@ class SBgetShopURLs(ScrapingSeleBase):
         print(cls.shop_link_selector)
 
     @classmethod
-    def scrape_shop_urls(cls, url) -> list:
-        """ 店舗のurlのリストを返す """
+    def gene_area_url(cls, pref_key: str, area_key: str):
+        dic = {"pref": pref_key, "area": area_key}
+        return cls.url_from_format(cls.area_url_format, **dic)
+
+    @classmethod
+    def scrape_shop_urls(cls, url: str) -> list:
+        """
+        areaのurlから店舗のurlのリストを返す
+        """
         # shop_links_a = cls.scrape_data(cls.test_area_url,cls.shop_link_selector)
         shop_link_tags = cls.scrape_data(url, cls.shop_link_selector)
         base_url = "https://www.softbank.jp"
-        shop_links = [base_url+link_tag.get("href") for link_tag in shop_link_tags]
+        shop_links = [
+            base_url + link_tag.get("href") for link_tag in shop_link_tags
+        ]
         return shop_links
 
 
@@ -157,9 +170,9 @@ class SBgetShopInfo(ScrapingBase):
     }
 
     @classmethod
-    def scrape_info(cls, url):
+    def scrape_shop_info(cls, url: str):
         """ 
-        クラス変数のセレクターの辞書をループ回してスクレイピング、各種情報を取得
+        引数のurlのページに対してクラス変数のセレクターの辞書をループで回してスクレイピング、各種情報を取得
         """
         datas = {}
         for key, selector in cls.shop_selectors.items():
@@ -170,3 +183,171 @@ class SBgetShopInfo(ScrapingBase):
             tmp_data = str(tmp_data).replace("　", " ")
             datas[key] = tmp_data
         return datas
+
+
+dprint = print
+
+
+class SBscraping(SBgetAreaURLs, SBgetShopURLs, SBgetShopInfo):
+    """
+    実際にスクレイピングを行うクラス
+    sb_pref_ids: 県のIDのリスト
+
+    sb_area_ids: {(県のID,地域のID) : 地域名}の辞書型
+
+    sb_area_urls: sb_area_idsをもとに生成されたurlの辞書
+
+    sb_shop_urls: area_urlから取得したshop_urlを格納する辞書
+
+    sb_shop_datas: shop_urlから取得した各種情報を格納する辞書
+        {店名：{
+            店名：
+            電話番号：
+            住所：
+            駐車場：
+            バリアフリー：
+        }}
+    """
+    sb_pref_ids = ["{:02}".format(i) for i in range(1, 48)]
+
+    sb_area_ids = {}
+
+    sb_area_urls = {}
+
+    sb_shop_urls = {}
+
+    sb_shop_datas = {}
+
+    @classmethod
+    def show_sb_area_ids(cls):
+        return cls.sb_area_ids
+
+    @classmethod
+    def show_sb_area_urls(cls):
+        return cls.sb_area_urls
+
+    @classmethod
+    def show_sb_shop_urls(cls):
+        return cls.sb_shop_urls
+
+    @classmethod
+    def show_sb_shop_datas(cls):
+        return cls.sb_shop_datas
+
+    @classmethod
+    def get_area_ids_by_pref(cls, pref_key: str) -> None:
+        """ 
+        sb_area_idsをpref_keyごとに取得、更新する関数
+        """
+        if cls.check_pref_dict_key(pref_key):
+            cls.sb_area_ids[
+                pref_key, SBgetAreaURLs.
+                pref_id_dict[pref_key]] = SBgetAreaURLs.scrape_area_keys(
+                    pref_key)
+        else:
+            KeyError("Error: invalid keys by get_area_ids_by_pref")
+
+    @classmethod
+    def get_area_ids(cls, debug=False) -> None:
+        """
+        複数の県に対してget_area_ids_by_prefを回してsb_area_idsを
+        取得、更新する関数
+        """
+        if debug:
+            # 東京都、神奈川県に設定
+            cls.sb_pref_ids = ['13', '14']
+        for pref_key in cls.sb_pref_ids:
+            cls.get_area_ids_by_pref(pref_key)
+            time.sleep(30)
+
+    @classmethod
+    def get_area_urls(cls, debug=False) -> None:
+        """
+        sb_area_idsから全国のarea_urlを取得し、sb_area_urlsに格納
+        """
+        if debug:
+            tmp = {
+                ('13', '東京都'): {
+                    ('13', '131016'): '千代田区（4）',
+                    ('13', '131024'): '中央区（5）',
+                    ('13', '131032'): '港区（7）',
+                    ('13', '131041'): '新宿区（9）',
+                    ('13', '131059'): '文京区（2）',
+                    ('13', '131067'): '台東区（4）',
+                    ('13', '131075'): '墨田区（4）',
+                    ('13', '131083'): '江東区（9）',
+                    ('13', '131091'): '品川区（10 ）',
+                    ('13', '131105'): '目黒区（5）',
+                    ('13', '131113'): '大田区（11）',
+                    ('13', '131121'): '世田谷区（15）',
+                    ('13', '131130'): '渋谷区（6）',
+                    ('13', '131148'): '中野区（4）',
+                    ('13', '131156'): '杉並区（7）',
+                    ('13', '131164'): '豊島区（8）',
+                    ('13', '131172'): '北区（4）',
+                    ('13', '131181'): '荒川区（4）',
+                    ('13', '131199'): '板橋区（7）',
+                    ('13', '131202'): '練馬区（9）',
+                    ('13', '131211'): '足立区（8）',
+                    ('13', '131229'): '葛飾区（5）',
+                    ('13', '131237'): '江戸川区（8）',
+                    ('13', '132012'): '八王子市（9）',
+                    ('13', '132021'): '立川市（3）',
+                    ('13', '132039'): '武蔵野市（4）',
+                    ('13', '132047'): '三鷹市（1）',
+                    ('13', '132055'): '青梅市（1）',
+                    ('13', '132063'): '府中市（2）',
+                    ('13', '132071'): '昭島市（1）',
+                    ('13', '132080'): '調布市（4）',
+                    ('13', '132098'): '町田市（8）',
+                    ('13', '132101'): '小金井市（1）',
+                    ('13', '132110'): '小平市（3）',
+                    ('13', '132128'): '日野市（3）',
+                    ('13', '132136'): '東村山市（3）',
+                    ('13', '132144'): '国分寺市（3）',
+                    ('13', '132152'): '国立市（2）',
+                    ('13', '132187'): '福生市（1）',
+                    ('13', '132195'): '狛江市（1）',
+                    ('13', '132209'): '東大和市（1）',
+                    ('13', '132217'): '清 瀬市（1）',
+                    ('13', '132225'): '東久留米市（2）',
+                    ('13', '132233'): '武蔵村山市（1）',
+                    ('13', '132241'): '多摩市（3）',
+                    ('13', '132250'): '稲城市（2）',
+                    ('13', '132276'): '羽村市（2）',
+                    ('13', '132284'): 'あきる野市（0）',
+                    ('13', '132292'): '西東京市（3）',
+                    ('13', '133035'): '西多摩郡瑞穂町（1）',
+                    ('13', '133051'): '西多摩郡日の出町（1）',
+                    ('13', '133078'): '西多摩郡檜原村（0）',
+                    ('13', '133086'): '西多摩郡奥多摩町（0）',
+                    ('13', '133612'): '大島町（0）',
+                    ('13', '133621'): '利島村（0）',
+                    ('13', '133639'): '新島村（0）',
+                    ('13', '133647'): '神津島村（0）',
+                    ('13', '133817'): '三宅村（0）',
+                    ('13', '133825'): '御蔵島村（0）',
+                    ('13', '134015'): '八丈町（0）',
+                    ('13', '134023'): '青ヶ島村（0）',
+                    ('13', '134210'): '小笠原村（0）'
+                }
+            }
+            cls.sb_area_ids = tmp
+        for key, area_ids_by_pref in cls.sb_area_ids.items():
+            tmp = {}
+            for area_id_tuple in area_ids_by_pref.keys():
+                pref_id, area_id = area_id_tuple
+                tmp[area_id_tuple] = SBgetShopURLs.gene_area_url(
+                    pref_id, area_id)
+            cls.sb_area_urls[key] = tmp
+
+    @classmethod
+    def get_shop_datas_by_area(cls):
+        """
+        sb_area_urlからshopのデータをsb_shop_datasに格納
+        """
+        for area_url in cls.sb_area_urls:
+            shop_urls = SBgetShopURLs.scrape_shop_urls(area_url)
+            for shop_url in shop_urls:
+                datas = SBgetShopInfo.scrape_shop_info(shop_url)
+                cls.sb_shop_datas[datas["name"]] = datas
