@@ -1,4 +1,4 @@
-import re, time
+import re, time, os, pickle
 from .scraping import ScrapingBase, ScrapingSeleBase
 
 
@@ -465,3 +465,17 @@ class SBscraping(SBgetAreaURLs, SBgetShopURLs, SBgetShopInfo):
                 print("area_key", area_key)
                 print("shop_urls_by_area", shop_urls_by_area)
                 cls.get_shop_infos_by_area(area_key, shop_urls_by_area)
+
+    @classmethod
+    def save_data_file_pkl(cls, data:dict):
+        with open("./administer_data/data/softbank.pkl", 'wb') as f:
+            pickle.dump(data, f)
+    
+
+    @classmethod
+    def load_data_file_pkl(cls) -> dict:
+        with open('./administer_data/data/softbank.pkl', 'rb') as f:
+            dict_pkl = pickle.load(f)
+        return dict_pkl
+        
+

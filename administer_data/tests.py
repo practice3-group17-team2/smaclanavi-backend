@@ -325,6 +325,41 @@ class TestSB(TestCase):
         result = SBscraping.show_sb_shop_infos()
         print(result)
 
+    def test_save_load_by_pkl(self):
+        dic = {
+            (('13', '131016'), '千代田区（4）'): {},
+            (('13', '131024'), '中央区（5）'): {
+                'ソフトバンク銀座': {
+                    'name': 'ソフトバンク銀座',
+                    'phone': '03-6252-3333',
+                    'parking': 'None',
+                    'barrier_free': '－',
+                    'address': '東京都中央区銀座５丁目７番８号'
+                }
+            },
+            (('14', '141011'), '横浜市鶴見区（2）'): {
+                'ソフトバンク鶴見': {
+                    'name': 'ソフトバンク鶴見',
+                    'phone': '045-505-0500',
+                    'parking': 'None',
+                    'barrier_free': '○',
+                    'address': '神奈川県横浜市鶴見区鶴見中央４丁目１５‐７'
+                }
+            },
+            (('14', '141020'), '横浜市神奈川区（2）'): {}
+        }
+        
+        # with open("./administer_data/data/softbank.pkl", 'wb') as f:
+        #         pickle.dump(dic, f)
+        SBscraping.save_data_file_pkl(dic)
+
+        # with open('./administer_data/data/softbank.pkl', 'rb') as f:
+        #     dict_pkl = pickle.load(f)
+        load_dic = SBscraping.load_data_file_pkl()
+
+        self.assertEqual(dic, load_dic)
+        for i in load_dic.items():
+            print(i)
 
 class TestURLNeedSele(TestCase):
     """ 
