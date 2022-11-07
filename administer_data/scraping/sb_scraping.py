@@ -113,15 +113,6 @@ class SBgetShopURLs(ScrapingSeleBase):
     area_url_format = "https://www.softbank.jp/shop/search/list/?spadv=on&pref={0[pref]}&area={0[area]}&cid=tpsk_191119_mobile"
     shop_link_selector = "#js-shop-list > ul > li > div.shop-page-u96-shop-list-item_headder > h3 > a"
 
-    # test_args = {
-    #     "tokyo-kita": {
-    #         "pref": 13,
-    #         "area": 131172,
-    #     },
-    # }
-    # test_area_url = ScrapingBase.url_from_format(area_url_format,
-    #                                              **test_args["tokyo-kita"])
-
     @classmethod
     def debug_check_st_var(cls):
         """ 生成した各パラメータ確認用 """
@@ -218,7 +209,7 @@ class SBscraping(SBgetAreaURLs, SBgetShopURLs, SBgetShopInfo):
 
     sb_shop_urls = {}
 
-    sb_shop_datas = {}
+    sb_shop_infos = {}
 
     @classmethod
     def show_sb_area_ids(cls):
@@ -233,8 +224,8 @@ class SBscraping(SBgetAreaURLs, SBgetShopURLs, SBgetShopInfo):
         return cls.sb_shop_urls
 
     @classmethod
-    def show_sb_shop_datas(cls):
-        return cls.sb_shop_datas
+    def show_sb_shop_infos(cls):
+        return cls.sb_shop_infos
 
     @classmethod
     def get_area_ids_by_pref(cls, pref_key: str) -> None:
@@ -254,18 +245,35 @@ class SBscraping(SBgetAreaURLs, SBgetShopURLs, SBgetShopInfo):
         """
         複数の県に対してget_area_ids_by_prefを回してsb_area_idsを
         取得、更新する関数
+        d={('13', '東京都'): {
+                ('13', '131016'): '千代田区（4）',
+                ('13', '131024'): '中央区（5）',
+                },
+        ('14', '神奈川県'): {
+                ('14', '141011'): '横浜市鶴見区（2）',
+                ('14', '141020'): '横浜市神奈川区（2）',
+        }}
         """
+
         if debug:
             # 東京都、神奈川県に設定
             cls.sb_pref_ids = ['13', '14']
         for pref_key in cls.sb_pref_ids:
             cls.get_area_ids_by_pref(pref_key)
-            time.sleep(30)
+            time.sleep(1)
 
     @classmethod
     def get_area_urls(cls, debug=False) -> None:
-        """
-        sb_area_idsから全国のarea_urlを取得し、sb_area_urlsに格納
+        """sb_area_idsから全国のarea_urlを取得し、sb_area_urlsに格納\n
+        sb_area_urls
+        {('13', '東京都'): {
+            ('13', '131016'): 'https:/hogehoge', \n
+            ('13', '131024'): 'https:/fugafuga', 
+            },
+        ('14', '神奈川県'): {
+            ('14', '141011'): 'https:/hogehoge',\n
+            ('14', '141020'): 'https:/hogehoge',
+        }}
         """
         if debug:
             tmp = {
@@ -344,12 +352,75 @@ class SBscraping(SBgetAreaURLs, SBgetShopURLs, SBgetShopInfo):
             cls.sb_area_urls[key] = tmp
 
     @classmethod
-    def get_shop_datas_by_area(cls):
+    def get_shop_urls(cls, debug=False):
+        """sb_area_urlからshopのURLをsb_shop_urlsに格納\n
+        sb_shop_urls\n
+        {('13', '東京都'): {
+            (('13', '131016'), '千代田区（4）'): [],
+            (('13', '131024'), '中央区（5）'): [
+                'https:/wwwsoftbank.jp/shop/search/detail/TD31/?cid=tpsk_191119_mobile'
+            ]
+        },
+        ('14', '神奈川県'): {
+            (('14', '141011'), '横浜市鶴見区（2）'): [
+                'https:/wwwsoftbank.jp/shop/search/detail/T216/?cid=tpsk_191119_mobile'
+            ],
+            (('14', '141020'), '横浜市神奈川区（2）'): []
+        }}
         """
-        sb_area_urlからshopのデータをsb_shop_datasに格納
+        if debug:
+            cls.sb_area_urls = {
+                ('13', '東京都'): {
+                    ('13', '131016'):
+                    'https://www.softbank.jp/shop/search/list/?spadv=on&pref=13&area=131016&cid=tpsk_191119_mobile',
+                    ('13', '131024'):
+                    'https://www.softbank.jp/shop/search/list/?spadv=on&pref=13&area=131024&cid=tpsk_191119_mobile',
+                },
+                ('14', '神奈川県'): {
+                    ('14', '141011'):
+                    'https://www.softbank.jp/shop/search/list/?spadv=on&pref=14&area=141011&cid=tpsk_191119_mobile',
+                    ('14', '141020'):
+                    'https://www.softbank.jp/shop/search/list/?spadv=on&pref=14&area=141020&cid=tpsk_191119_mobile',
+                }
+            }
+            cls.sb_area_ids = {
+                ('13', '東京都'): {
+                    ('13', '131016'): '千代田区（4）',
+                    ('13', '131024'): '中央区（5）',
+                    ('13', '131032'): '港区（7）',
+                    ('13', '131041'): '新宿区（9）',
+                    ('13', '131059'): '文京区（2）',
+                },
+                ('14', '神奈川県'): {
+                    ('14', '141011'): '横浜市鶴見区（2）',
+                    ('14', '141020'): '横浜市神奈川区（2）',
+                    ('14', '141038'): '横浜市西区（5）',
+                    ('14', '141046'): '横浜市中区（3）',
+                }
+            }
+
+        for pref_key, area_urls_by_pref in cls.sb_area_urls.items():
+            tmp = {}
+            dprint("pref_key", pref_key)
+            for area_key, area_url in area_urls_by_pref.items():
+                dprint("area_key, area_url", area_key, area_url)
+                # pref_key = ('13', '東京都')
+                # area_key = ('13', '131024')
+                # pref_key,(area_key[1],dic[pref_key][area_key])
+                tmp[area_key, cls.sb_area_ids[pref_key]
+                    [area_key]] = SBgetShopURLs.scrape_shop_urls(area_url)
+                time.sleep(1)
+            cls.sb_shop_urls[pref_key] = tmp
+
+    @classmethod
+    def get_shop_infos_by_area(cls):
+        """
+        sb_area_urlからshopのデータをsb_shop_infosに格納
+        
+        sb_area_idsをpref_keyごとに取得、更新する関数
         """
         for area_url in cls.sb_area_urls:
             shop_urls = SBgetShopURLs.scrape_shop_urls(area_url)
             for shop_url in shop_urls:
                 datas = SBgetShopInfo.scrape_shop_info(shop_url)
-                cls.sb_shop_datas[datas["name"]] = datas
+                cls.sb_shop_infos[datas["name"]] = datas

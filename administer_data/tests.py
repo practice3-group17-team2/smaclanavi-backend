@@ -233,6 +233,28 @@ class TestSB(TestCase):
             ('13', '131041'): 'https://www.softbank.jp/shop/search/list/?spadv=on&pref=13&area=131041&cid=tpsk_191119_mobile', 
         }}"""
 
+    def test_get_shop_urls(self):
+        SBscraping.get_shop_urls(debug=True)
+        result = SBscraping.show_sb_shop_urls()
+        print(result)
+        # {('13', '東京都'): {
+        #     (('13', '131016'), '千代田区（4）'): [],
+        #     (('13', '131024'), '中央区（5）'): [
+        #         'https://www.softbank.jp/shop/search/detail/TD31/?cid=tpsk_191119_mobile'
+        #     ]
+        # },
+        # ('14', '神奈川県'): {
+        #     (('14', '141011'), '横浜市鶴見区（2）'): [
+        #         'https://www.softbank.jp/shop/search/detail/T216/?cid=tpsk_191119_mobile'
+        #     ],
+        #     (('14', '141020'), '横浜市神奈川区（2）'): []
+        # }}
+
+    def test_get_shop_infos_by_area(self):
+        pass
+
+    def test_get_shop_datas(self):
+        pass
 
     def test_softbank_scrape(self):
         """ 
@@ -243,8 +265,10 @@ class TestSB(TestCase):
         # url = "https://www.softbank.jp/shop/search/list/?spadv=on&pref=13&area=131172&cid=tpsk_191119_mobile"
         # shop_url_xs = SBgetShopURLs.scrape_shop_urls(url)
 
+        SBscraping.get_area_ids(debug=True)
         SBscraping.get_area_urls()
-        # print(SBscraping.show_sb_area_ids())
+        print("sb_area_urls\n", SBscraping.show_sb_area_urls())
+
         SBscraping.get_shop_datas_by_area()
         datas = SBscraping.show_sb_shop_datas()
         # for shop_url in shop_url_xs:
