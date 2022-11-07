@@ -304,26 +304,27 @@ class TestSB(TestCase):
 
     def test_softbank_scrape(self):
         """ 
-        softbankの店舗情報の取得
+        softbankの店舗情報の取得、一番規模大きい結合テストに相当？
         """
-        datas = {}
-        # base_url = "https://www.softbank.jp"
-        # url = "https://www.softbank.jp/shop/search/list/?spadv=on&pref=13&area=131172&cid=tpsk_191119_mobile"
-        # shop_url_xs = SBgetShopURLs.scrape_shop_urls(url)
+        sb = SBscraping()
 
         #東京都のみで実行
-        SBscraping.get_area_ids(debug=True)
+        sb.get_area_ids(debug=True)
         # print(SBscraping.show_sb_area_ids())
 
-        SBscraping.get_area_urls()
+        sb.get_area_urls()
         # print(SBscraping.show_sb_area_urls())
 
-        SBscraping.get_shop_urls()
+        sb.get_shop_urls()
         # print(SBscraping.show_sb_shop_urls())
 
-        SBscraping.get_shop_infos()
-        result = SBscraping.show_sb_shop_infos()
+        sb.get_shop_infos()
+        result = sb.show_sb_shop_infos()
+
+        sb.quit_driver()
+
         print(result)
+
 
     def test_save_load_by_pkl(self):
         dic = {

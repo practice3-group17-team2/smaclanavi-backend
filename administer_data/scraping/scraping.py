@@ -54,26 +54,25 @@ class ScrapingBase:
 
 class ScrapingSeleBase(ScrapingBase):
 
+    options = Options()
+    options.headless = True
+    driver = webdriver.Chrome(chrome_options=options)
+    wait = WebDriverWait(driver=driver, timeout=2)
+
     @classmethod
-    def init_driver(cls):
-        options = Options()
-        options.headless = True
-        driver = webdriver.Chrome(chrome_options=options)
-        wait = WebDriverWait(driver=driver, timeout=5)
-        return driver, wait
-    
-    @classmethod
-    def quit_driver(cls, driver):
-        driver.close()
-        driver.quit()
+    def quit_driver(cls):
+        cls.driver.close()
+        cls.driver.quit()
 
     @classmethod
     def crawl_data(cls, url: str, selector: str):
-        driver, wait = cls.init_driver()
+        driver = cls.driver
+        wait = cls.wait
+
         driver.get(url)
-        wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, selector)))
+        wait.until(
+            EC.visibility_of_element_located((By.CSS_SELECTOR, selector)))
         result = driver.page_source.encode('utf-8')
-        cls.quit_driver(driver)
         return result
 
     @classmethod
@@ -103,7 +102,6 @@ def search_google(words):
         'User-Agent':
         'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:63.0) Gecko/20100101 Firefox/63.0'
     }
-
 
     try:
         url = "https://www.google.co.jp/search?q=" + words + "&num=" + SEARCH_NUM + "&start=0"
