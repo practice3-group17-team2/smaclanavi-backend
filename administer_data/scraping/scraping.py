@@ -39,7 +39,7 @@ class ScrapingBase:
         return result
 
     @classmethod
-    def scrape_data(cls, url: str, selector: str) -> list:
+    def scrape_data(cls, url: str, selector: str):
         """urlからselectorに該当する要素を全て抽出して返す関数"""
         ret = None
         try:

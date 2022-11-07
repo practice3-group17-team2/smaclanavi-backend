@@ -170,7 +170,8 @@ class SBgetShopInfo(ScrapingBase):
         datas = {}
         for key, selector in cls.shop_selectors.items():
             tmp_data = cls.scrape_data(url, selector)
-
+            if not tmp_data:
+                continue
             # tagはbeautifulsoupのTagクラス
             tmp_data = tmp_data[0].string
             tmp_data = str(tmp_data).replace("　", " ")
@@ -233,10 +234,8 @@ class SBscraping(SBgetAreaURLs, SBgetShopURLs, SBgetShopInfo):
         sb_area_idsをpref_keyごとに取得、更新する関数
         """
         if cls.check_pref_dict_key(pref_key):
-            cls.sb_area_ids[
-                pref_key, SBgetAreaURLs.
-                pref_id_dict[pref_key]] = SBgetAreaURLs.scrape_area_keys(
-                    pref_key)
+            cls.sb_area_ids[pref_key, SBgetAreaURLs.pref_id_dict[pref_key]
+                    ] = SBgetAreaURLs.scrape_area_keys(pref_key)
         else:
             KeyError("Error: invalid keys by get_area_ids_by_pref")
 
@@ -413,14 +412,54 @@ class SBscraping(SBgetAreaURLs, SBgetShopURLs, SBgetShopInfo):
             cls.sb_shop_urls[pref_key] = tmp
 
     @classmethod
-    def get_shop_infos_by_area(cls):
+    def get_shop_infos_by_area(cls, key: tuple,
+                               shop_urls_by_area: list) -> None:
+        """
+        areaのkeyとそのareaの店舗のリストを受け取り、各店舗の情報をまとめた辞書をsb_shop_infosに格納する
+        {
+            (('14', '141011'), '横浜市鶴見区（2）'): {
+                'ソフトバンク鶴見': {
+                    'name': 'ソフトバンク鶴見',
+                    'phone': '045-505-0500',
+                    'parking': 'None',
+                    'barrier_free': '○',
+                    'address': '神奈川県横浜市鶴見区鶴見中央４丁目１５‐７'
+                }
+            }
+        }
+        """
+        tmp = {}
+        for shop_url in shop_urls_by_area:
+            datas = SBgetShopInfo.scrape_shop_info(shop_url)
+            tmp[datas["name"]] = datas
+            time.sleep(1)
+
+        cls.sb_shop_infos[key] = tmp
+
+    @classmethod
+    def get_shop_infos(cls, debug=False) -> None:
         """
         sb_area_urlからshopのデータをsb_shop_infosに格納
         
         sb_area_idsをpref_keyごとに取得、更新する関数
         """
-        for area_url in cls.sb_area_urls:
-            shop_urls = SBgetShopURLs.scrape_shop_urls(area_url)
-            for shop_url in shop_urls:
-                datas = SBgetShopInfo.scrape_shop_info(shop_url)
-                cls.sb_shop_infos[datas["name"]] = datas
+        if debug:
+            cls.sb_shop_urls = {
+                ('13', '東京都'): {
+                    (('13', '131016'), '千代田区（4）'): [],
+                    (('13', '131024'), '中央区（5）'): [
+                        'https://www.softbank.jp/shop/search/detail/TD31/?cid=tpsk_191119_mobile'
+                    ]
+                },
+                ('14', '神奈川県'): {
+                    (('14', '141011'), '横浜市鶴見区（2）'): [
+                        'https://www.softbank.jp/shop/search/detail/T216/?cid=tpsk_191119_mobile'
+                    ],
+                    (('14', '141020'), '横浜市神奈川区（2）'): []
+                }
+            }
+        for shop_urls_by_pref in cls.sb_shop_urls.values():
+            for area_key, shop_urls_by_area in shop_urls_by_pref.items():
+                print("area_key", area_key)
+                print("shop_urls_by_area", shop_urls_by_area)
+                cls.get_shop_infos_by_area(area_key, shop_urls_by_area)

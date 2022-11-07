@@ -234,27 +234,71 @@ class TestSB(TestCase):
         }}"""
 
     def test_get_shop_urls(self):
+        expected_dic = {
+            ('13', '東京都'): {
+                (('13', '131016'), '千代田区（4）'): [],
+                (('13', '131024'), '中央区（5）'): [
+                    'https://www.softbank.jp/shop/search/detail/TD31/?cid=tpsk_191119_mobile'
+                ]
+            },
+            ('14', '神奈川県'): {
+                (('14', '141011'), '横浜市鶴見区（2）'): [
+                    'https://www.softbank.jp/shop/search/detail/T216/?cid=tpsk_191119_mobile'
+                ],
+                (('14', '141020'), '横浜市神奈川区（2）'): []
+            }
+        }
         SBscraping.get_shop_urls(debug=True)
         result = SBscraping.show_sb_shop_urls()
         print(result)
-        # {('13', '東京都'): {
-        #     (('13', '131016'), '千代田区（4）'): [],
-        #     (('13', '131024'), '中央区（5）'): [
-        #         'https://www.softbank.jp/shop/search/detail/TD31/?cid=tpsk_191119_mobile'
-        #     ]
-        # },
-        # ('14', '神奈川県'): {
-        #     (('14', '141011'), '横浜市鶴見区（2）'): [
-        #         'https://www.softbank.jp/shop/search/detail/T216/?cid=tpsk_191119_mobile'
-        #     ],
-        #     (('14', '141020'), '横浜市神奈川区（2）'): []
-        # }}
 
     def test_get_shop_infos_by_area(self):
-        pass
+        key = (('14', '141011'), '横浜市鶴見区（2）')
+        value_ls = [
+            'https://www.softbank.jp/shop/search/detail/T216/?cid=tpsk_191119_mobile'
+        ]
+        expected_dic = {
+            (('14', '141011'), '横浜市鶴見区（2）'): {
+                'ソフトバンク鶴見': {
+                    'name': 'ソフトバンク鶴見',
+                    'phone': '045-505-0500',
+                    'parking': 'None',
+                    'barrier_free': '○',
+                    'address': '神奈川県横浜市鶴見区鶴見中央４丁目１５‐７'
+                }
+            }
+        }
 
-    def test_get_shop_datas(self):
-        pass
+        SBscraping.get_shop_infos_by_area(key, value_ls)
+        result = SBscraping.show_sb_shop_infos()
+        print(result)
+
+    def test_get_shop_infos(self):
+        expected_dic = {
+            (('13', '131016'), '千代田区（4）'): {},
+            (('13', '131024'), '中央区（5）'): {
+                'ソフトバンク銀座': {
+                    'name': 'ソフトバンク銀座',
+                    'phone': '03-6252-3333',
+                    'parking': 'None',
+                    'barrier_free': '－',
+                    'address': '東京都中央区銀座５丁目７番８号'
+                }
+            },
+            (('14', '141011'), '横浜市鶴見区（2）'): {
+                'ソフトバンク鶴見': {
+                    'name': 'ソフトバンク鶴見',
+                    'phone': '045-505-0500',
+                    'parking': 'None',
+                    'barrier_free': '○',
+                    'address': '神奈川県横浜市鶴見区鶴見中央４丁目１５‐７'
+                }
+            },
+            (('14', '141020'), '横浜市神奈川区（2）'): {}
+        }
+        SBscraping.get_shop_infos(debug=True)
+        result = SBscraping.show_sb_shop_infos()
+        print(result)
 
     def test_softbank_scrape(self):
         """ 
