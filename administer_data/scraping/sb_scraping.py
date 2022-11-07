@@ -234,8 +234,10 @@ class SBscraping(SBgetAreaURLs, SBgetShopURLs, SBgetShopInfo):
         sb_area_idsをpref_keyごとに取得、更新する関数
         """
         if cls.check_pref_dict_key(pref_key):
-            cls.sb_area_ids[pref_key, SBgetAreaURLs.pref_id_dict[pref_key]
-                    ] = SBgetAreaURLs.scrape_area_keys(pref_key)
+            cls.sb_area_ids[
+                pref_key, SBgetAreaURLs.
+                pref_id_dict[pref_key]] = SBgetAreaURLs.scrape_area_keys(
+                    pref_key)
         else:
             KeyError("Error: invalid keys by get_area_ids_by_pref")
 
@@ -256,7 +258,8 @@ class SBscraping(SBgetAreaURLs, SBgetShopURLs, SBgetShopInfo):
 
         if debug:
             # 東京都、神奈川県に設定
-            cls.sb_pref_ids = ['13', '14']
+            # cls.sb_pref_ids = ['13', '14']
+            cls.sb_pref_ids = ['13']
         for pref_key in cls.sb_pref_ids:
             cls.get_area_ids_by_pref(pref_key)
             time.sleep(1)
@@ -439,9 +442,8 @@ class SBscraping(SBgetAreaURLs, SBgetShopURLs, SBgetShopInfo):
     @classmethod
     def get_shop_infos(cls, debug=False) -> None:
         """
-        sb_area_urlからshopのデータをsb_shop_infosに格納
-        
-        sb_area_idsをpref_keyごとに取得、更新する関数
+        複数の地域に対してget_shop_infos_by_areaを回して
+        sb_shop_urlsからshopのデータをsb_shop_infosに格納する
         """
         if debug:
             cls.sb_shop_urls = {

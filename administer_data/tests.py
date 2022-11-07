@@ -5,6 +5,8 @@ from .scraping.scraping import ScrapingBase, ScrapingSeleBase
 from .scraping.sb_scraping import SBgetAreaURLs, SBgetShopURLs, SBgetShopInfo
 from .scraping.sb_scraping import SBscraping
 
+import json, os, pickle
+
 # Create your tests here.
 
 # class ScrapingTest(TestCase):
@@ -309,16 +311,19 @@ class TestSB(TestCase):
         # url = "https://www.softbank.jp/shop/search/list/?spadv=on&pref=13&area=131172&cid=tpsk_191119_mobile"
         # shop_url_xs = SBgetShopURLs.scrape_shop_urls(url)
 
+        #東京都のみで実行
         SBscraping.get_area_ids(debug=True)
-        SBscraping.get_area_urls()
-        print("sb_area_urls\n", SBscraping.show_sb_area_urls())
+        # print(SBscraping.show_sb_area_ids())
 
-        SBscraping.get_shop_datas_by_area()
-        datas = SBscraping.show_sb_shop_datas()
-        # for shop_url in shop_url_xs:
-        #     data = SBgetShopInfo.scrape_info(shop_url)
-        #     datas[data["name"]] = data
-        print(datas)
+        SBscraping.get_area_urls()
+        # print(SBscraping.show_sb_area_urls())
+
+        SBscraping.get_shop_urls()
+        # print(SBscraping.show_sb_shop_urls())
+
+        SBscraping.get_shop_infos()
+        result = SBscraping.show_sb_shop_infos()
+        print(result)
 
 
 class TestURLNeedSele(TestCase):
