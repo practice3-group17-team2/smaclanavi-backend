@@ -1,4 +1,5 @@
 import re, time, os, pickle
+from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor
 from .scraping import ScrapingBase, ScrapingSeleBase
 
 
@@ -345,12 +346,18 @@ class SBscraping(SBgetAreaURLs, SBgetShopURLs, SBgetShopInfo):
                 }
             }
             cls.sb_area_ids = tmp
+        
+        no_shop_in_area = re.compile("（[0|０]）")
+        
         for key, area_ids_by_pref in cls.sb_area_ids.items():
             tmp = {}
-            for area_id_tuple in area_ids_by_pref.keys():
-                pref_id, area_id = area_id_tuple
-                tmp[area_id_tuple] = SBgetShopURLs.gene_area_url(
-                    pref_id, area_id)
+            for area_id_tuple, area_name in area_ids_by_pref.items():
+                if no_shop_in_area.search(area_name):
+                    gened_url = ""
+                else:
+                    pref_id, area_id = area_id_tuple
+                    gened_url = SBgetShopURLs.gene_area_url(pref_id, area_id)
+                tmp[area_id_tuple] = gened_url
             cls.sb_area_urls[key] = tmp
 
     @classmethod
@@ -409,9 +416,14 @@ class SBscraping(SBgetAreaURLs, SBgetShopURLs, SBgetShopInfo):
                 # pref_key = ('13', '東京都')
                 # area_key = ('13', '131024')
                 # pref_key,(area_key[1],dic[pref_key][area_key])
-                tmp[area_key, cls.sb_area_ids[pref_key]
-                    [area_key]] = SBgetShopURLs.scrape_shop_urls(area_url)
-                time.sleep(1)
+                if area_url == "":
+                    shop_urls = []
+                else:
+                    shop_urls = SBgetShopURLs.scrape_shop_urls(area_url)
+                    time.sleep(1)
+                
+                tmp[area_key, cls.sb_area_ids[pref_key][area_key]] = shop_urls
+
             cls.sb_shop_urls[pref_key] = tmp
 
     @classmethod
@@ -440,6 +452,18 @@ class SBscraping(SBgetAreaURLs, SBgetShopURLs, SBgetShopInfo):
         cls.sb_shop_infos[key] = tmp
 
     @classmethod
+    def call_get_shop_infos_by_area(cls, area_key, shop_urls_by_area):
+        no_shop_in_area = re.compile("（[0|０]）")
+        print("area_key", area_key)
+        if no_shop_in_area.search(area_key[1]):
+            return
+        print("shop_urls_by_area({0}): {1}".format(len(shop_urls_by_area), shop_urls_by_area))
+        cls.get_shop_infos_by_area(area_key, shop_urls_by_area)
+
+        # result = SBscraping.show_sb_shop_infos()
+        # print(result)
+
+    @classmethod
     def get_shop_infos(cls, debug=False) -> None:
         """
         複数の地域に対してget_shop_infos_by_areaを回して
@@ -460,11 +484,16 @@ class SBscraping(SBgetAreaURLs, SBgetShopURLs, SBgetShopInfo):
                     (('14', '141020'), '横浜市神奈川区（2）'): []
                 }
             }
+        no_shop_in_area = re.compile("（[0|０]）")
         for shop_urls_by_pref in cls.sb_shop_urls.values():
-            for area_key, shop_urls_by_area in shop_urls_by_pref.items():
-                print("area_key", area_key)
-                print("shop_urls_by_area", shop_urls_by_area)
-                cls.get_shop_infos_by_area(area_key, shop_urls_by_area)
+            with ThreadPoolExecutor(max_workers=2) as executor:
+                executor.map(cls.call_get_shop_infos_by_area, shop_urls_by_pref.keys(), shop_urls_by_pref.values())
+            # for area_key, shop_urls_by_area in shop_urls_by_pref.items():
+            #     print("area_key", area_key)
+            #     if no_shop_in_area.search(area_key[1]):
+            #         continue
+            #     print("shop_urls_by_area({0}): {1}".format(len(shop_urls_by_area), shop_urls_by_area))
+            #     cls.get_shop_infos_by_area(area_key, shop_urls_by_area)
 
     @classmethod
     def save_data_file_pkl(cls, data:dict):
@@ -477,5 +506,3 @@ class SBscraping(SBgetAreaURLs, SBgetShopURLs, SBgetShopInfo):
         with open('./administer_data/data/softbank.pkl', 'rb') as f:
             dict_pkl = pickle.load(f)
         return dict_pkl
-        
-
