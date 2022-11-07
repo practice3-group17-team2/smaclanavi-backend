@@ -59,7 +59,7 @@ class ScrapingSeleBase(ScrapingBase):
         options = Options()
         options.headless = True
         driver = webdriver.Chrome(chrome_options=options)
-        wait = WebDriverWait(driver=driver, timeout=300)
+        wait = WebDriverWait(driver=driver, timeout=5)
         return driver, wait
     
     @classmethod
@@ -77,13 +77,13 @@ class ScrapingSeleBase(ScrapingBase):
         return result
 
     @classmethod
-    def scrape_data(cls, url: str, selector: str) -> list:
+    def scrape_data(cls, url: str, selector: str):
         """urlからselectorに該当する要素を抽出して返す関数"""
         ret = None
         try:
             result = cls.crawl_data(url, selector)
         except Exception as e:
-            print("ERROR_DOWNLOAD:{}".format(e))
+            print("ERROR_DOWNLOAD\n{}".format(e))
         else:
             soup = bs4.BeautifulSoup(result, 'html.parser')
             ret = soup.select(selector)
