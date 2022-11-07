@@ -139,11 +139,13 @@ class SBgetShopURLs(ScrapingSeleBase):
         areaのurlから店舗のurlのリストを返す
         """
         # shop_links_a = cls.scrape_data(cls.test_area_url,cls.shop_link_selector)
+        shop_links = []
         shop_link_tags = cls.scrape_data(url, cls.shop_link_selector)
-        base_url = "https://www.softbank.jp"
-        shop_links = [
-            base_url + link_tag.get("href") for link_tag in shop_link_tags
-        ]
+        if shop_link_tags:
+            base_url = "https://www.softbank.jp"
+            shop_links = [
+                base_url + link_tag.get("href") for link_tag in shop_link_tags
+            ]
         return shop_links
 
 
