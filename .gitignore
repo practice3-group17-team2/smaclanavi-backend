@@ -7,6 +7,6 @@ db.sqlite3
 chromedriver.exe
 
 # for my notes activate env
-activate.txt
-
+activate.*
+    
 administer_data/data
