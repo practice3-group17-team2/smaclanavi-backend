@@ -405,14 +405,14 @@ class TestURLNeedSele(TestCase):
         self.assertNotEqual(result, [])
         return result
 
-    # def test_selenium(self):
-    #     """
-    #     manage.py test administer_data.tests.TestURLNeedSele.test_selenium
-    #     """
-    #     result = ScrapingSeleBase.scrape_data(self.url, self.selector)
-    #     print("Test debug print:", result)
-    #     self.assertNotEqual(result, [])
-    #     return result
+    def test_selenium(self):
+        """
+        manage.py test administer_data.tests.TestURLNeedSele.test_selenium
+        """
+        result = ScrapingSeleBase.scrape_data(self.url, self.selector)
+        print("Test debug print:", result)
+        self.assertNotEqual(result, [])
+        return result
 
     # def compare_bs4_sele(self):
     #     tmp1 = ScrapingBase.scrape_data(self.url, self.selector)

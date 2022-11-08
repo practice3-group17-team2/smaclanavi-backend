@@ -11,9 +11,9 @@ SEARCH_NUM = "100"
 
 class ScrapingBase:
     TIMEOUT = 10
+    UA = 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:63.0) Gecko/20100101 Firefox/63.0'
     HEADER = {
-        'User-Agent':
-        'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:63.0) Gecko/20100101 Firefox/63.0'
+        'User-Agent': UA
     }
 
     # HEADER = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)
@@ -56,6 +56,7 @@ class ScrapingSeleBase(ScrapingBase):
 
     options = Options()
     options.headless = True
+    options.add_argument('--user-agent=' + ScrapingBase.UA)
     driver = webdriver.Chrome(chrome_options=options)
     wait = WebDriverWait(driver=driver, timeout=2)
 
