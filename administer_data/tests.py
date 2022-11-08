@@ -325,7 +325,6 @@ class TestSB(TestCase):
 
         print(result)
 
-
     def test_save_load_by_pkl(self):
         dic = {
             (('13', '131016'), '千代田区（4）'): {},
@@ -349,7 +348,7 @@ class TestSB(TestCase):
             },
             (('14', '141020'), '横浜市神奈川区（2）'): {}
         }
-        
+
         # with open("./administer_data/data/softbank.pkl", 'wb') as f:
         #         pickle.dump(dic, f)
         SBscraping.save_data_file_pkl(dic)
@@ -361,6 +360,7 @@ class TestSB(TestCase):
         self.assertEqual(dic, load_dic)
         for i in load_dic.items():
             print(i)
+
 
 class TestURLNeedSele(TestCase):
     """ 
@@ -410,6 +410,7 @@ class TestURLNeedSele(TestCase):
         manage.py test administer_data.tests.TestURLNeedSele.test_selenium
         """
         result = ScrapingSeleBase.scrape_data(self.url, self.selector)
+        ScrapingSeleBase.quit_driver()
         print("Test debug print:", result)
         self.assertNotEqual(result, [])
         return result
@@ -417,6 +418,7 @@ class TestURLNeedSele(TestCase):
     # def compare_bs4_sele(self):
     #     tmp1 = ScrapingBase.scrape_data(self.url, self.selector)
     #     tmp2 = ScrapingSeleBase.scrape_data(self.url, self.selector)
+    #     ScrapingSeleBase.quit_driver()
     #     self.assertEqual(tmp1, tmp2)
 
 
