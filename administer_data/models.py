@@ -77,7 +77,7 @@ class ClassInfo(AbstractUUIDModel):
                              on_delete=models.SET_DEFAULT,
                              default=1)
     address = models.CharField(max_length=100, blank=True, default='')
-    lecture = models.ManyToManyField(Lecture, related_name="class_info")
+    lecture = models.ManyToManyField(Lecture, related_name="class_info", blank=True)
     evaluation = models.IntegerField(blank=True, default=0)
     price = models.IntegerField(blank=True, default=0)
     site_url = models.URLField(blank=True, default='')
