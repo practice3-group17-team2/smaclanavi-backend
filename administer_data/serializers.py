@@ -2,39 +2,66 @@ from administer_data import models
 from rest_framework import serializers
 """ 
 class PrefectureSerializer(serializers.ModelSerializer):
-    class Meta:
-            model  = models.Prefecture
-            fields = ['id', 'pref_name']
+    pref_id = serializers.IntegerField(source='id')
 
-
-class LectureSerializer(serializers.ModelSerializer):
     class Meta:
-            model  = models.Lecture
-            fields = ['id', 'lecture_content', 'is_target_old']
+        model = models.Prefecture
+        fields = ['pref_id', 'pref_name']
 """
 
 
+class LectureSerializer(serializers.ModelSerializer):
+    lec_id = serializers.IntegerField(source='id')
+
+    class Meta:
+        model = models.Lecture
+        fields = ['lec_id', 'lecture_content', 'is_target_old']
+
+
+class OrganizerSerializer(serializers.ModelSerializer):
+    org_id = serializers.IntegerField(source='id')
+    org_name = serializers.CharField(source='organizer_name')
+
+    class Meta:
+        model = models.ClassOrganizer
+        fields = ['org_id', 'org_name']
+
+
 class CitySerializer(serializers.ModelSerializer):
-    prefecture = serializers.SlugRelatedField(
-        queryset=models.Prefecture.objects.all(), slug_field='pref_name')
+    # prefecture = PrefectureSerializer()
+    pref_obj = models.Prefecture.objects.all()
+
+    pref_id = serializers.SlugRelatedField(queryset=pref_obj,
+                                           slug_field='id',
+                                           source='prefecture')
+
+    pref_name = serializers.SlugRelatedField(queryset=pref_obj,
+                                             slug_field='pref_name',
+                                             source='prefecture')
+
+    # migrationsファイルでBigAutoFieldに指定されているが
+    # Big~ は IntegerFieldの拡張なのでこれでよい
+    city_id = serializers.IntegerField(source='id')
 
     class Meta:
         model = models.City
-        #fields = ['id','prefecture','city_name']
-        fields = ['prefecture', 'city_name']
+        fields = ['pref_id', 'city_id', 'pref_name', 'city_name']
 
 
 class ReviewSerializer(serializers.ModelSerializer):
-    class_info = serializers.PrimaryKeyRelatedField(
-        queryset=models.ClassInfo.objects.all())
+    rev_id = serializers.UUIDField(source="id")
+    class_info_id = serializers.PrimaryKeyRelatedField(
+        queryset=models.ClassInfo.objects.all(), write_only=True)
     """
     class_info_url = serializers.HyperlinkedRelatedField(
         view_name='classinfo-detail', queryset=ClassInfo.objects.all())
     """
+    author = serializers.CharField(default="no name", initial="no name")
+    faves  = serializers.IntegerField(default=0, initial=0)
 
     class Meta:
         model = models.Review
-        fields = ['id', 'class_info', 'review_text', 'faves', 'author']
+        fields = ['rev_id', 'class_info_id', 'review_text', 'faves', 'author']
 
 
 class ClassInfoSerializer(serializers.ModelSerializer):
@@ -45,15 +72,14 @@ class ClassInfoSerializer(serializers.ModelSerializer):
                                                   many=True,
                                                   view_name='review-detail')
     """
-    organizer = serializers.SlugRelatedField(
-        queryset=models.ClassOrganizer.objects.all(),
-        slug_field='organizer_name',
-        source='class_organizer')
+    # organizer = serializers.SlugRelatedField(
+    #     queryset=models.ClassOrganizer.objects.all(),
+    #     slug_field='organizer_name',
+    #     source='class_organizer')
+    organizer = OrganizerSerializer(source="class_organizer")
+
     city = CitySerializer()
-    lecture = serializers.SlugRelatedField(
-        queryset=models.Lecture.objects.all(),
-        many=True,
-        slug_field='lecture_content')
+    lecture = LectureSerializer(many=True)
 
     class Meta:
         model = models.ClassInfo
@@ -79,15 +105,16 @@ class UpcomingLecInfoSerializer(serializers.ModelSerializer):
     # get_updatedに対応するmethodfield
     updated = serializers.SerializerMethodField()
 
-    lecture_content = serializers.SlugRelatedField(
-        queryset=models.Lecture.objects.all(),
-        slug_field='lecture_content',  # Lectureのlecture_content fieldを指してる
-    )
+    # lecture_content = serializers.SlugRelatedField(
+    #     queryset=models.Lecture.objects.all(),
+    #     slug_field='lecture_content',  # Lectureのlecture_content fieldを指してる
+    # )
+    lecture = LectureSerializer(source='lecture_content')
 
     class Meta:
         model = models.UpcomingLecInfos
         fields = [
-            'id', 'lecture_content', 'which_class_held', 'schedules',
+            'id', 'lecture', 'which_class_held', 'schedules',
             'is_personal_lec', 'is_iphone', 'can_select_date', 'created',
             'updated'
         ]
