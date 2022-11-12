@@ -1,4 +1,5 @@
 from collections import OrderedDict
+import uuid
 
 from administer_data import models
 from rest_framework import serializers
@@ -53,19 +54,35 @@ class CitySerializer(serializers.ModelSerializer):
 
 
 class ReviewSerializer(serializers.ModelSerializer):
-    rev_id = serializers.UUIDField(source="id")
+    """
+    {
+    "rev_id": "f03b9d08-64a7-4cf8-852c-5eaef0be17ce",
+    "class_info_id": "c935a1d2-5f30-417f-81a0-e9294c2752cb",
+    "author": "no name",
+    "faves": 0,
+    "review_text": "濃い口醤油"
+    }
+    post時、rev_id, author, faves, 省略可
+    """
+    rev_id = serializers.UUIDField(source="id",
+                                   initial=uuid.uuid4,
+                                   default=uuid.uuid4)
     class_info_id = serializers.PrimaryKeyRelatedField(
-        queryset=models.ClassInfo.objects.all(), write_only=True)
-    """
-    class_info_url = serializers.HyperlinkedRelatedField(
-        view_name='classinfo-detail', queryset=ClassInfo.objects.all())
-    """
+        queryset=models.ClassInfo.objects.all(), source="class_info")
+
+    # class_info_url = serializers.HyperlinkedRelatedField(
+    #     view_name='classinfo-detail', queryset=ClassInfo.objects.all())
+
     author = serializers.CharField(default="no name", initial="no name")
-    faves  = serializers.IntegerField(default=0, initial=0)
+    faves = serializers.IntegerField(default=0, initial=0)
 
     class Meta:
         model = models.Review
-        fields = ['rev_id', 'class_info_id', 'review_text', 'faves', 'author']
+        fields = ['rev_id', 'class_info_id', 'author', 'faves', 'review_text']
+
+    # def create(self, validated_data):
+    #     print("debug:", validated_data.get("id"))
+    #     return super().create(validated_data)
 
 
 class ClassInfoSerializer(serializers.ModelSerializer):
