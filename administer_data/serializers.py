@@ -1,3 +1,5 @@
+from collections import OrderedDict
+
 from administer_data import models
 from rest_framework import serializers
 """ 
@@ -16,11 +18,12 @@ class LectureSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Lecture
         fields = ['lec_id', 'lecture_content', 'is_target_old']
+        read_only_fields = ['lecture_content', 'is_target_old']
 
 
 class OrganizerSerializer(serializers.ModelSerializer):
     org_id = serializers.IntegerField(source='id')
-    org_name = serializers.CharField(source='organizer_name')
+    org_name = serializers.CharField(source='organizer_name', read_only=True)
 
     class Meta:
         model = models.ClassOrganizer
@@ -46,6 +49,7 @@ class CitySerializer(serializers.ModelSerializer):
     class Meta:
         model = models.City
         fields = ['pref_id', 'city_id', 'pref_name', 'city_name']
+        read_only_fields = ['city_name']
 
 
 class ReviewSerializer(serializers.ModelSerializer):
@@ -72,21 +76,46 @@ class ClassInfoSerializer(serializers.ModelSerializer):
                                                   many=True,
                                                   view_name='review-detail')
     """
-    # organizer = serializers.SlugRelatedField(
-    #     queryset=models.ClassOrganizer.objects.all(),
-    #     slug_field='organizer_name',
-    #     source='class_organizer')
     organizer = OrganizerSerializer(source="class_organizer")
-
     city = CitySerializer()
     lecture = LectureSerializer(many=True)
+    lec_infos = serializers.SerializerMethodField(read_only=True)
+    updated = serializers.SerializerMethodField()
 
     class Meta:
         model = models.ClassInfo
         fields = [
-            'id', 'class_name', 'organizer', 'phone_number', 'city', 'address',
-            'lecture', 'evaluation', 'price', 'site_url', 'reviews'
+            'id', 'class_name', 'organizer', 'city', 'phone_number', 'address',
+            'evaluation', 'price', 'site_url', 'created', 'updated', 'lecture',
+            'lec_infos', 'reviews'
         ]
+
+    # https://stackoverflow.com/questions/71721307/got-attributeerror-when-attempting-to-get-a-value-for-field-on-serializer
+    def get_lec_infos(self, obj) -> OrderedDict:
+        try:
+            lec_info_query = models.UpcomingLecInfos.objects.filter(
+                which_class_held=obj.id)
+            serializer = UpcomingLecInfoSerializer(lec_info_query, many=True)
+            return serializer.data
+        except Exception:
+            pass
+        return None
+
+    def get_updated(self, obj):
+        """ 複数あるschedulesのupdatedを比較して最新のupdatedをUpcominglecInfoのupdatedに設定する """
+        latest_date = obj.updated
+        # 該当するインスタンスをget、modelで定義したrelatednameで逆参照をかける
+        try:
+            upcomeinfo = models.UpcomingLecInfos.objects.get(
+                which_class_held=obj.id)
+            upcomelecs = upcomeinfo.schedules.all()
+        except Exception as e:
+            pass
+        else:
+            for s in upcomelecs:
+                if latest_date < s.updated:
+                    latest_date = s.updated
+        return latest_date
 
 
 class LecScheduleSerializer(serializers.ModelSerializer):
