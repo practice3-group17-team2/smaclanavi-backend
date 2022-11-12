@@ -87,9 +87,6 @@ class ClassInfo(AbstractUUIDModel):
     class Meta:
         ordering = ['created']
 
-    def __str__(self):
-        return self.class_name
-
 
 class Review(AbstractUUIDModel):
     class_info = models.ForeignKey(ClassInfo,
