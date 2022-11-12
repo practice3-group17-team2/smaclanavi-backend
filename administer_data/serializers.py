@@ -160,9 +160,8 @@ class UpcomingLecInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.UpcomingLecInfos
         fields = [
-            'id', 'lecture', 'which_class_held', 'schedules',
-            'is_personal_lec', 'is_iphone', 'can_select_date', 'created',
-            'updated'
+            'id', 'lecture', 'which_class_held', 'is_personal_lec',
+            'is_iphone', 'can_select_date', 'created', 'updated', 'schedules'
         ]
 
     def get_updated(self, obj):
