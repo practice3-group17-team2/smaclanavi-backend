@@ -1,8 +1,7 @@
-from collections import OrderedDict
 import uuid
-
 from administer_data import models
 from rest_framework import serializers
+from rest_framework.utils.serializer_helpers import ReturnDict
 """ 
 class PrefectureSerializer(serializers.ModelSerializer):
     pref_id = serializers.IntegerField(source='id')
@@ -45,7 +44,7 @@ class CitySerializer(serializers.ModelSerializer):
 
     # migrationsファイルでBigAutoFieldに指定されているが
     # Big~ は IntegerFieldの拡張なのでこれでよい
-    city_id = serializers.IntegerField(source='id')
+    city_id = serializers.IntegerField(source='id', label='ID')
 
     class Meta:
         model = models.City
@@ -86,13 +85,13 @@ class ReviewSerializer(serializers.ModelSerializer):
 
 
 class ClassInfoSerializer(serializers.ModelSerializer):
-    # reviews = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
-    reviews = ReviewSerializer(many=True, read_only=True)
     """ # return url list
     review_urls = serializers.HyperlinkedRelatedField(read_only=True,
                                                   many=True,
                                                   view_name='review-detail')
     """
+    id = serializers.UUIDField(initial=uuid.uuid4, default=uuid.uuid4)
+    reviews = ReviewSerializer(many=True, read_only=True)
     organizer = OrganizerSerializer(source="class_organizer")
     city = CitySerializer()
     lecture = LectureSerializer(many=True)
@@ -108,15 +107,16 @@ class ClassInfoSerializer(serializers.ModelSerializer):
         ]
 
     # https://stackoverflow.com/questions/71721307/got-attributeerror-when-attempting-to-get-a-value-for-field-on-serializer
-    def get_lec_infos(self, obj) -> OrderedDict:
+    def get_lec_infos(self, obj) -> ReturnDict:
+        ret = ReturnDict(serializer=self)
         try:
             lec_info_query = models.UpcomingLecInfos.objects.filter(
                 which_class_held=obj.id)
             serializer = UpcomingLecInfoSerializer(lec_info_query, many=True)
-            return serializer.data
+            ret = serializer.data
         except Exception:
             pass
-        return None
+        return ret
 
     def get_updated(self, obj):
         """ 複数あるschedulesのupdatedを比較して最新のupdatedをUpcominglecInfoのupdatedに設定する """
@@ -136,10 +136,13 @@ class ClassInfoSerializer(serializers.ModelSerializer):
 
 
 class LecScheduleSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(initial=uuid.uuid4, default=uuid.uuid4)
+    lec_info_id = serializers.PrimaryKeyRelatedField(
+        source="lec_info", queryset=models.UpcomingLecInfos.objects.all())
 
     class Meta:
         model = models.LecSchedule
-        fields = ['id', 'date', 'updated']
+        fields = ['id', 'lec_info_id', 'date', 'updated']
 
 
 class UpcomingLecInfoSerializer(serializers.ModelSerializer):
@@ -147,15 +150,12 @@ class UpcomingLecInfoSerializer(serializers.ModelSerializer):
     schedules = serializers.ListField(child=serializers.DateTimeField(
         source='LecSchedule.date'))
     """
-    schedules = LecScheduleSerializer(many=True)
+    id = serializers.UUIDField(initial=uuid.uuid4, default=uuid.uuid4, read_only=True)
+    lecture = LectureSerializer(source='lecture_content')
+
     # get_updatedに対応するmethodfield
     updated = serializers.SerializerMethodField()
-
-    # lecture_content = serializers.SlugRelatedField(
-    #     queryset=models.Lecture.objects.all(),
-    #     slug_field='lecture_content',  # Lectureのlecture_content fieldを指してる
-    # )
-    lecture = LectureSerializer(source='lecture_content')
+    schedules = LecScheduleSerializer(many=True, read_only=True)
 
     class Meta:
         model = models.UpcomingLecInfos
@@ -170,9 +170,30 @@ class UpcomingLecInfoSerializer(serializers.ModelSerializer):
         upcomeinfo = models.UpcomingLecInfos.objects.get(id=obj.id)
         related_schedules = upcomeinfo.schedules.all()
 
-        latest_date = related_schedules[0].updated
+        latest_date = obj.updated
 
         for s in related_schedules:
             if latest_date < s.updated:
                 latest_date = s.updated
         return latest_date
+
+    def create(self, validated_data):
+        """ validated_dataの形式メモ
+        {'id': UUID('b9e0fe00-3f47-4617-8819-ccb8483c5ee4'),\n
+        'lecture_content': OrderedDict([('id', 2)]),\n
+        'which_class_held': <ClassInfo: ClassInfo object (d1013537-a869-4d1c-a444-513f6d3be5d9)>,\n
+        'is_personal_lec': False, 'is_iphone': False,
+        'can_select_date': False, 'schedules': []} 
+        """
+        # print("\n\n\n\n", validated_data)
+        lec_data = validated_data.pop('lecture_content')
+        which_class = validated_data.pop('which_class_held')
+        lec = models.Lecture.objects.get(**lec_data)
+
+        # print("\n\n\n\n", lec_data["id"], which_class.id, "\n\n\n\n")
+
+        up_lecinfo, created = models.UpcomingLecInfos.objects.get_or_create(
+            lecture_content=lec,
+            which_class_held=which_class, 
+            defaults=validated_data)
+        return up_lecinfo
