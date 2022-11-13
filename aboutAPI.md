@@ -25,23 +25,37 @@
     - [DELETE](#delete-1)
 - [講義開催情報(lec_infos)のAPI](#講義開催情報lec_infosのapi)
   - [インスタンスの形式](#インスタンスの形式-2)
+    - [各フィールド概要](#各フィールド概要-2)
   - [Endpoint URLs](#endpoint-urls-2)
+  - [`/lec_infos/`](#lec_infos)
+    - [GET](#get-4)
+    - [POST](#post-1)
+  - [`/lec_infos/<uuid>/`](#lec_infosuuid)
+    - [GET](#get-5)
+    - [PUT](#put-2)
+    - [DELETE](#delete-2)
 - [講義日付(lec_infos/date)のAPI](#講義日付lec_infosdateのapi)
   - [インスタンスの形式](#インスタンスの形式-3)
+    - [各フィールド概要](#各フィールド概要-3)
   - [Endpoint URLs](#endpoint-urls-3)
   - [`/lec_infos/<uuid:lec_infos>/date/`](#lec_infosuuidlec_infosdate)
-    - [POST](#post-1)
-  - [`/lec_infos/<uuid:lec_infos>/date/<uuid:>`](#lec_infosuuidlec_infosdateuuid)
+    - [GET](#get-6)
+    - [POST](#post-2)
+  - [`/lec_infos/<uuid:lec_infos>/date/<uuid:date>`](#lec_infosuuidlec_infosdateuuiddate)
+    - [GET](#get-7)
+    - [PUT](#put-3)
+    - [DELETE](#delete-3)
 - [その他のインスタンスについて](#その他のインスタンスについて)
   - [講義(lecture)インスタンス](#講義lectureインスタンス)
-  - [地域(city)インスタンス](#地域cityインスタンス)
 
 # 実装方針
-店舗経営者や店舗検索をする利用者からの投稿があるかどうかに着目してどの機能を実装するかどうかの指針とした。  
-教室情報(classinfo)や講義開催情報(lecinfos)、講義日付(lec_infos/date)は経営者、教室評価(reviews)は検索利用者を想定した。
-
+店舗経営者や店舗検索をする利用者からの投稿があるかどうかに着目してどの機能を実装するかどうかの指針にしました。  
+教室情報(classinfo)や講義開催情報(lecinfos)、講義日付(lec_infos/date)は経営者、教室評価(reviews)は検索利用者を想定しました。
+基本的に展開した状態で渡された方が扱いやすいという前提で構造を考えました。
 
 # 教室情報(class_infos)のAPI
+関連情報詰め込みまくってるので長いです。
+
 ## インスタンスの形式
 ```json
 {
@@ -127,11 +141,17 @@
 
 `class_name`：教室の名称  
 
-`organizer`：
-- 教室を開いてる団体、三大キャリアとか、個人とか  
+`organizer`： 教室を開いてる団体、三大キャリアとか、個人とか  
 
 `city`：教室が存在する地域の情報
-> 詳しくは[地域(city)インスタンス](#地域cityインスタンス) を参照
+> `pref_id`：県のID
+> 
+> `city_id`：街のID
+> 
+> `prefecture`：県の名称
+> 
+> `city_name`：街の名称
+
 
 `phone_number`：str型、教室の電話番号  
 
@@ -148,10 +168,15 @@
 `updated`：教室情報の最新更新日時、紐づいた講義の予定などの更新から最新の日時を返す
 
 `lecture`：扱っている講義インスタンスのリスト  
-> 詳しくは[講義(lecture)インスタンス](#講義lectureインスタンス) を参照
+> `lec_id`：lectureのid(連番)
+> 
+> `lecture_content`：講義の名称、タグとか分類のようなもの
+> 
+> `is_target_old`：高齢者向けか否か、bool値
+
 
 `lec_infos`：教室が扱う講義開催情報(lec_infos)インスタンスのリスト
-> 詳しくは[講義日付(lec_infos/date)のAPI](#講義日付lec_infosdateのapi) を参照
+> 詳しくは[講義開催情報(lec_infos)のAPI](#講義開催情報lec_infosのapi) を参照
 
 
 
@@ -224,8 +249,8 @@ patchは実装してるのかしてないのかよくわからないです。す
 
 
 ## Endpoint URLs
-- [/reviews/](#reviews)
-- [/reviews/\<uuid>](#reviewsuuid)
+- [`/reviews/`](#reviews)
+- [`/reviews/<uuid>/`](#reviewsuuid)
 
 ## `/reviews/`
 
@@ -237,7 +262,7 @@ patchは実装してるのかしてないのかよくわからないです。す
 必須の指定項目は`class_info_id`と`review_text`の二つ  
 `class_info_id`は実在する教室情報(class_infos)の`id`を、`review_text`は空文字以外を指定してください。
 
-インスタンス上に存在する`rev_id`, `author`, `faves`はjsonから省略した形で送信しても補完される 
+インスタンス上に存在する`rev_id`, `author`, `faves`はjsonから省略した形で送信しても補完されます 
 
 最低限の送信例
 ```json
@@ -275,6 +300,38 @@ patchは実装してるのかしてないのかよくわからないです。す
 
 # 講義開催情報(lec_infos)のAPI
 ## インスタンスの形式
+```json
+
+{
+    "id": "c51ec2f8-306e-4a4d-b516-cfc55125744c",
+    "lecture": {
+        "lec_id": 1,
+        "lecture_content": "lec1 python",
+        "is_target_old": false
+    },
+    "which_class_held": "d1013537-a869-4d1c-a444-513f6d3be5d9",
+    "is_personal_lec": false,
+    "is_iphone": true,
+    "can_select_date": false,
+    "created": "2022-10-23T14:22:12.938000Z",
+    "updated": "2022-11-13T02:16:07.745946Z",
+    "schedules": [
+        {
+            "id": "34bd1208-3b81-4861-9328-51b53d7c61b2",
+            "lec_info_id": "c51ec2f8-306e-4a4d-b516-cfc55125744c",
+            "date": "2022-10-23T14:32:50Z",
+            "updated": "2022-10-23T14:32:54.981000Z"
+        },
+        {
+            "id": "d2c002de-4a19-4675-91c4-a2191132af4a",
+            "lec_info_id": "c51ec2f8-306e-4a4d-b516-cfc55125744c",
+            "date": "2022-10-31T12:00:00Z",
+            "updated": "2022-10-23T14:37:03.797000Z"
+        }
+    ]
+}
+```
+### 各フィールド概要
 `id`：講義開催情報lec_infosのid  
 
 `lecture`：対象となる講義インスタンス  
@@ -285,7 +342,7 @@ patchは実装してるのかしてないのかよくわからないです。す
 
 `is_iphone`：iphoneの講座か否か、bool値  
 
-`can_select_date`：日程が選べるタイプの講座か否か、bool値  
+`can_select_date`：日程が選べるタイプの講義か否か、bool値  
 
 `created`：作成日時  
 
@@ -296,12 +353,47 @@ patchは実装してるのかしてないのかよくわからないです。す
 > 詳しくは[講義日付(lec_infos/date)のAPI](#講義日付lec_infosdateのapi) を参照
 
 ## Endpoint URLs
+- [`/lec_infos/`](#lec_infos)
+- [`/lec_infos/<uuid>/`](#lec_infosuuid)
+
+## `/lec_infos/`
+### GET
+
+
+
+### POST
+
+
+
+## `/lec_infos/<uuid>/`
+### GET
+
+
+
+### PUT
+
+
+
+### DELETE
+
+
 
 [目次へ](#目次)
 
 # 講義日付(lec_infos/date)のAPI
 ## インスタンスの形式
-`id`：講義日付のid  
+```json
+{
+    "id": "34bd1208-3b81-4861-9328-51b53d7c61b2",
+    "lec_info_id": "c51ec2f8-306e-4a4d-b516-cfc55125744c",
+    "date": "2023-04-01T00:00:00Z",
+    "updated": "2022-11-13T03:03:01.192665Z"
+}
+```
+### 各フィールド概要
+`id`：講義日付(lec_infos/date)のid  
+
+`lec_info_id`：日付を持たせる対象の講義開催情報(lec_infos)のid
 
 `date`：講義が実施される日時  
 
@@ -312,10 +404,31 @@ patchは実装してるのかしてないのかよくわからないです。す
 - [`/lec_infos/<uuid:lec_infos>/date/<uuid:>`](#lec_infosuuidlec_infosdateuuid)
 
 ## `/lec_infos/<uuid:lec_infos>/date/`
-### POST
-未実装
+### GET
+講義日付(lec_infos/date)インスタンスのリストを返す
 
-## `/lec_infos/<uuid:lec_infos>/date/<uuid:>`
+### POST
+講義日付(lec_infos/date)インスタンスを追加作成する  
+```json
+{
+    "id": "389e6737-8a11-479f-9eca-d33352c669fe",
+    "lec_info_id": "c51ec2f8-306e-4a4d-b516-cfc55125744c",
+    "date": "2022-10-31T12:00:00Z"
+}
+```
+`updated`は自動更新なので省略されます。
+
+## `/lec_infos/<uuid:lec_infos>/date/<uuid:date>`
+### GET
+`id`が`<uuid:date>`の講義日付(lec_infos/date)インスタンスを返す
+
+### PUT
+講義日付(lec_infos/date)インスタンスを更新する  
+形式はPOSTと同様
+
+### DELETE
+講義日付(lec_infos/date)インスタンスを削除する
+
 
 [目次へ](#目次)
 
@@ -327,16 +440,5 @@ patchは実装してるのかしてないのかよくわからないです。す
 
 `is_target_old`：高齢者向けか否か、bool値
 
-
-[目次へ](#目次)
-
-## 地域(city)インスタンス
-`pref_id`：県のID
-
-`city_id`：街のID
-
-`prefecture`：県の名称
-
-`city_name`：街の名称
 
 [目次へ](#目次)
