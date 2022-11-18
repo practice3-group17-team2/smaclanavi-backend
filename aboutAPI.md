@@ -245,27 +245,37 @@
 
 ### POST(おそらくエラー出る)、未実装
 上記の教室情報(class_infos)のインスタンスを追加作成する  
-organizer, city, lectureをidから指定できるようにしたい。  
+教室情報に紐づけるorganizer, city, lectureをidから指定する。
 
-最低限の送信例を書きたい気持ちはある
+idと内容の一覧はどうやって入手するようにしましょう
+
 ```json
-/* 例 */
 {
-    "class_name": "",
-    "organizer": <organizerインスタンス>,
-    "phone_number": "",
-    "city": {
-        "prefecture": <prefectureインスタンス>,
-        "city_name": ""
+    "class_name": "post test",
+    "organizer": {
+        "org_id": 1
     },
+    "city": {
+        "city_id": 1
+    },
+    "lecture": [
+        {"lec_id": 1},
+        {"lec_id": 2}
+    ],
+    "phone_number": "",
     "address": "",
-    "lecture": [],
     "evaluation": 0,
     "price": 0,
-    "site_url": ""
+    "site_url": "",
+    "has_parking": false,
+    "is_barrier_free": false
 }
 ```
+必須の指定項目は`class_name`、`organizer`、`city`、`lecture`の4つ
+`phone_number`以下は省略可能。  
 
+その場合`phone_number`、`address`、`site_url`は空文字、  
+`evaluation`、`price`は 0 、`has_parking`と`is_barrier_free`は`false`が指定される
 
 ## `/class_infos/<uuid>/`
 patchは実装してるのかしてないのかよくわからないです。すまん。

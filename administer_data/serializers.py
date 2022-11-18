@@ -34,11 +34,12 @@ class CitySerializer(serializers.ModelSerializer):
     # prefecture = PrefectureSerializer()
     pref_obj = models.Prefecture.objects.all()
 
-    pref_id = serializers.SlugRelatedField(queryset=pref_obj,
+    # pref_id = serializers.SlugRelatedField(queryset=pref_obj,
+    pref_id = serializers.SlugRelatedField(read_only=True,
                                            slug_field='id',
                                            source='prefecture')
 
-    pref_name = serializers.SlugRelatedField(queryset=pref_obj,
+    pref_name = serializers.SlugRelatedField(read_only=True,
                                              slug_field='pref_name',
                                              source='prefecture')
 
@@ -91,18 +92,20 @@ class ClassInfoSerializer(serializers.ModelSerializer):
                                                   view_name='review-detail')
     """
     id = serializers.UUIDField(initial=uuid.uuid4, default=uuid.uuid4)
-    reviews = ReviewSerializer(many=True, read_only=True)
     organizer = OrganizerSerializer(source="class_organizer")
     city = CitySerializer()
+    evaluation = serializers.IntegerField(default=0, initial=0)
+    price = serializers.IntegerField(default=0, initial=0)
+    updated = serializers.SerializerMethodField()
     lecture = LectureSerializer(many=True)
     lec_infos = serializers.SerializerMethodField(read_only=True)
-    updated = serializers.SerializerMethodField()
+    reviews = ReviewSerializer(many=True, read_only=True)
 
     class Meta:
         model = models.ClassInfo
         fields = [
             'id', 'class_name', 'organizer', 'city', 'phone_number', 'address',
-            'evaluation', 'price', 'site_url', 'created', 'updated', 'lecture',
+            'evaluation', 'price', 'site_url', 'has_parking', 'is_barrier_free', 'created', 'updated', 'lecture',
             'lec_infos', 'reviews'
         ]
 
@@ -126,13 +129,52 @@ class ClassInfoSerializer(serializers.ModelSerializer):
             upcomeinfo = models.UpcomingLecInfos.objects.get(
                 which_class_held=obj.id)
             upcomelecs = upcomeinfo.schedules.all()
-        except Exception as e:
+        except Exception:
             pass
         else:
-            for s in upcomelecs:
-                if latest_date < s.updated:
-                    latest_date = s.updated
+            for sche in upcomelecs:
+                if latest_date < sche.updated:
+                    latest_date = sche.updated
         return latest_date
+
+    def create(self, validated_data):
+        """ 
+        {
+            "class_name": "post test",
+            "organizer": {
+                "org_id": 1
+            },
+            "city": {
+                "city_id": 1
+            },
+            "lecture": [
+                {"lec_id": 1},
+                {"lec_id": 2}
+            ]
+        }
+        """
+        # print("\n\n\n\n", validated_data)
+        org_data = validated_data.pop('class_organizer')
+        city_data = validated_data.pop('city')
+        lec_datas = validated_data.pop('lecture')
+        org = models.ClassOrganizer.objects.get(**org_data)
+        city = models.City.objects.get(**city_data)
+
+        # print("\n\n\n\n", lec_datas, "\n\n\n\n")
+
+        instance = models.ClassInfo.objects.create(class_organizer=org,
+                                                   city=city,
+                                                   **validated_data)
+        for lec_data in lec_datas:
+            lec = models.Lecture.objects.get(**lec_data)
+            instance.lecture.add(lec)
+        return instance
+    
+    def update(self, instance, validated_data):
+        print("\n\n\n\n")
+        print(instance.lecture)
+        print("\n\n\n\n")
+        return super().update(instance, validated_data)
 
 
 class LecScheduleSerializer(serializers.ModelSerializer):
@@ -150,7 +192,9 @@ class UpcomingLecInfoSerializer(serializers.ModelSerializer):
     schedules = serializers.ListField(child=serializers.DateTimeField(
         source='LecSchedule.date'))
     """
-    id = serializers.UUIDField(initial=uuid.uuid4, default=uuid.uuid4, read_only=True)
+    id = serializers.UUIDField(initial=uuid.uuid4,
+                               default=uuid.uuid4,
+                               read_only=True)
     lecture = LectureSerializer(source='lecture_content')
 
     # get_updatedに対応するmethodfield
@@ -194,6 +238,9 @@ class UpcomingLecInfoSerializer(serializers.ModelSerializer):
 
         up_lecinfo, created = models.UpcomingLecInfos.objects.get_or_create(
             lecture_content=lec,
-            which_class_held=which_class, 
+            which_class_held=which_class,
             defaults=validated_data)
         return up_lecinfo
+
+    def update(self, instance, validated_data):
+        return super().update(instance, validated_data)
