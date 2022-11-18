@@ -1,4 +1,7 @@
 # 目次
+<details>
+<summary>目次</summary>
+
 - [目次](#目次)
 - [実装方針](#実装方針)
 - [教室情報(class_infos)のAPI](#教室情報class_infosのapi)
@@ -8,7 +11,7 @@
   - [`/class_infos/`](#class_infos)
     - [GET](#get)
     - [POST(おそらくエラー出る)、未実装](#postおそらくエラー出る未実装)
-  - [`/class_infos/<uuid>`](#class_infosuuid)
+  - [`/class_infos/<uuid>/`](#class_infosuuid)
     - [GET](#get-1)
     - [PUT(おそらくエラー)](#putおそらくエラー)
     - [DELETE](#delete)
@@ -19,7 +22,7 @@
   - [`/reviews/`](#reviews)
     - [GET](#get-2)
     - [POST](#post)
-  - [`/reviews/<uuid>`](#reviewsuuid)
+  - [`/reviews/<uuid>/`](#reviewsuuid)
     - [GET](#get-3)
     - [PUT](#put)
     - [DELETE](#delete-1)
@@ -41,12 +44,14 @@
   - [`/lec_infos/<uuid:lec_infos>/date/`](#lec_infosuuidlec_infosdate)
     - [GET](#get-6)
     - [POST](#post-1)
-  - [`/lec_infos/<uuid:lec_infos>/date/<uuid:date>`](#lec_infosuuidlec_infosdateuuiddate)
+  - [`/lec_infos/<uuid:lec_infos>/date/<uuid:date>/`](#lec_infosuuidlec_infosdateuuiddate)
     - [GET](#get-7)
     - [PUT](#put-1)
     - [DELETE](#delete-3)
 - [その他のインスタンスについて](#その他のインスタンスについて)
   - [講義(lecture)インスタンス](#講義lectureインスタンス)
+
+</details>
 
 # 実装方針
 店舗経営者や店舗検索をする利用者からの投稿があるかどうかに着目してどの機能を実装するかどうかの指針にしました。  
@@ -57,6 +62,7 @@
 関連情報詰め込みまくってるので長いです。
 
 ## インスタンスの形式
+
 ```json
 {
     "id": "12345678-1234-5678-1234-567812345678",
@@ -79,6 +85,48 @@
     "created": "1868-01-01T00:00:00.000000Z",
     "updated": "2021-07-14T00:00:00.000000Z",
     "lecture": [
+        <講義(lecture)インスタンス>,
+        <講義(lecture)インスタンス>,
+        <講義(lecture)インスタンス>
+    ],
+    "lec_infos": [
+        <講義開催情報(lec_infos)インスタンス>,
+        <講義開催情報(lec_infos)インスタンス>,
+        <講義開催情報(lec_infos)インスタンス>
+    ],
+    "reviews": [
+        <教室評価(reviews)インスタンス>,
+        <教室評価(reviews)インスタンス>,
+        <教室評価(reviews)インスタンス>
+    ]
+}
+```
+<details>
+<summary>インスタンス詳細まで表示</summary>
+
+```json
+{
+    "id": "12345678-1234-5678-1234-567812345678",
+    "class_name": "皇居",
+    "organizer": {
+        "org_id": 1,
+        "org_name": "個人"
+    },
+    "city": {
+        "pref_id": 14,
+        "city_id": 1,
+        "prefecture": "東京都",
+        "city_name": "千代田区"
+    },
+    "phone_number": "123-4567-8910",
+    "address": "東京都千代田区千代田1番1号",
+    "evaluation": 0,
+    "price": 10000,
+    "site_url": "https://www.kunaicho.go.jp/",
+    "created": "1868-01-01T00:00:00.000000Z",
+    "updated": "2021-07-14T00:00:00.000000Z",
+    "lecture": [
+        // 講義(lecture)インスタンス
         {
             "lec_id": 1,
             "lecture_content": "lec1 python",
@@ -91,6 +139,7 @@
         }
     ],
     "lec_infos": [
+        // 講義開催情報(lec_infos)インスタンス
         {
             "id": "00000000-0000-0000-0000-000000000000",
             "lecture": {
@@ -119,6 +168,7 @@
         }
     ],
     "reviews": [
+        // 教室評価(reviews)インスタンス
         {
             "rev_id": "33333333-2026-fcbb-d730-79a13d39c173",
             "class_info_id": "12345678-1234-5678-1234-567812345678",
@@ -136,6 +186,8 @@
     ]
 }
 ```
+</details>
+
 ### 各フィールド概要
 `id`：教室情報(class_infos)のuuid  
 
@@ -167,7 +219,7 @@
 
 `updated`：教室情報の最新更新日時、紐づいた講義の予定などの更新から最新の日時を返す
 
-`lecture`：扱っている講義インスタンスのリスト  
+`lecture`：教室が扱っている講義インスタンスのリスト  
 > `lec_id`：lectureのid(連番)
 > 
 > `lecture_content`：講義の名称、タグとか分類のようなもの
@@ -175,17 +227,17 @@
 > `is_target_old`：高齢者向けか否か、bool値
 
 
-`lec_infos`：教室が扱う講義開催情報(lec_infos)インスタンスのリスト
+`lec_infos`：教室が扱う講義開催情報(lec_infos)インスタンスのリスト、教室が扱う開催予定などがこれにあたる
 > 詳しくは[講義開催情報(lec_infos)のAPI](#講義開催情報lec_infosのapi) を参照
 
 
 
 `reviews`：教室に付いた教室評価(reviews)インスタンスのリスト
-> 詳しくは[教室評価reviewsのapi](#教室評価reviewsのapi) を参照
+> 詳しくは[教室評価(reviews)のapi](#教室評価reviewsのapi) を参照
 
 ## Endpoint URLs
-- [`/class_infos`](#class_infos)
-- [`/class_infos/<uuid>`](#class_infosuuid)
+- [`/class_infos/`](#class_infos)
+- [`/class_infos/<uuid>/`](#class_infosuuid)
 
 ## `/class_infos/`
 ### GET
@@ -215,7 +267,7 @@ organizer, city, lectureをidから指定できるようにしたい。
 ```
 
 
-## `/class_infos/<uuid>`
+## `/class_infos/<uuid>/`
 patchは実装してるのかしてないのかよくわからないです。すまん。
 ### GET
 \<uuid\>の教室情報(class_infos)インスタンスを返す
@@ -243,7 +295,7 @@ patchは実装してるのかしてないのかよくわからないです。す
 ### 各フィールド概要
 `rev_id`：教室評価(reveiews)のuuid  
 
-`class_info_id`：評価対象になる教室(教室情報(class_infos))  
+`class_info_id`：評価対象になる教室のid (教室情報(class_infos))  
 
 `author`：評価の投稿者名  
 
@@ -282,7 +334,7 @@ patchは実装してるのかしてないのかよくわからないです。す
 > [参考drf公式docs](https://www.django-rest-framework.org/api-guide/fields/#initial)
 
 
-## `/reviews/<uuid>`
+## `/reviews/<uuid>/`
 patchは実装してるのかしてないのかよくわからないです。すまん。
 ### GET
 \<uuid\>の教室評価(reveiews)インスタンスを返す
@@ -322,6 +374,7 @@ patchは実装してるのかしてないのかよくわからないです。す
     "created": "2022-10-23T14:22:12.938000Z",
     "updated": "2022-11-13T02:16:07.745946Z",
     "schedules": [
+        // 講義日付(lec_infosdate)インスタンス
         {
             "id": "34bd1208-3b81-4861-9328-51b53d7c61b2",
             "lec_info_id": "c51ec2f8-306e-4a4d-b516-cfc55125744c",
@@ -338,9 +391,14 @@ patchは実装してるのかしてないのかよくわからないです。す
 }
 ```
 ### 各フィールド概要
-`id`：講義開催情報lec_infosのid  
+`id`：講義開催情報(lec_infos)のid  
 
 `lecture`：対象となる講義インスタンス  
+> `lec_id`：lectureのid(連番)
+> 
+> `lecture_content`：講義の名称、タグとか分類のようなもの
+> 
+> `is_target_old`：高齢者向けか否か、bool値
 
 `which_class_held`：開催元となる教室(教室情報(class_infos))のid  
 
@@ -422,7 +480,7 @@ patchは実装してるのかしてないのかよくわからないです。す
 
 ## Endpoint URLs
 - [`/lec_infos/<uuid:lec_infos>/date/`](#lec_infosuuidlec_infosdate)
-- [`/lec_infos/<uuid:lec_infos>/date/<uuid:>`](#lec_infosuuidlec_infosdateuuid)
+- [`/lec_infos/<uuid:lec_infos>/date/<uuid:>/`](#lec_infosuuidlec_infosdateuuid)
 
 ## `/lec_infos/<uuid:lec_infos>/date/`
 ### GET
@@ -439,7 +497,7 @@ patchは実装してるのかしてないのかよくわからないです。す
 ```
 `updated`は自動更新なので省略されます。
 
-## `/lec_infos/<uuid:lec_infos>/date/<uuid:date>`
+## `/lec_infos/<uuid:lec_infos>/date/<uuid:date>/`
 ### GET
 `id`が`<uuid:date>`の講義日付(lec_infos/date)インスタンスを返す
 
