@@ -105,9 +105,12 @@ class ClassInfoSerializer(serializers.ModelSerializer):
         model = models.ClassInfo
         fields = [
             'id', 'class_name', 'organizer', 'city', 'phone_number', 'address',
-            'evaluation', 'price', 'site_url', 'has_parking', 'is_barrier_free', 'created', 'updated', 'lecture',
-            'lec_infos', 'reviews'
+            'evaluation', 'price', 'site_url', 'has_parking',
+            'is_barrier_free', 'created', 'updated', 'lecture', 'lec_infos',
+            'reviews'
         ]
+        read_only_fields = ['created', 'updated']
+        
 
     # https://stackoverflow.com/questions/71721307/got-attributeerror-when-attempting-to-get-a-value-for-field-on-serializer
     def get_lec_infos(self, obj) -> ReturnDict:
@@ -169,11 +172,76 @@ class ClassInfoSerializer(serializers.ModelSerializer):
             lec = models.Lecture.objects.get(**lec_data)
             instance.lecture.add(lec)
         return instance
-    
+
     def update(self, instance, validated_data):
-        print("\n\n\n\n")
-        print(instance.lecture)
-        print("\n\n\n\n")
+        """
+        id, created, updated, lec_infos, reviewsは更新しない。(自動更新or他APIから更新のため)
+        """
+        """
+        reviews        : <ManyToOneRel: administer_data.review>
+        upcoming_lecs  : <ManyToOneRel: administer_data.upcominglecinfos>
+        id             : administer_data.ClassInfo.id
+        created        : administer_data.ClassInfo.created
+        updated        : administer_data.ClassInfo.updated
+        class_name     : administer_data.ClassInfo.class_name
+        class_organizer: administer_data.ClassInfo.class_organizer
+        phone_number   : administer_data.ClassInfo.phone_number
+        city           : administer_data.ClassInfo.city
+        address        : administer_data.ClassInfo.address
+        evaluation     : administer_data.ClassInfo.evaluation
+        price          : administer_data.ClassInfo.price
+        site_url       : administer_data.ClassInfo.site_url
+        has_parking    : administer_data.ClassInfo.has_parking
+        is_barrier_free: administer_data.ClassInfo.is_barrier_free
+        lecture        : administer_data.ClassInfo.lecture
+        """
+        """
+        reviews        : administer_data.Review.None
+        upcoming_lecs  : administer_data.UpcomingLecInfos.None
+        id             : 34a331b6-e224-18a6-f13e-d8dc74ccaeea
+        created        : 2022-09-15 09:45:52.304000+00:00
+        updated        : 2022-09-15 09:45:52.304000+00:00
+        class_name     : あいうえお
+        class_organizer: ClassOrganizer object (1)
+        phone_number   :
+        city           : 未設定
+        address        :
+        evaluation     : 0
+        price          : 0
+        site_url       : https://www.yahoo.co.jp/
+        has_parking    : False
+        is_barrier_free: False
+        lecture        : administer_data.Lecture.None
+        """
+        # ignore_word_ls = ["id", "created", "updated", "lec_infos", "reviews"]
+        # for ignore_word in ignore_word_ls:
+        #     try:
+        #         _ = validated_data.pop(ignore_word)
+        #     except KeyError as e:print("KeyError:", e)
+        
+        # organizer, city, lectureをいい感じに、他は親クラスで処理
+        org_data = validated_data.pop('class_organizer')
+        city_data = validated_data.pop('city')
+        instance.class_organizer = models.ClassOrganizer.objects.get(**org_data)
+        instance.city = models.City.objects.get(**city_data)
+
+        lec_datas = validated_data.pop('lecture')
+        instance_lec_ids = {i.id for i in instance.lecture.all()}
+        data_lec_ids = {lec["id"] for lec in lec_datas}
+        
+        ids_to_add = data_lec_ids - instance_lec_ids
+        ids_to_remove = instance_lec_ids - data_lec_ids
+        
+        if ids_to_add:
+            for id in ids_to_add:
+                lec = models.Lecture.objects.get(id=id)
+                instance.lecture.add(lec)
+        if ids_to_remove:
+            for id in ids_to_remove:
+                lec = models.Lecture.objects.get(id=id)
+                instance.lecture.remove(lec)
+
+        instance.save()
         return super().update(instance, validated_data)
 
 
