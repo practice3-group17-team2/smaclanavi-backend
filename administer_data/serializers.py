@@ -70,9 +70,6 @@ class ReviewSerializer(serializers.ModelSerializer):
     class_info_id = serializers.PrimaryKeyRelatedField(
         queryset=models.ClassInfo.objects.all(), source="class_info")
 
-    # class_info_url = serializers.HyperlinkedRelatedField(
-    #     view_name='classinfo-detail', queryset=ClassInfo.objects.all())
-
     author = serializers.CharField(default="no name", initial="no name")
     faves = serializers.IntegerField(default=0, initial=0)
 
@@ -80,18 +77,9 @@ class ReviewSerializer(serializers.ModelSerializer):
         model = models.Review
         fields = ['rev_id', 'class_info_id', 'author', 'faves', 'review_text']
 
-    # def create(self, validated_data):
-    #     print("debug:", validated_data.get("id"))
-    #     return super().create(validated_data)
-
 
 class ClassInfoSerializer(serializers.ModelSerializer):
-    """ # return url list
-    review_urls = serializers.HyperlinkedRelatedField(read_only=True,
-                                                  many=True,
-                                                  view_name='review-detail')
-    """
-    id = serializers.UUIDField(initial=uuid.uuid4, default=uuid.uuid4)
+    id = serializers.UUIDField(initial=uuid.uuid4, default=uuid.uuid4, read_only=True)
     organizer = OrganizerSerializer(source="class_organizer")
     city = CitySerializer()
     evaluation = serializers.IntegerField(default=0, initial=0)
@@ -156,18 +144,16 @@ class ClassInfoSerializer(serializers.ModelSerializer):
             ]
         }
         """
-        # print("\n\n\n\n", validated_data)
         org_data = validated_data.pop('class_organizer')
         city_data = validated_data.pop('city')
         lec_datas = validated_data.pop('lecture')
         org = models.ClassOrganizer.objects.get(**org_data)
         city = models.City.objects.get(**city_data)
-
-        # print("\n\n\n\n", lec_datas, "\n\n\n\n")
-
+        
         instance = models.ClassInfo.objects.create(class_organizer=org,
                                                    city=city,
                                                    **validated_data)
+
         for lec_data in lec_datas:
             lec = models.Lecture.objects.get(**lec_data)
             instance.lecture.add(lec)
@@ -175,25 +161,7 @@ class ClassInfoSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         """
-        id, created, updated, lec_infos, reviewsは更新しない。(自動更新or他APIから更新のため)
-        """
-        """
-        reviews        : <ManyToOneRel: administer_data.review>
-        upcoming_lecs  : <ManyToOneRel: administer_data.upcominglecinfos>
-        id             : administer_data.ClassInfo.id
-        created        : administer_data.ClassInfo.created
-        updated        : administer_data.ClassInfo.updated
-        class_name     : administer_data.ClassInfo.class_name
-        class_organizer: administer_data.ClassInfo.class_organizer
-        phone_number   : administer_data.ClassInfo.phone_number
-        city           : administer_data.ClassInfo.city
-        address        : administer_data.ClassInfo.address
-        evaluation     : administer_data.ClassInfo.evaluation
-        price          : administer_data.ClassInfo.price
-        site_url       : administer_data.ClassInfo.site_url
-        has_parking    : administer_data.ClassInfo.has_parking
-        is_barrier_free: administer_data.ClassInfo.is_barrier_free
-        lecture        : administer_data.ClassInfo.lecture
+        id, created, updated, lec_infos, reviewsは自動更新or他APIから更新のため、read_onlyなど適応
         """
         """
         reviews        : administer_data.Review.None
@@ -213,12 +181,6 @@ class ClassInfoSerializer(serializers.ModelSerializer):
         is_barrier_free: False
         lecture        : administer_data.Lecture.None
         """
-        # ignore_word_ls = ["id", "created", "updated", "lec_infos", "reviews"]
-        # for ignore_word in ignore_word_ls:
-        #     try:
-        #         _ = validated_data.pop(ignore_word)
-        #     except KeyError as e:print("KeyError:", e)
-        
         # organizer, city, lectureをいい感じに、他は親クラスで処理
         org_data = validated_data.pop('class_organizer')
         city_data = validated_data.pop('city')
@@ -264,8 +226,6 @@ class UpcomingLecInfoSerializer(serializers.ModelSerializer):
                                default=uuid.uuid4,
                                read_only=True)
     lecture = LectureSerializer(source='lecture_content')
-
-    # get_updatedに対応するmethodfield
     updated = serializers.SerializerMethodField()
     schedules = LecScheduleSerializer(many=True, read_only=True)
 
