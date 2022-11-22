@@ -277,7 +277,16 @@ class UpcomingLecInfoSerializer(serializers.ModelSerializer):
         lec_data = validated_data.pop("lecture_content")
         lec = models.Lecture.objects.get(id=lec_data["id"])
         which_class = validated_data.pop("which_class_held")
-        
+
+        if models.UpcomingLecInfos.objects.filter(
+                lecture_content=lec, which_class_held=which_class).exists():
+            raise ValueError(
+                "An instance of what you are trying to update already exists")
+
+        # 逆参照使って教室が扱っている講義かどうかのチェックもする
+        if not lec in which_class.lecture.all():
+            raise ValueError("This classroom does not handle this lecture")
+
         instance.lecture_content = lec
         instance.which_class_held = which_class
         return super().update(instance, validated_data)
