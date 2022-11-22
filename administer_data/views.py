@@ -2,6 +2,7 @@ from administer_data import models, serializers
 
 from rest_framework import status
 from rest_framework import viewsets
+from rest_framework.exceptions import APIException
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
@@ -29,6 +30,12 @@ class ReviewViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.ReviewSerializer
 
 
+class BadRequest(APIException):
+    status_code = status.HTTP_400_BAD_REQUEST
+    default_detail = "bad request"
+    default_code = "bad_request"
+
+
 class UpcomingLecInfoViewSet(viewsets.ModelViewSet):
     queryset = models.UpcomingLecInfos.objects.all()
     serializer_class = serializers.UpcomingLecInfoSerializer
@@ -44,6 +51,15 @@ class UpcomingLecInfoViewSet(viewsets.ModelViewSet):
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+    
+    def update(self, request, *args, **kwargs):
+        """
+        serializerが送出したvalue errorによってステータスコードを変更
+        """
+        try:
+            return super().update(request, *args, **kwargs)
+        except ValueError as e:
+            raise BadRequest(detail=e.args)
 
 
 class LecScheduleViewSet(viewsets.ModelViewSet):
