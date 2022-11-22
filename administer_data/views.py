@@ -1,4 +1,6 @@
 from administer_data import models, serializers
+
+from rest_framework import status
 from rest_framework import viewsets
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -30,6 +32,18 @@ class ReviewViewSet(viewsets.ModelViewSet):
 class UpcomingLecInfoViewSet(viewsets.ModelViewSet):
     queryset = models.UpcomingLecInfos.objects.all()
     serializer_class = serializers.UpcomingLecInfoSerializer
+
+    def create(self, request, *args, **kwargs):
+        """
+        serializerのcreateから渡されるcreatedを取得して
+        新規作成か取得しただけかでhttp responseを場合分けしたかったが、取得出来ず諦めた
+        以下はCreateModelMixinをそのままコピペしただけ
+        """
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
 
 class LecScheduleViewSet(viewsets.ModelViewSet):
