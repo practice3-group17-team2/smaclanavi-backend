@@ -79,7 +79,9 @@ class ReviewSerializer(serializers.ModelSerializer):
 
 
 class ClassInfoSerializer(serializers.ModelSerializer):
-    id = serializers.UUIDField(initial=uuid.uuid4, default=uuid.uuid4, read_only=True)
+    id = serializers.UUIDField(initial=uuid.uuid4,
+                               default=uuid.uuid4,
+                               read_only=True)
     organizer = OrganizerSerializer(source="class_organizer")
     city = CitySerializer()
     evaluation = serializers.IntegerField(default=0, initial=0)
@@ -98,7 +100,6 @@ class ClassInfoSerializer(serializers.ModelSerializer):
             'reviews'
         ]
         read_only_fields = ['created', 'updated']
-        
 
     # https://stackoverflow.com/questions/71721307/got-attributeerror-when-attempting-to-get-a-value-for-field-on-serializer
     def get_lec_infos(self, obj) -> ReturnDict:
@@ -149,7 +150,7 @@ class ClassInfoSerializer(serializers.ModelSerializer):
         lec_datas = validated_data.pop('lecture')
         org = models.ClassOrganizer.objects.get(**org_data)
         city = models.City.objects.get(**city_data)
-        
+
         instance = models.ClassInfo.objects.create(class_organizer=org,
                                                    city=city,
                                                    **validated_data)
@@ -184,16 +185,17 @@ class ClassInfoSerializer(serializers.ModelSerializer):
         # organizer, city, lectureをいい感じに、他は親クラスで処理
         org_data = validated_data.pop('class_organizer')
         city_data = validated_data.pop('city')
-        instance.class_organizer = models.ClassOrganizer.objects.get(**org_data)
+        instance.class_organizer = models.ClassOrganizer.objects.get(
+            **org_data)
         instance.city = models.City.objects.get(**city_data)
 
         lec_datas = validated_data.pop('lecture')
         instance_lec_ids = {i.id for i in instance.lecture.all()}
         data_lec_ids = {lec["id"] for lec in lec_datas}
-        
+
         ids_to_add = data_lec_ids - instance_lec_ids
         ids_to_remove = instance_lec_ids - data_lec_ids
-        
+
         if ids_to_add:
             for id in ids_to_add:
                 lec = models.Lecture.objects.get(id=id)
@@ -235,6 +237,7 @@ class UpcomingLecInfoSerializer(serializers.ModelSerializer):
             'id', 'lecture', 'which_class_held', 'is_personal_lec',
             'is_iphone', 'can_select_date', 'created', 'updated', 'schedules'
         ]
+        read_only_fields = ['created', 'updated']
 
     def get_updated(self, obj):
         """ 複数あるschedulesのupdatedを比較して最新のupdatedをUpcominglecInfoのupdatedに設定する """
@@ -271,4 +274,10 @@ class UpcomingLecInfoSerializer(serializers.ModelSerializer):
         return up_lecinfo
 
     def update(self, instance, validated_data):
+        lec_data = validated_data.pop("lecture_content")
+        lec = models.Lecture.objects.get(id=lec_data["id"])
+        which_class = validated_data.pop("which_class_held")
+        
+        instance.lecture_content = lec
+        instance.which_class_held = which_class
         return super().update(instance, validated_data)
