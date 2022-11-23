@@ -267,10 +267,18 @@ class UpcomingLecInfoSerializer(serializers.ModelSerializer):
 
         # print("\n\n\n\n", lec_data["id"], which_class.id, "\n\n\n\n")
 
-        up_lecinfo, created = models.UpcomingLecInfos.objects.get_or_create(
+        # フローコントロールに使うのは良く無さげだけど苦肉の策
+        if models.UpcomingLecInfos.objects.filter(
+                lecture_content=lec, which_class_held=which_class).exists():
+            raise ValueError(
+                "An instance of what you are trying to create already exists")
+        if not lec in which_class.lecture.all():
+            raise ValueError("This classroom does not handle this lecture")
+
+        up_lecinfo = models.UpcomingLecInfos.objects.create(
             lecture_content=lec,
             which_class_held=which_class,
-            defaults=validated_data)
+            **validated_data)
         return up_lecinfo
 
     def update(self, instance, validated_data):
@@ -283,7 +291,6 @@ class UpcomingLecInfoSerializer(serializers.ModelSerializer):
             raise ValueError(
                 "An instance of what you are trying to update already exists")
 
-        # 逆参照使って教室が扱っている講義かどうかのチェックもする
         if not lec in which_class.lecture.all():
             raise ValueError("This classroom does not handle this lecture")
 
