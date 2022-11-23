@@ -35,7 +35,7 @@ class TestClassInfoSerializer(TestCase):
     #     self.assertEqual(Account.objects.get().name, 'DabApps')
     
     def test_list(self):
-        url = reverse("class_info-list")
+        url = reverse("classinfo-list")
         response = self.client.get(url, format="json")
 
         self.assertEqual(response.status_code, 200)
@@ -44,7 +44,7 @@ class TestClassInfoSerializer(TestCase):
         self.assertEqual(response.data[1]["city"]["city_name"], "赤羽")
 
     def test_create(self):
-        url = reverse("class_info-list")
+        url = reverse("classinfo-list")
         data = {
             "class_name": "皇居",
             "organizer": {
