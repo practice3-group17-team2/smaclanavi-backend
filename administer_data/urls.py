@@ -6,8 +6,8 @@ from rest_framework_nested import routers
 
 router = routers.SimpleRouter()
 
-router.register(r'class_infos', views.ClassInfoViewSet)
-router.register(r'reviews', views.ReviewViewSet)
+router.register(r'class_infos', views.ClassInfoViewSet, basename="class_info")
+router.register(r'reviews', views.ReviewViewSet, basename="review")
 router.register(r'lec_infos', views.UpcomingLecInfoViewSet, basename='lec_info')
 
 lecinfos_router = routers.NestedSimpleRouter(router, r'lec_infos', lookup='lec_info')
