@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from ..savedata import save_data
+from ..scraping.savedata_old import save_data
 from ..scraping.scraping import ScrapingBase, ScrapingSeleBase
 from ..scraping.sb_scraping import SBgetAreaURLs, SBgetShopURLs, SBgetShopInfo
 from ..scraping.sb_scraping import SBscraping
