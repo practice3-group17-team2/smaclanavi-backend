@@ -303,6 +303,19 @@ class TestSB(TestCase):
         print(result)
         self.assertEqual(result, expected_dic)
 
+    def test_get_shop_info_from_url(self):
+        expected_dic = {
+            'class_name': 'ソフトバンク神楽坂',
+            'phone_number': '03-5229-7150',
+            'has_parking': '－',
+            'is_barrier_free': '－',
+            'address': '東京都新宿区神楽坂６丁目４７ 照井ビル１Ｆ'
+        }
+        url = "https://www.softbank.jp/shop/search/detail/T1G0/"
+        result = SBgetShopInfo.scrape_shop_info(url)
+        print(result)
+        self.assertEqual(result, expected_dic)
+
     def test_softbank_scrape(self):
         """ 
         softbankの店舗情報の取得、一番規模大きい結合テストに相当？
