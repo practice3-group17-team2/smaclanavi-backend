@@ -24,10 +24,13 @@ def save_data():
     city_name_pattern = re.compile(r'[^0-9（）]+')
     # area_name_pattern = re.compile(r'((.+?)市(.+?)区|(.+?)[市区町村])')
 
+    models.City.objects.create(city_name="中央区")
+
     for key, value in data.items():
+        print("\n\n\n")
         #TestSaveData.objects.create(title=title_ls[i], url=link_ls[i])
         print("key", key)
-        print("value", value, "\n\n\n")
+        print("value", value)
 
         if not value:
             continue
@@ -41,10 +44,38 @@ def save_data():
         # area_name = area_name_xs[-1]
         # print("area_name", area_name)
 
-        city = models.City.objects.get_or_create(city_name=city_name)
+        # class_name = value[]
+        city, created = models.City.objects.get_or_create(city_name=city_name)
+
+        if created: print("created!!!")
+        print(city)
         
         
-        # models.ClassInfo.objects.create()
-    print(models.City.objects.all())
+        # class_info = models.ClassInfo.objects.create(class_name=city=city)
+        # print(class_info.class_name)
+
+    # print(models.ClassInfo.objects.all())
+
+def fix_data():
+    data = sb.load_data_file_pkl()
+    new_data_dict = {}
+    for area, class_info_xs in data.items():
+        print(f"area {area}")
+        print(f"class_info_xs {class_info_xs}")
+
+        for class_info in class_info_xs.values():
+            # class_name = class_info["name"]
+            class_info["class_name"] = class_info.pop("name")
+            class_info["phone_number"] = class_info.pop("phone")
+            class_info["has_parking"] = class_info.pop("parking")
+            class_info["is_barrier_free"] = class_info.pop("barrier_free")
+            print(f"class_info {class_info}")
+
+        print("\n")
+        
+        print(f"class_info_xs {class_info_xs}")
+        print("\n\n")
+
+    # sb.save_data_file_pkl(data, file_path="softbank_fixed.pkl")
 if __name__ == "__main__":
     save_data()
