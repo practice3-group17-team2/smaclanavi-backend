@@ -1,4 +1,5 @@
 import re, time, os, pickle
+import os
 from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor
 from .scraping import ScrapingBase, ScrapingSeleBase
 
@@ -496,13 +497,13 @@ class SBscraping(SBgetAreaURLs, SBgetShopURLs, SBgetShopInfo):
             #     cls.get_shop_infos_by_area(area_key, shop_urls_by_area)
 
     @classmethod
-    def save_data_file_pkl(cls, data:dict):
-        with open("./administer_data/data/softbank.pkl", 'wb') as f:
+    def save_data_file_pkl(cls, data:dict, file_path="softbank.pkl"):
+        with open(os.path.join("./administer_data/data/", file_path), 'wb') as f:
             pickle.dump(data, f)
     
 
     @classmethod
-    def load_data_file_pkl(cls) -> dict:
-        with open('./administer_data/scraping/data/softbank.pkl', 'rb') as f:
+    def load_data_file_pkl(cls, file_path="softbank.pkl") -> dict:
+        with open(os.path.join('./administer_data/scraping/data/', file_path), 'rb') as f:
             dict_pkl = pickle.load(f)
         return dict_pkl
