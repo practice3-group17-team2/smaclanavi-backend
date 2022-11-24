@@ -498,7 +498,7 @@ class SBscraping(SBgetAreaURLs, SBgetShopURLs, SBgetShopInfo):
 
     @classmethod
     def save_data_file_pkl(cls, data:dict, file_path="softbank.pkl"):
-        with open(os.path.join("./administer_data/data/", file_path), 'wb') as f:
+        with open(os.path.join("./administer_data/scraping/data/", file_path), 'wb') as f:
             pickle.dump(data, f)
     
 
