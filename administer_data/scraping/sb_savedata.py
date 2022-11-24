@@ -12,14 +12,14 @@ def save_data():
 
 
     # print(data)
-    # key = (pref_id, area_id), area_name(店舗数))
-    # value = {
+    # area = (pref_id, area_id), area_name(店舗数))
+    # class_info_xs = {
     # "店舗名": {
-    #     name:
-    #     phone:
-    #     parking:
-    #     barrier_free:
-    #     address
+    #     'phone_number':
+    #     'class_name':
+    #     'has_parking':
+    #     'is_barrier_free':
+    #     'address':
     # }
     city_name_pattern = re.compile(r'[^0-9（）]+')
     # area_name_pattern = re.compile(r'((.+?)市(.+?)区|(.+?)[市区町村])')
@@ -58,24 +58,28 @@ def save_data():
 
 def fix_data():
     data = sb.load_data_file_pkl()
-    new_data_dict = {}
     for area, class_info_xs in data.items():
-        print(f"area {area}")
-        print(f"class_info_xs {class_info_xs}")
+        print(f"Before:\narea {area}")
+        print(f"class_info_xs {class_info_xs}\n")
 
         for class_info in class_info_xs.values():
-            # class_name = class_info["name"]
-            class_info["class_name"] = class_info.pop("name")
-            class_info["phone_number"] = class_info.pop("phone")
-            class_info["has_parking"] = class_info.pop("parking")
-            class_info["is_barrier_free"] = class_info.pop("barrier_free")
+            if class_info["has_parking"] in ["None", "－"]:
+                class_info["has_parking"] = False
+            else:
+                class_info["has_parking"] = True
+            
+            if class_info["is_barrier_free"] == "－":
+                class_info["is_barrier_free"] = False
+            else:
+                class_info["is_barrier_free"] = True
+            
             print(f"class_info {class_info}")
 
         print("\n")
         
-        print(f"class_info_xs {class_info_xs}")
+        print(f"After:\nclass_info_xs {class_info_xs}")
         print("\n\n")
 
-    # sb.save_data_file_pkl(data, file_path="softbank_fixed.pkl")
+    sb.save_data_file_pkl(data, file_path="softbank_fixed.pkl")
 if __name__ == "__main__":
     save_data()
