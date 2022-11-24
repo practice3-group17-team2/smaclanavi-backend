@@ -262,10 +262,10 @@ class TestSB(TestCase):
         expected_dic = {
             (('14', '141011'), '横浜市鶴見区（2）'): {
                 'ソフトバンク鶴見': {
-                    'name': 'ソフトバンク鶴見',
-                    'phone': '045-505-0500',
-                    'parking': 'None',
-                    'barrier_free': '○',
+                    'class_name': 'ソフトバンク鶴見',
+                    'phone_number': '045-505-0500',
+                    'has_parking': 'None',
+                    'is_barrier_free': '○',
                     'address': '神奈川県横浜市鶴見区鶴見中央４丁目１５‐７'
                 }
             }
@@ -280,19 +280,19 @@ class TestSB(TestCase):
             (('13', '131016'), '千代田区（4）'): {},
             (('13', '131024'), '中央区（5）'): {
                 'ソフトバンク銀座': {
-                    'name': 'ソフトバンク銀座',
-                    'phone': '03-6252-3333',
-                    'parking': 'None',
-                    'barrier_free': '－',
+                    'class_name': 'ソフトバンク銀座',
+                    'phone_number': '03-6252-3333',
+                    'has_parking': 'None',
+                    'is_barrier_free': '－',
                     'address': '東京都中央区銀座５丁目７番８号'
                 }
             },
             (('14', '141011'), '横浜市鶴見区（2）'): {
                 'ソフトバンク鶴見': {
-                    'name': 'ソフトバンク鶴見',
-                    'phone': '045-505-0500',
-                    'parking': 'None',
-                    'barrier_free': '○',
+                    'class_name': 'ソフトバンク鶴見',
+                    'phone_number': '045-505-0500',
+                    'has_parking': 'None',
+                    'is_barrier_free': '○',
                     'address': '神奈川県横浜市鶴見区鶴見中央４丁目１５‐７'
                 }
             },
@@ -301,6 +301,7 @@ class TestSB(TestCase):
         SBscraping.get_shop_infos(debug=True)
         result = SBscraping.show_sb_shop_infos()
         print(result)
+        self.assertEqual(result, expected_dic)
 
     def test_softbank_scrape(self):
         """ 
@@ -330,19 +331,19 @@ class TestSB(TestCase):
             (('13', '131016'), '千代田区（4）'): {},
             (('13', '131024'), '中央区（5）'): {
                 'ソフトバンク銀座': {
-                    'name': 'ソフトバンク銀座',
-                    'phone': '03-6252-3333',
-                    'parking': 'None',
-                    'barrier_free': '－',
+                    'class_name': 'ソフトバンク銀座',
+                    'phone_number': '03-6252-3333',
+                    'has_parking': 'None',
+                    'is_barrier_free': '－',
                     'address': '東京都中央区銀座５丁目７番８号'
                 }
             },
             (('14', '141011'), '横浜市鶴見区（2）'): {
                 'ソフトバンク鶴見': {
-                    'name': 'ソフトバンク鶴見',
-                    'phone': '045-505-0500',
-                    'parking': 'None',
-                    'barrier_free': '○',
+                    'class_name': 'ソフトバンク鶴見',
+                    'phone_number': '045-505-0500',
+                    'has_parking': 'None',
+                    'is_barrier_free': '○',
                     'address': '神奈川県横浜市鶴見区鶴見中央４丁目１５‐７'
                 }
             },

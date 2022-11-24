@@ -152,13 +152,13 @@ class SBgetShopInfo(ScrapingBase):
     """
     base_table_sel = "#contents > div.bgWh > div > div > div.column-matchHeight > div > div:nth-child(1) > section > table > tbody"
     shop_selectors = {
-        "name":
+        "class_name":
         base_table_sel + " > tr:nth-child(1) > td",
-        "phone":
+        "phone_number":
         base_table_sel + " > tr:nth-child(4) > td > span",
-        "parking":
+        "has_parking":
         base_table_sel + " > tr:nth-child(5) > td",
-        "barrier_free":
+        "is_barrier_free":
         base_table_sel + " > tr:nth-child(6) > td",
         "address":
         "#contents > section.shop-page-u96-detail-section.bgWh > div > div.shop-page-u96-detail > div.shop-page-u96-detail-box-left > p",
