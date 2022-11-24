@@ -503,6 +503,6 @@ class SBscraping(SBgetAreaURLs, SBgetShopURLs, SBgetShopInfo):
 
     @classmethod
     def load_data_file_pkl(cls) -> dict:
-        with open('./administer_data/data/softbank.pkl', 'rb') as f:
+        with open('./administer_data/scraping/data/softbank.pkl', 'rb') as f:
             dict_pkl = pickle.load(f)
         return dict_pkl
