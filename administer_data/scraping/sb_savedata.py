@@ -1,15 +1,15 @@
+import re
+
 from administer_data.scraping.sb_scraping import SBscraping as sb
 from administer_data import models
-import re
+from administer_data.scraping.data import softbank_data as sb_data
 
 def save_data():
     """ 
-    scrapingする関数を呼び出してその結果を保存する関数、情報のUPDATEとかもできたらいいなと思っている
+    pklファイルに保存されたデータからインスタンスを作成しモデルに保存する関数
+    scrapingする関数の呼び出しや情報のUPDATEとかもできたらいいなと思っている
     """
-    data = sb.load_data_file_pkl()
-    # test_word = "スマホ教室" #任意の言葉、なんでもいい、仮置き
-    # link_ls, title_ls = search_google(test_word)
-
+    data = sb.load_data_file_pkl(file_path="softbank.pkl")
 
     # print(data)
     # area = (pref_id, area_id), area_name(店舗数))
@@ -24,37 +24,34 @@ def save_data():
     city_name_pattern = re.compile(r'[^0-9（）]+')
     # area_name_pattern = re.compile(r'((.+?)市(.+?)区|(.+?)[市区町村])')
 
-    models.City.objects.create(city_name="中央区")
+    for area, class_info_xs in data.items():
+        print(f"area {area}")
+        print(f"class_info_xs {class_info_xs}\n")
 
-    for key, value in data.items():
-        print("\n\n\n")
-        #TestSaveData.objects.create(title=title_ls[i], url=link_ls[i])
-        print("key", key)
-        print("value", value)
-
-        if not value:
+        if not class_info_xs:
             continue
 
-        city_name = city_name_pattern.match(key[1]).group()
-        print("city_name", city_name)
+        city_name = city_name_pattern.match(area[1]).group()
+        # print(f"city_name {city_name}")
 
         # area_name_xs = area_name_pattern.split(city_name)# [1:-1]
         # print("area_name_xs", area_name_xs)
-
         # area_name = area_name_xs[-1]
         # print("area_name", area_name)
 
-        # class_name = value[]
         city, created = models.City.objects.get_or_create(city_name=city_name)
 
-        if created: print("created!!!")
-        print(city)
+        if created: print(f"{city} created!!!")
         
-        
-        # class_info = models.ClassInfo.objects.create(class_name=city=city)
-        # print(class_info.class_name)
+        for class_info in class_info_xs.values():
+            class_info = models.ClassInfo.objects.create(city=city, **class_info)
+            # print(f"class_name: {class_info.class_name}\n")
 
-    # print(models.ClassInfo.objects.all())
+    [print(i) for i in models.ClassInfo.objects.all()]
+    sb.quit_driver()
+
+def dict_to_pkl_file():
+    sb.save_data_file_pkl(sb_data.data)
 
 def fix_data():
     data = sb.load_data_file_pkl()
@@ -80,6 +77,12 @@ def fix_data():
         print(f"After:\nclass_info_xs {class_info_xs}")
         print("\n\n")
 
-    sb.save_data_file_pkl(data, file_path="softbank_fixed.pkl")
+    sb.save_data_file_pkl(data)
+    sb.quit_driver()
+
+def create_and_fix_data():
+    dict_to_pkl_file()
+    fix_data()
+
 if __name__ == "__main__":
     save_data()
