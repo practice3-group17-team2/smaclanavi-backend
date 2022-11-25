@@ -4,16 +4,16 @@
 
 - [目次](#目次)
 - [実装方針](#実装方針)
-- [教室情報(class_infos)のAPI](#教室情報class_infosのapi)
+- [教室情報(class\_infos)のAPI](#教室情報class_infosのapi)
   - [インスタンスの形式](#インスタンスの形式)
     - [各フィールド概要](#各フィールド概要)
   - [Endpoint URLs](#endpoint-urls)
   - [`/class_infos/`](#class_infos)
     - [GET](#get)
-    - [POST(おそらくエラー出る)、未実装](#postおそらくエラー出る未実装)
+    - [POST](#post)
   - [`/class_infos/<uuid>/`](#class_infosuuid)
     - [GET](#get-1)
-    - [PUT(おそらくエラー)](#putおそらくエラー)
+    - [PUT](#put)
     - [DELETE](#delete)
 - [教室評価(reviews)のAPI](#教室評価reviewsのapi)
   - [インスタンスの形式](#インスタンスの形式-1)
@@ -21,32 +21,32 @@
   - [Endpoint URLs](#endpoint-urls-1)
   - [`/reviews/`](#reviews)
     - [GET](#get-2)
-    - [POST](#post)
+    - [POST](#post-1)
   - [`/reviews/<uuid>/`](#reviewsuuid)
     - [GET](#get-3)
-    - [PUT](#put)
+    - [PUT](#put-1)
     - [DELETE](#delete-1)
-- [講義開催情報(lec_infos)のAPI](#講義開催情報lec_infosのapi)
+- [講義開催情報(lec\_infos)のAPI](#講義開催情報lec_infosのapi)
   - [インスタンスの形式](#インスタンスの形式-2)
     - [各フィールド概要](#各フィールド概要-2)
   - [Endpoint URLs](#endpoint-urls-2)
   - [`/lec_infos/`](#lec_infos)
     - [GET](#get-4)
-    - [POST(うごきそう)](#postうごきそう)
+    - [POST](#post-2)
   - [`/lec_infos/<uuid>/`](#lec_infosuuid)
     - [GET](#get-5)
-    - [PUT(おそらくエラー)](#putおそらくエラー-1)
+    - [PUT(おそらくエラー)](#putおそらくエラー)
     - [DELETE](#delete-2)
-- [講義日付(lec_infos/date)のAPI](#講義日付lec_infosdateのapi)
+- [講義日付(lec\_infos/date)のAPI](#講義日付lec_infosdateのapi)
   - [インスタンスの形式](#インスタンスの形式-3)
     - [各フィールド概要](#各フィールド概要-3)
   - [Endpoint URLs](#endpoint-urls-3)
   - [`/lec_infos/<uuid:lec_infos>/date/`](#lec_infosuuidlec_infosdate)
     - [GET](#get-6)
-    - [POST](#post-1)
+    - [POST](#post-3)
   - [`/lec_infos/<uuid:lec_infos>/date/<uuid:date>/`](#lec_infosuuidlec_infosdateuuiddate)
     - [GET](#get-7)
-    - [PUT](#put-1)
+    - [PUT](#put-2)
     - [DELETE](#delete-3)
 - [その他のインスタンスについて](#その他のインスタンスについて)
   - [講義(lecture)インスタンス](#講義lectureインスタンス)
@@ -243,11 +243,11 @@
 ### GET
 上記の教室情報(class_infos)のインスタンスのリストを返す
 
-### POST(おそらくエラー出る)、未実装
+### POST
 上記の教室情報(class_infos)のインスタンスを追加作成する  
 教室情報に紐づけるorganizer, city, lectureをidから指定する。
 
-idと内容の一覧はどうやって入手するようにしましょう
+organizer, city, lectureのidと内容の一覧はどうやって入手するようにしましょう
 
 ```json
 {
@@ -271,19 +271,54 @@ idと内容の一覧はどうやって入手するようにしましょう
     "is_barrier_free": false
 }
 ```
-必須の指定項目は`class_name`、`organizer`、`city`、`lecture`の4つ
+必須の指定項目は`class_name`、`organizer`、`city`、`lecture`の4つ  
+そのうち`organizer`、`city`、`lecture`の三つはidにより指定する。  
 `phone_number`以下は省略可能。  
 
-その場合`phone_number`、`address`、`site_url`は空文字、  
-`evaluation`、`price`は 0 、`has_parking`と`is_barrier_free`は`false`が指定される
+**省略がされた場合**  
+`phone_number`、`address`、`site_url`は空文字  
+`evaluation`、`price`は 0   
+`has_parking`と`is_barrier_free`は`false`  
+がそれぞれ指定される
+
+上記の必須項目4つのうち、`organizer`、`city`、`lecture`のそれぞれ`ID`に対して、不都合な`ID`が渡された場合、`400 Bad Request`が返る。
+具体的な場合としては
+- 存在しないデータを指す`ID`が渡された場合
 
 ## `/class_infos/<uuid>/`
 patchは実装してるのかしてないのかよくわからないです。すまん。
 ### GET
 \<uuid\>の教室情報(class_infos)インスタンスを返す
 
-### PUT(おそらくエラー)
-\<uuid\>の教室情報(class_infos)インスタンスを更新する
+### PUT
+```json
+{
+    "class_name": "あいうえお",
+    "organizer": {
+        "org_id": 1
+    },
+    "city": {
+        "city_id": 1
+    },
+    "phone_number": "",
+    "address": "",
+    "evaluation": 0,
+    "price": 0,
+    "site_url": "https://www.yahoo.co.jp/",
+    "has_parking": false,
+    "is_barrier_free": false,
+    "lecture": [
+        {
+            "lec_id": 2
+        }
+    ]
+}
+```
+\<uuid\>の教室情報(class_infos)インスタンスを更新する  
+`lec_infos`, `reviews`, `created`, `updated`は省略可能な読み取り専用のフィールドなのでここから何かを叩いても無視されます。
+
+`lec_infos`の更新は[講義開催情報(lec_infos)のAPI](#講義開催情報lec_infosのapi) を、`reviews`の更新は[教室評価(reviews)のapi](#教室評価reviewsのapi) をそれぞれ参照
+
 
 ### DELETE
 \<uuid\>の教室情報(class_infos)インスタンスを削除する
@@ -434,7 +469,7 @@ patchは実装してるのかしてないのかよくわからないです。す
 ### GET
 講義開催情報(lec_infos)のインスタンスのリストを返す
 
-### POST(うごきそう)
+### POST
 ```json
 {
     "lecture": {
@@ -447,20 +482,45 @@ patchは実装してるのかしてないのかよくわからないです。す
 }
 ```
 講義開催情報(lec_infos)のインスタンスを追加作成する  
-既にその教室情報(class_infos)の講義について講義開催情報(lec_infos)のインスタンスが存在する場合、それを取得して返す。(任意の教室の講義に対して、講義開催情報は1対1)  
 
-`schedules`は読み取り専用なのでここから追加、更新などはできない。  
-講義日付(lec_infosdate)を紐づけたい場合は[講義日付(lec_infos/date)のAPI](#講義日付lec_infosdateのapi) を参照
+`schedules`は読み取り専用なのでここから追加した状態での作成はできない。講義日付(lec_infosdate)を紐づけたい場合は[講義日付(lec_infos/date)のAPI](#講義日付lec_infosdateのapi) を参照
 
-`id`は(同様に読み取り専用で? (どうするか悩み中))、新規作成の場合はランダム生成のuuidに、既存のインスタンスを返す場合は既存のuuidをそのまま返す仕様になっている。  
+`id`は新規作成の場合はランダム生成のuuidに、既存のインスタンスを返す場合は既存のuuidをそのまま返す仕様になっている。  
 しかし、矛盾が起こるuuidの指定をされた場合にどのような動作をするかよくわからないのでjsonは指定しない形でPOSTすることを推奨
+
+`lecture`、`which_class_held`のそれぞれ`ID`に対して、不都合な`ID`が渡された場合、`400 Bad Request`が返る。  
+
+具体的な場合としては
+- 存在しないデータを指す`ID`が渡された場合
+- 教室が扱っていない講義の`ID`が渡された場合
+- 教室の講義に対して既に講義情報(lec_infos)インスタンスが存在する場合 (任意の教室の講義に対して、講義開催情報は1対1)  
 
 ## `/lec_infos/<uuid>/`
 ### GET
 \<uuid\>の講義開催情報(lec_infos)インスタンスを返す
 
 ### PUT(おそらくエラー)
+```json
+{
+    "lecture": {
+        "lec_id": 1
+    },
+    "which_class_held": "d1013537-a869-4d1c-a444-513f6d3be5d9",
+    "is_personal_lec": false,
+    "is_iphone": true,
+    "can_select_date": false
+}
+```
 \<uuid\>の講義開催情報(lec_infos)インスタンスを更新する
+
+`schedules`は読み取り専用なのでここから追加、更新などはできない。講義日付(lec_infosdate)を紐づけたい場合は[講義日付(lec_infos/date)のAPI](#講義日付lec_infosdateのapi) を参照
+
+`lecture`、`which_class_held`のそれぞれ`ID`に対して、不都合な`ID`が渡された場合、`400 Bad Request`が返る。  
+
+具体的な場合としては
+- 存在しないデータを指す`ID`が渡された場合
+- 教室が扱っていない講義の`ID`が渡された場合
+- 教室の講義に対して既に講義情報(lec_infos)インスタンスが存在する場合 (任意の教室の講義に対して、講義開催情報は1対1)  
 
 ### DELETE
 \<uuid\>の講義開催情報(lec_infos)インスタンスを削除する
