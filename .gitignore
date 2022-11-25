@@ -9,5 +9,5 @@ chromedriver.exe
 # for my notes activate env
 activate.*
     
-administer_data/data
+administer_data/scraping/data
 aboutAPI.md
