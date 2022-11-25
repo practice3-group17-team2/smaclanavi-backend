@@ -36,8 +36,8 @@ class Prefecture(models.Model):
     pref_name = models.CharField(max_length=20, unique=True)
 
     def __str__(self):
-        return self.pref_name
-
+        # return f"<Prefecture: {self.pref_name}>"
+        return '%s object (%s)' % (self.__class__.__name__, self.pref_name)
 
 class City(models.Model):
     city_name = models.CharField(max_length=20, unique=True)
@@ -48,7 +48,8 @@ class City(models.Model):
                                    default=1)
 
     def __str__(self):
-        return self.city_name
+        # return f"<City: {self.city_name}>"
+        return '%s object (%s)' % (self.__class__.__name__, self.city_name)
 
 
 class Lecture(models.Model):
@@ -57,12 +58,17 @@ class Lecture(models.Model):
     is_target_old = models.BooleanField(blank=True, default=True)
 
     def __str__(self):
-        return self.lecture_content
+        # return f"<Lecture: {self.lecture_content}>"
+        return '%s object (%s)' % (self.__class__.__name__, self.lecture_content)
 
 
 class ClassOrganizer(models.Model):
     # class_org instance(pk=1) = 個人運営
     organizer_name = models.CharField(unique=True, max_length=20)
+
+    def __str__(self) -> str:
+        # return f"<ClassOrganizer: {self.organizer_name}>"
+        return '%s object (%s)' % (self.__class__.__name__, self.organizer_name)
 
 
 class ClassInfo(AbstractUUIDModel):
@@ -88,7 +94,8 @@ class ClassInfo(AbstractUUIDModel):
         ordering = ['created']
 
     def __str__(self):
-        return self.class_name
+        # return f"<Classinfo: {self.class_name}>"
+        return '%s object (%s)' % (self.__class__.__name__, self.class_name)
 
 
 class Review(AbstractUUIDModel):
@@ -100,7 +107,8 @@ class Review(AbstractUUIDModel):
     author = models.CharField(max_length=20, blank=True, default='名無し')
 
     def __str__(self) -> str:
-        return super().__str__() + ":" + self.review_text[:5]
+        # return f"<Review: {self.review_text[:5]}>"
+        return '%s object (%s)' % (self.__class__.__name__, self.review_text[:5])
 
 
 class UpcomingLecInfos(AbstractUUIDModel):
@@ -116,8 +124,8 @@ class UpcomingLecInfos(AbstractUUIDModel):
     can_select_date = models.BooleanField(blank=True, default=False)
 
     def __str__(self) -> str:
-        #return super().__str__()
-        return 'UpcomeLecInfos object ({0}, {1})'.format(self.lecture_content, self.which_class_held)
+        # return f'<UpcomeLecInfos object ({self.lecture_content.lecture_content}, {self.which_class_held.class_name})>'
+        return '%s object (%s, %s)' % (self.__class__.__name__, self.lecture_content.lecture_content, self.which_class_held.class_name)
 
 
 class LecSchedule(AbstractUUIDModel):
@@ -127,4 +135,5 @@ class LecSchedule(AbstractUUIDModel):
     date = models.DateTimeField()
 
     def __str__(self) -> str:
-        return str(self.date.date())+"_"+str(self.lec_info.lecture_content)[:7]
+        # return f"<LecSchedule: {self.lec_info}>"
+        return '%s object (%s, %s)' % (self.__class__.__name__, self.date, self.lec_info)
