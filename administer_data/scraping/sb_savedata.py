@@ -5,12 +5,12 @@ from administer_data import models
 from administer_data.scraping.data import softbank_data as sb_data
 
 
-def save_data():
+def save_data(src_file="softbank_test"):
     """ 
     pklファイルに保存されたデータからインスタンスを作成しモデルに保存する関数
     scrapingする関数の呼び出しや情報のUPDATEとかもできたらいいなと思っている
     """
-    data = sb.load_data_file_pkl(file_path="softbank.pkl")
+    data = sb.load_data_file_pkl(file_path=src_file)
     # area = (pref_id, area_id), area_name(店舗数))
     # class_info_xs = {
     # "店舗名": {
@@ -20,7 +20,7 @@ def save_data():
     #     'is_barrier_free':
     #     'address':
     # }
-
+    
     city_name_pattern = re.compile(r'[^0-9（）]+')
 
     org, _ = models.ClassOrganizer.objects.get_or_create(organizer_name="ソフトバンク")
@@ -37,15 +37,20 @@ def save_data():
             class_info = models.ClassInfo.objects.create(city=city, class_organizer=org,
                                                          **class_info)
 
+    # print(models.City.objects.all())
     sb.quit_driver()
 
 
 def dict_to_pkl_file():
-    sb.save_data_file_pkl(sb_data.data)
+    # print(sb_data.data)
+
+    sb.save_data_file_pkl(sb_data.data, "softbank-2022_11_26_14_50_49")
+    # sb.save_data_file_pkl(sb_data.data, "softbank_test")
 
 
-def fix_data():
-    data = sb.load_data_file_pkl()
+def fix_data(src_file="softbank_test"):
+    data = sb.load_data_file_pkl(src_file)
+    # print(data)
     for area, class_info_xs in data.items():
         for class_info in class_info_xs.values():
             if class_info["has_parking"] in ["None", "－"]:
@@ -58,13 +63,9 @@ def fix_data():
             else:
                 class_info["is_barrier_free"] = True
 
-    sb.save_data_file_pkl(data)
+    # print(data)
+    sb.save_data_file_pkl(data, file_path=src_file+"_fixed")
     sb.quit_driver()
-
-
-def create_and_fix_data():
-    dict_to_pkl_file()
-    fix_data()
 
 
 if __name__ == "__main__":
