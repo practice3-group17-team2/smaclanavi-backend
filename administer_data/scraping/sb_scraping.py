@@ -499,12 +499,12 @@ class SBscraping(SBgetAreaURLs, SBgetShopURLs, SBgetShopInfo):
 
     @classmethod
     def save_data_file_pkl(cls, data:dict, file_path):
-        with open(os.path.join("./administer_data/scraping/data/", file_path), 'wb') as f:
+        with open(os.path.join("./administer_data/scraping/data/", file_path+".pkl"), 'wb') as f:
             pickle.dump(data, f)
     
 
     @classmethod
     def load_data_file_pkl(cls, file_path) -> dict:
-        with open(os.path.join('./administer_data/scraping/data/', file_path), 'rb') as f:
+        with open(os.path.join('./administer_data/scraping/data/', file_path+".pkl"), 'rb') as f:
             dict_pkl = pickle.load(f)
         return dict_pkl
