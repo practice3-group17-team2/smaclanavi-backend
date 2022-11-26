@@ -178,6 +178,7 @@ class SBgetShopInfo(ScrapingBase):
             tmp_data = tmp_data[0].string
             tmp_data = str(tmp_data).replace("　", " ")
             datas[key] = tmp_data
+        datas["site_url"] = url
         return datas
 
 
@@ -435,10 +436,10 @@ class SBscraping(SBgetAreaURLs, SBgetShopURLs, SBgetShopInfo):
         {
             (('14', '141011'), '横浜市鶴見区（2）'): {
                 'ソフトバンク鶴見': {
-                    'name': 'ソフトバンク鶴見',
-                    'phone': '045-505-0500',
-                    'parking': 'None',
-                    'barrier_free': '○',
+                    'class_name': 'ソフトバンク鶴見',
+                    'phone_number': '045-505-0500',
+                    'has_parking': 'None',
+                    'is_barrier_free': '○',
                     'address': '神奈川県横浜市鶴見区鶴見中央４丁目１５‐７'
                 }
             }
@@ -447,7 +448,7 @@ class SBscraping(SBgetAreaURLs, SBgetShopURLs, SBgetShopInfo):
         tmp = {}
         for shop_url in shop_urls_by_area:
             datas = SBgetShopInfo.scrape_shop_info(shop_url)
-            tmp[datas["name"]] = datas
+            tmp[datas["class_name"]] = datas
             time.sleep(1)
 
         cls.sb_shop_infos[key] = tmp
@@ -497,13 +498,13 @@ class SBscraping(SBgetAreaURLs, SBgetShopURLs, SBgetShopInfo):
             #     cls.get_shop_infos_by_area(area_key, shop_urls_by_area)
 
     @classmethod
-    def save_data_file_pkl(cls, data:dict, file_path="softbank.pkl"):
+    def save_data_file_pkl(cls, data:dict, file_path):
         with open(os.path.join("./administer_data/scraping/data/", file_path), 'wb') as f:
             pickle.dump(data, f)
     
 
     @classmethod
-    def load_data_file_pkl(cls, file_path="softbank.pkl") -> dict:
+    def load_data_file_pkl(cls, file_path) -> dict:
         with open(os.path.join('./administer_data/scraping/data/', file_path), 'rb') as f:
             dict_pkl = pickle.load(f)
         return dict_pkl
