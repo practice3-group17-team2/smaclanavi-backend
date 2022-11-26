@@ -17,7 +17,7 @@ import datetime
 
 class TestSB(TestCase):
     """ 
-    manage.py test administer_data.tests.TestSB
+    manage.py test administer_data.tests.test_scraping.TestSB
     """
     pref_key = "13"
 
