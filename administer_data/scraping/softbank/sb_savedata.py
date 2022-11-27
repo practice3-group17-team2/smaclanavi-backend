@@ -1,6 +1,6 @@
 import re
 
-from administer_data.scraping.sb_scraping import SBscraping as sb
+from administer_data.scraping.softbank.sb_scrape_class_info import SBscraping as sb
 from administer_data import models
 from administer_data.scraping.data import softbank_data as sb_data
 
