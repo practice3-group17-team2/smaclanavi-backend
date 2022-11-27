@@ -1,6 +1,8 @@
-import re, time, os, pickle
-import os
+import re
+import time
+
 from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor
+
 from ..scraping import ScrapingBase, ScrapingSeleBase
 
 
@@ -348,9 +350,9 @@ class SBscraping(SBgetAreaURLs, SBgetShopURLs, SBgetShopInfo):
                 }
             }
             cls.sb_area_ids = tmp
-        
+
         no_shop_in_area = re.compile("（[0|０]）")
-        
+
         for key, area_ids_by_pref in cls.sb_area_ids.items():
             tmp = {}
             for area_id_tuple, area_name in area_ids_by_pref.items():
@@ -423,7 +425,7 @@ class SBscraping(SBgetAreaURLs, SBgetShopURLs, SBgetShopInfo):
                 else:
                     shop_urls = SBgetShopURLs.scrape_shop_urls(area_url)
                     time.sleep(1)
-                
+
                 tmp[area_key, cls.sb_area_ids[pref_key][area_key]] = shop_urls
 
             cls.sb_shop_urls[pref_key] = tmp
@@ -459,7 +461,8 @@ class SBscraping(SBgetAreaURLs, SBgetShopURLs, SBgetShopInfo):
         print("area_key", area_key)
         if no_shop_in_area.search(area_key[1]):
             return
-        print("shop_urls_by_area({0}): {1}".format(len(shop_urls_by_area), shop_urls_by_area))
+        print("shop_urls_by_area({0}): {1}".format(len(shop_urls_by_area),
+                                                   shop_urls_by_area))
         cls.get_shop_infos_by_area(area_key, shop_urls_by_area)
 
         # result = SBscraping.show_sb_shop_infos()
@@ -489,22 +492,12 @@ class SBscraping(SBgetAreaURLs, SBgetShopURLs, SBgetShopInfo):
         no_shop_in_area = re.compile("（[0|０]）")
         for shop_urls_by_pref in cls.sb_shop_urls.values():
             with ThreadPoolExecutor(max_workers=2) as executor:
-                executor.map(cls.call_get_shop_infos_by_area, shop_urls_by_pref.keys(), shop_urls_by_pref.values())
+                executor.map(cls.call_get_shop_infos_by_area,
+                             shop_urls_by_pref.keys(),
+                             shop_urls_by_pref.values())
             # for area_key, shop_urls_by_area in shop_urls_by_pref.items():
             #     print("area_key", area_key)
             #     if no_shop_in_area.search(area_key[1]):
             #         continue
             #     print("shop_urls_by_area({0}): {1}".format(len(shop_urls_by_area), shop_urls_by_area))
             #     cls.get_shop_infos_by_area(area_key, shop_urls_by_area)
-
-    @classmethod
-    def save_data_file_pkl(cls, data:dict, file_path):
-        with open(os.path.join("./administer_data/scraping/data/", file_path+".pkl"), 'wb') as f:
-            pickle.dump(data, f)
-    
-
-    @classmethod
-    def load_data_file_pkl(cls, file_path) -> dict:
-        with open(os.path.join('./administer_data/scraping/data/', file_path+".pkl"), 'rb') as f:
-            dict_pkl = pickle.load(f)
-        return dict_pkl
