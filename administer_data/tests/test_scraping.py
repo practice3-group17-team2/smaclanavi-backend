@@ -233,7 +233,7 @@ class TestURLNeedSele(TestCase):
                 "shop_infos": "",
             },
             "lec_info":{
-                "tmp": ""
+                "tmp": "#tab-1 > div > div > div:nth-child(1) > div > div > label > div.input-group-prepend > span"
             },
             "lec_schedule":{}
         },
@@ -243,31 +243,34 @@ class TestURLNeedSele(TestCase):
 
     selector = selectors["softbank"]["lec_info"]["tmp"]
     
-    def gene_result_with_selenium(self):
-        ScrapingSeleBase.scrape_data(self.url, self.selector)
-        ScrapingSeleBase.quit_driver()
     
-    result_with_selenium = gene_result_with_selenium()
+    result_with_selenium = ScrapingSeleBase.scrape_data(url, selector)
     result_without_selenium = ScrapingBase.scrape_data(url, selector)
+    ScrapingSeleBase.quit_driver()
 
     def test_is_scraping_succeed(self):
+        """
+        スクレイピングがうまくいっているかどうかを試す。
+        selenium有無にかかわらずどちらかに取得結果があればテストを通過する
+        """
         print(f"Test debug print:{self.result_with_selenium}\n")
         print(f"Test debug print:{self.result_without_selenium}\n")
 
         is_result_existed = self.result_with_selenium or self.result_without_selenium
-        self.assertTrue(is_result_existed)
+        self.assertTrue(is_result_existed, msg="result is existed")
     
     def test_isneed_selenium(self):
         """ 
         manage.py test administer_data.tests.TestURLNeedSele.test_isneed_selenium
-        こいつがassertion出さないならseleniumの必要はない
+        seleniumなしでは取得できず、seleniumありだと取得できた場合のみ通過する
+        こいつがassertion出すならseleniumが必要ない or スクレイピングが上手くいってない
         """
         print(f"Test debug print:{self.result_with_selenium}\n")
 
-        self.assertFalse(self.result_without_selenium)
-        self.assertTrue(self.result_with_selenium)
+        self.assertFalse(self.result_without_selenium, msg="you can scrape without selenium")
+        self.assertTrue(self.result_with_selenium, msg="you couldn't scrape with selenium")
 
-    def test_selenium(self):
+    def _test_selenium(self):
         """
         manage.py test administer_data.tests.TestURLNeedSele.test_selenium
         """
