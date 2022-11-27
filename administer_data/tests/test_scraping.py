@@ -189,6 +189,14 @@ class TestSB(TestCase):
         #     print(i)
 
 
+class TestSoftBankLecInfoScraping(TestCase):
+    pass
+
+
+class TestSoftBankLecScheduleScraping(TestCase):
+    pass
+
+
 class TestURLNeedSele(TestCase):
     """ 
     manage.py test administer_data.tests.TestURLNeedSele
@@ -197,50 +205,73 @@ class TestURLNeedSele(TestCase):
     """
     urls = {
         "softbank": {
-            "area_urls": "https://www.softbank.jp/shop/search/list/?pref=13",
-            "shop_urls":
-            "https://www.softbank.jp/shop/search/list/?spadv=on&pref=13&area=131172&cid=tpsk_191119_mobile",
-            "shop_infos": "",
+            "class_info": {
+                "area_urls":
+                "https://www.softbank.jp/shop/search/list/?pref=13",
+                "shop_urls":
+                "https://www.softbank.jp/shop/search/list/?spadv=on&pref=13&area=131172&cid=tpsk_191119_mobile",
+                "shop_infos": ""
+            },
+            "lec_info":{
+                "tmp": "https://spcr.reserve.mb.softbank.jp/spad-self/reservation/TD20"
+            },
+            "lec_schedule":{}
         },
         "docomo": {},
         "au": {}
     }
 
-    url = urls["softbank"]["area_urls"]
+    url = urls["softbank"]["lec_info"]["tmp"]
 
     selectors = {
         "softbank": {
-            "area_urls":
-            "#contents > section > div > div.shop-page-u96-loaded-contents.is-loaded > div.shop-page-u96-shop-search-container > div.shop-page-u96-shop-search-pulldown > div:nth-child(2) > select > option",
-            "shop_urls":
-            "#js-shop-list > ul > li > div.shop-page-u96-shop-list-item_headder > h3 > a",
-            "shop_infos": "",
+            "class_info":{
+                "area_urls":
+                "#contents > section > div > div.shop-page-u96-loaded-contents.is-loaded > div.shop-page-u96-shop-search-container > div.shop-page-u96-shop-search-pulldown > div:nth-child(2) > select > option",
+                "shop_urls":
+                "#js-shop-list > ul > li > div.shop-page-u96-shop-list-item_headder > h3 > a",
+                "shop_infos": "",
+            },
+            "lec_info":{
+                "tmp": ""
+            },
+            "lec_schedule":{}
         },
         "docomo": {},
         "au": {}
     }
 
-    selector = selectors["softbank"]["area_urls"]
+    selector = selectors["softbank"]["lec_info"]["tmp"]
+    
+    def gene_result_with_selenium(self):
+        ScrapingSeleBase.scrape_data(self.url, self.selector)
+        ScrapingSeleBase.quit_driver()
+    
+    result_with_selenium = gene_result_with_selenium()
+    result_without_selenium = ScrapingBase.scrape_data(url, selector)
 
+    def test_is_scraping_succeed(self):
+        print(f"Test debug print:{self.result_with_selenium}\n")
+        print(f"Test debug print:{self.result_without_selenium}\n")
+
+        is_result_existed = self.result_with_selenium or self.result_without_selenium
+        self.assertTrue(is_result_existed)
+    
     def test_isneed_selenium(self):
         """ 
         manage.py test administer_data.tests.TestURLNeedSele.test_isneed_selenium
         こいつがassertion出さないならseleniumの必要はない
         """
-        result = ScrapingBase.scrape_data(self.url, self.selector)
-        print("Test debug print:", result)
-        self.assertNotEqual(result, [])
-        return result
+        print(f"Test debug print:{self.result_with_selenium}\n")
+
+        self.assertFalse(self.result_without_selenium)
+        self.assertTrue(self.result_with_selenium)
 
     def test_selenium(self):
         """
         manage.py test administer_data.tests.TestURLNeedSele.test_selenium
         """
-        result = ScrapingSeleBase.scrape_data(self.url, self.selector)
-        ScrapingSeleBase.quit_driver()
-        print("Test debug print:", result)
-        self.assertNotEqual(result, [])
-        return result
+        print("Test debug print:", self.result_with_selenium)
 
     # def compare_bs4_sele(self):
     #     tmp1 = ScrapingBase.scrape_data(self.url, self.selector)
@@ -258,7 +289,68 @@ class TestSBgetAreaURLs(TestCase):
 
     def test_scrape_area_urls(self):
         expected_dic = {
-            ('13', '131016'): '千代田区（4）',('13', '131024'): '中央区（5）',('13', '131032'): '港区（7）',('13', '131041'): '新宿区（9）',('13', '131059'): '文京 区（2）',('13', '131067'): '台東区（4）',('13', '131075'): '墨田区（4）',('13', '131083'): '江東区（9）',('13', '131091'): '品川区（10）',('13', '131105'): '目黒区（5）',('13', '131113'): '大田区（11）',('13', '131121'): '世田谷区（15）',('13', '131130'): '渋谷区（6）',('13', '131148'): '中野区（4）',('13', '131156'): '杉並区（7）',('13', '131164'): '豊島区（8）',('13', '131172'): '北区（4）',('13', '131181'): '荒川区（4）',('13', '131199'): '板橋区（7 ）',('13', '131202'): '練馬区（9）',('13', '131211'): '足立区（8）',('13', '131229'): '葛飾区（5）',('13', '131237'): '江戸川区（8）',('13', '132012'): '八王子市（9）',('13', '132021'): '立川市（3）',('13', '132039'): '武蔵野市（4）',('13', '132047'): '三鷹市（1）',('13', '132055'): '青梅市（1）',('13', '132063'): '府中市（2）',('13', '132071'): '昭島市（1）',('13', '132080'): '調布市（4）',('13', '132098'): '町田市（8）',('13', '132101'): '小金井市（1 ）',('13', '132110'): '小平市（3）',('13', '132128'): '日野市（3）',('13', '132136'): '東村山市（3）',('13', '132144'): '国分寺市（3）',('13', '132152'): '国立市（2）',('13', '132187'): '福生市（1）',('13', '132195'): '狛江市（1）',('13', '132209'): '東大和市（1）',('13', '132217'): '清瀬市（1）',('13', '132225'): '東久留米市（2）',('13', '132233'): '武蔵村山市（1）',('13', '132241'): '多摩市（3）',('13', '132250'): '稲城市（2）',('13', '132276'): '羽村市（2）',('13', '132284'): 'あきる野市（0）',('13', '132292'): '西東京市（3）',('13', '133035'): '西多摩郡瑞穂町（1）',('13', '133051'): '西多摩郡日の出 町（1）',('13', '133078'): '西多摩郡檜原村（0）',('13', '133086'): '西多摩郡奥多摩町（0）',('13', '133612'): '大島町（0）',('13', '133621'): '利島村（0）',('13', '133639'): '新島村（0）',('13', '133647'): '神津島村（0）',('13', '133817'): '三宅村（0）',('13', '133825'): '御蔵島村（0）',('13', '134015'): '八丈町（0）',('13', '134023'): '青ヶ島村（0）',('13', '134210'): '小笠原村（0）'
+            ('13', '131016'): '千代田区（4）',
+            ('13', '131024'): '中央区（5）',
+            ('13', '131032'): '港区（7）',
+            ('13', '131041'): '新宿区（9）',
+            ('13', '131059'): '文京 区（2）',
+            ('13', '131067'): '台東区（4）',
+            ('13', '131075'): '墨田区（4）',
+            ('13', '131083'): '江東区（9）',
+            ('13', '131091'): '品川区（10）',
+            ('13', '131105'): '目黒区（5）',
+            ('13', '131113'): '大田区（11）',
+            ('13', '131121'): '世田谷区（15）',
+            ('13', '131130'): '渋谷区（6）',
+            ('13', '131148'): '中野区（4）',
+            ('13', '131156'): '杉並区（7）',
+            ('13', '131164'): '豊島区（8）',
+            ('13', '131172'): '北区（4）',
+            ('13', '131181'): '荒川区（4）',
+            ('13', '131199'): '板橋区（7 ）',
+            ('13', '131202'): '練馬区（9）',
+            ('13', '131211'): '足立区（8）',
+            ('13', '131229'): '葛飾区（5）',
+            ('13', '131237'): '江戸川区（8）',
+            ('13', '132012'): '八王子市（9）',
+            ('13', '132021'): '立川市（3）',
+            ('13', '132039'): '武蔵野市（4）',
+            ('13', '132047'): '三鷹市（1）',
+            ('13', '132055'): '青梅市（1）',
+            ('13', '132063'): '府中市（2）',
+            ('13', '132071'): '昭島市（1）',
+            ('13', '132080'): '調布市（4）',
+            ('13', '132098'): '町田市（8）',
+            ('13', '132101'): '小金井市（1 ）',
+            ('13', '132110'): '小平市（3）',
+            ('13', '132128'): '日野市（3）',
+            ('13', '132136'): '東村山市（3）',
+            ('13', '132144'): '国分寺市（3）',
+            ('13', '132152'): '国立市（2）',
+            ('13', '132187'): '福生市（1）',
+            ('13', '132195'): '狛江市（1）',
+            ('13', '132209'): '東大和市（1）',
+            ('13', '132217'): '清瀬市（1）',
+            ('13', '132225'): '東久留米市（2）',
+            ('13', '132233'): '武蔵村山市（1）',
+            ('13', '132241'): '多摩市（3）',
+            ('13', '132250'): '稲城市（2）',
+            ('13', '132276'): '羽村市（2）',
+            ('13', '132284'): 'あきる野市（0）',
+            ('13', '132292'): '西東京市（3）',
+            ('13', '133035'): '西多摩郡瑞穂町（1）',
+            ('13', '133051'): '西多摩郡日の出 町（1）',
+            ('13', '133078'): '西多摩郡檜原村（0）',
+            ('13', '133086'): '西多摩郡奥多摩町（0）',
+            ('13', '133612'): '大島町（0）',
+            ('13', '133621'): '利島村（0）',
+            ('13', '133639'): '新島村（0）',
+            ('13', '133647'): '神津島村（0）',
+            ('13', '133817'): '三宅村（0）',
+            ('13', '133825'): '御蔵島村（0）',
+            ('13', '134015'): '八丈町（0）',
+            ('13', '134023'): '青ヶ島村（0）',
+            ('13', '134210'): '小笠原村（0）'
         }
 
         # result = SBgetAreaURLs.scrape_area_keys(self.url)
