@@ -2,7 +2,6 @@ import datetime
 
 from django.test import TestCase
 
-from administer_data.scraping.savedata_old import save_data
 from administer_data.scraping.scraping import ScrapingBase, ScrapingSeleBase
 from administer_data.scraping.softbank import sb_savedata
 from administer_data.scraping.softbank.sb_scrape_class_info import SBgetAreaURLs, SBgetShopURLs, SBgetShopInfo
@@ -383,17 +382,18 @@ class TestSoftBankLecInfoScraping(TestCase):
     def _test_customed_scrape_data(self):
         url = "https://spcr.reserve.mb.softbank.jp/spad-self/reservation/TD20"
         info_selecter = "#middle-category-card-row > div > div > div.new-category-card-header.text-lg-left"
-        button_selecter ="#tab-1 > div > div > div:nth-child(1) > div > div > label"
+        button_selecter = "#tab-1 > div > div > div:nth-child(1) > div > div > label"
 
         expected_data_text = "スマホ 体験編"
-        
-        result = SBLecInfoScraper.scrape_data(url, info_selecter, button_selecter)
+
+        result = SBLecInfoScraper.scrape_data(url, info_selecter,
+                                              button_selecter)
         SBLecInfoScraper.quit_driver()
 
         print(result)
         self.assertTrue(result)
         self.assertEqual(result[0].text, expected_data_text)
-    
+
     def test_get_lec_info_divs_by_class(self):
         class_id = "TD20"
         expected_data_text = "スマホ 体験編"
@@ -450,10 +450,10 @@ class TestURLNeedSele(TestCase):
                 "#tab-1 > div > div > div > div > div > label > div.input-group-prepend > span",
                 "category_card":
                 #  "#middle-category-card-row > div"
-                "#middle-category-card-row > div > div > div.new-category-card-header.text-lg-left"
-                ,
+                "#middle-category-card-row > div > div > div.new-category-card-header.text-lg-left",
                 # "button_selecter": "#tab-1 > div > div > div > div > div > label"
-                "button_selecter": "#tab-1 > div > div > div:nth-child(1) > div > div > label"
+                "button_selecter":
+                "#tab-1 > div > div > div:nth-child(1) > div > div > label"
             },
             "lec_schedule": {}
         },
@@ -467,7 +467,8 @@ class TestURLNeedSele(TestCase):
     # print(url, selector, button_selecter, sep="\n\n")
 
     # result_with_selenium = ScrapingSeleBase.scrape_data(url, selector)
-    result_with_selenium = SBLecInfoScraper.scrape_data(url, selector, button_selecter)
+    result_with_selenium = SBLecInfoScraper.scrape_data(
+        url, selector, button_selecter)
     result_without_selenium = ScrapingBase.scrape_data(url, selector)
     ScrapingSeleBase.quit_driver()
 

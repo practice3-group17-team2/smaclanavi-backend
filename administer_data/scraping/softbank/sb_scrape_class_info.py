@@ -495,9 +495,3 @@ class SBscraping(SBgetAreaURLs, SBgetShopURLs, SBgetShopInfo):
                 executor.map(cls.call_get_shop_infos_by_area,
                              shop_urls_by_pref.keys(),
                              shop_urls_by_pref.values())
-            # for area_key, shop_urls_by_area in shop_urls_by_pref.items():
-            #     print("area_key", area_key)
-            #     if no_shop_in_area.search(area_key[1]):
-            #         continue
-            #     print("shop_urls_by_area({0}): {1}".format(len(shop_urls_by_area), shop_urls_by_area))
-            #     cls.get_shop_infos_by_area(area_key, shop_urls_by_area)

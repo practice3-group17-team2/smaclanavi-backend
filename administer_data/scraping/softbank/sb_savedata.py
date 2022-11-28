@@ -6,14 +6,16 @@ from administer_data import models
 from administer_data.scraping.save_data import BaseDataRecoder
 # from administer_data.scraping.data import softbank_data as sb_data
 
+
 class SoftBankDataRecorder(BaseDataRecoder):
+
     @classmethod
     def save_data_to_pkl_file(cls, data: dict, file_path):
-        return super().save_data_to_pkl_file(data, "softbank/"+file_path)
+        return super().save_data_to_pkl_file(data, "softbank/" + file_path)
 
     @classmethod
     def load_data_from_pkl_file(cls, file_path) -> dict:
-        return super().load_data_from_pkl_file("softbank/"+file_path)
+        return super().load_data_from_pkl_file("softbank/" + file_path)
 
     @classmethod
     def save_fixed_data_to_model(cls, src_file="softbank_test"):
@@ -47,9 +49,8 @@ class SoftBankDataRecorder(BaseDataRecoder):
                                                         prefecture=pref)
 
             for class_info in class_info_xs.values():
-                class_info = models.ClassInfo.objects.create(city=city,
-                                                            class_organizer=org,
-                                                            **class_info)
+                class_info = models.ClassInfo.objects.create(
+                    city=city, class_organizer=org, **class_info)
 
         # print(models.City.objects.all())
 
@@ -58,7 +59,6 @@ class SoftBankDataRecorder(BaseDataRecoder):
 
     #     sb.save_data_file_pkl(sb_data.data, "softbank-2022_11_26_14_50_49")
     #     # sb.save_data_file_pkl(sb_data.data, "softbank_test")
-
 
     @classmethod
     def fix_data(cls, src_file="softbank_test"):

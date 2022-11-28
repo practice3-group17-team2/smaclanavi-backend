@@ -63,5 +63,3 @@ class TestSbSaveData(TestCase):
         load_dic = SoftBankDataRecorder.load_data_from_pkl_file(self.file_name)
 
         self.assertEqual(dic, load_dic)
-        # for i in load_dic.items():
-        #     print(i)
