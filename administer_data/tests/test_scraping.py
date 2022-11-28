@@ -2,11 +2,12 @@ import datetime
 
 from django.test import TestCase
 
-from ..scraping.savedata_old import save_data
-from ..scraping.scraping import ScrapingBase, ScrapingSeleBase
-from ..scraping.softbank.sb_scrape_class_info import SBgetAreaURLs, SBgetShopURLs, SBgetShopInfo
-from ..scraping.softbank.sb_scrape_class_info import SBscraping
-from ..scraping.softbank import sb_savedata
+from administer_data.scraping.savedata_old import save_data
+from administer_data.scraping.scraping import ScrapingBase, ScrapingSeleBase
+from administer_data.scraping.softbank import sb_savedata
+from administer_data.scraping.softbank.sb_scrape_class_info import SBgetAreaURLs, SBgetShopURLs, SBgetShopInfo
+from administer_data.scraping.softbank.sb_scrape_class_info import SBscraping
+from administer_data.scraping.softbank.sb_scrape_lec_info import SBLecInfoScraper
 
 # Create your tests here.
 
@@ -379,8 +380,29 @@ class TestSB(TestCase):
 
 class TestSoftBankLecInfoScraping(TestCase):
 
-    def test_scrape_softbank_lec_info(self):
-        pass
+    def _test_customed_scrape_data(self):
+        url = "https://spcr.reserve.mb.softbank.jp/spad-self/reservation/TD20"
+        info_selecter = "#middle-category-card-row > div > div > div.new-category-card-header.text-lg-left"
+        button_selecter ="#tab-1 > div > div > div:nth-child(1) > div > div > label"
+
+        expected_data_text = "スマホ 体験編"
+        
+        result = SBLecInfoScraper.scrape_data(url, info_selecter, button_selecter)
+        SBLecInfoScraper.quit_driver()
+
+        print(result)
+        self.assertTrue(result)
+        self.assertEqual(result[0].text, expected_data_text)
+    
+    def test_get_lec_info_divs_by_class(self):
+        class_id = "TD20"
+        expected_data_text = "スマホ 体験編"
+
+        result = SBLecInfoScraper.get_lec_info_divs_by_class(class_id)
+
+        print(result)
+        self.assertTrue(result)
+        # self.assertEqual(result[0].text, expected_data_text)
 
 
 class TestSoftBankLecScheduleScraping(TestCase):
@@ -389,7 +411,7 @@ class TestSoftBankLecScheduleScraping(TestCase):
 
 class TestURLNeedSele(TestCase):
     """ 
-    manage.py test administer_data.tests.TestURLNeedSele
+    manage.py test administer_data.tests.test_scraping.TestURLNeedSele
     urlとセレクターを使ってseleniumなしで
     スクレイピングできるか試すクラス 
     """
@@ -424,8 +446,14 @@ class TestURLNeedSele(TestCase):
                 "shop_infos": "",
             },
             "lec_info": {
-                "tmp":
-                "#tab-1 > div > div > div:nth-child(1) > div > div > label > div.input-group-prepend > span"
+                "tabs_tag":
+                "#tab-1 > div > div > div > div > div > label > div.input-group-prepend > span",
+                "category_card":
+                #  "#middle-category-card-row > div"
+                "#middle-category-card-row > div > div > div.new-category-card-header.text-lg-left"
+                ,
+                # "button_selecter": "#tab-1 > div > div > div > div > div > label"
+                "button_selecter": "#tab-1 > div > div > div:nth-child(1) > div > div > label"
             },
             "lec_schedule": {}
         },
@@ -433,13 +461,17 @@ class TestURLNeedSele(TestCase):
         "au": {}
     }
 
-    selector = selectors["softbank"]["lec_info"]["tmp"]
+    selector = selectors["softbank"]["lec_info"]["category_card"]
+    button_selecter = selectors["softbank"]["lec_info"]["button_selecter"]
 
-    result_with_selenium = ScrapingSeleBase.scrape_data(url, selector)
+    # print(url, selector, button_selecter, sep="\n\n")
+
+    # result_with_selenium = ScrapingSeleBase.scrape_data(url, selector)
+    result_with_selenium = SBLecInfoScraper.scrape_data(url, selector, button_selecter)
     result_without_selenium = ScrapingBase.scrape_data(url, selector)
     ScrapingSeleBase.quit_driver()
 
-    def test_is_scraping_succeed(self):
+    def _test_is_scraping_succeed(self):
         """
         スクレイピングがうまくいっているかどうかを試す。
         selenium有無にかかわらずどちらかに取得結果があればテストを通過する
@@ -448,7 +480,7 @@ class TestURLNeedSele(TestCase):
         print(f"Test debug print:{self.result_without_selenium}\n")
 
         is_result_existed = self.result_with_selenium or self.result_without_selenium
-        self.assertTrue(is_result_existed, msg="result is existed")
+        self.assertTrue(is_result_existed, msg="result is not existed")
 
     def test_isneed_selenium(self):
         """ 
@@ -457,6 +489,8 @@ class TestURLNeedSele(TestCase):
         こいつがassertion出すならseleniumが必要ない or スクレイピングが上手くいってない
         """
         print(f"Test debug print:{self.result_with_selenium}\n")
+
+        print(self.result_with_selenium[0].text)
 
         self.assertFalse(self.result_without_selenium,
                          msg="you can scrape without selenium")
