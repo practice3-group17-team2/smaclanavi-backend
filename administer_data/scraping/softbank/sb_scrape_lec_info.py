@@ -4,6 +4,7 @@ import os
 import pickle
 import re
 import time
+from typing import List
 
 from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor
 from selenium import webdriver
@@ -36,7 +37,8 @@ class SBLecInfoScraper(ScrapingSeleBase):
         if need_to_click:
             driver.find_element(By.CSS_SELECTOR, selector).click()
         else:
-            wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, selector)))
+            wait.until(
+                EC.visibility_of_element_located((By.CSS_SELECTOR, selector)))
         result = driver.page_source.encode('utf-8')
         return result
 
@@ -54,9 +56,10 @@ class SBLecInfoScraper(ScrapingSeleBase):
             # ret.append("aaieuaojf") # can add to resultSet
             # print(type(ret[0])) # <class 'bs4.element.Tag'>
         return ret
-    
+
     @classmethod
-    def scrape_clicked_data(cls, url: str, selector: str, button_selector: str):
+    def scrape_clicked_data(cls, url: str, selector: str,
+                            button_selector: str):
         """urlからselectorに該当する要素を全て抽出して返す関数"""
         ret = ResultSet(None, [])
         try:
@@ -79,19 +82,64 @@ class SBLecInfoScraper(ScrapingSeleBase):
 
     @classmethod
     def get_lec_info_divs_by_class(cls, class_id):
+        """
+        class_id(ex:TD20)を受け取って情報を含むdivのリストを返す関数
+        """
         result = ResultSet(None, [])
         url = cls.url_from_format(cls.lec_info_by_class_url_format,
                                   **{"class_id": class_id})
 
-        categorys = ScrapingBase.scrape_data(url, cls.getting_num_of_button_selector)
+        categorys = ScrapingBase.scrape_data(
+            url, cls.getting_num_of_button_selector)
         categorys_length = len(categorys)
-        print(categorys_length)
+        # print(categorys_length)
 
-        for nth in range(1, categorys_length+1):
+        for nth in range(1, categorys_length + 1):
             button_selector = cls.button_selector_format.format(nth)
-            result += cls.scrape_clicked_data(url, cls.lec_info_selector, button_selector) 
+            result += cls.scrape_clicked_data(url, cls.lec_info_selector,
+                                              button_selector)
         return result
 
     @classmethod
-    def get_lec_info_from_div(cls, info_divs:ResultSet) -> dict:
-        pass
+    def get_lec_info_from_divs(cls, info_divs: ResultSet) -> List[dict]:
+        """
+        get_lec_info_divs_by_classの結果のresultSetを受け取って情報の辞書のリストを返す関数
+        """
+        data = []
+
+        for i, div in enumerate(map(str, info_divs)):
+            soup = bs4.BeautifulSoup(div, 'html.parser')
+
+            time_selector = "div[id^=tagParent] > div > div.col-lg-8.col-12 > div.category-card-option > div > div > div:nth-child(1) > div > div.category-card-option-item-value"
+            ret_time = soup.select_one(time_selector)
+
+            num_of_members_selector = "div[id^=tagParent] > div > div.col-lg-8.col-12 > div.category-card-option > div > div > div:nth-child(2) > div > div.category-card-option-item-value"
+            num_of_members = soup.select_one(num_of_members_selector)
+
+            titile_selector = "div.category-card-body-title"
+            ret_title = soup.select_one(titile_selector)
+
+            category_selector = "div.new-category-card-header"
+            ret_category = soup.select_one(category_selector)
+
+            # print(f"title: {ret_title}")
+            # print(f"time: {ret_time}")
+            # print(f"members: {num_of_members}")
+
+            tmp = {}
+            tmp["lec_title"] = ret_title.text
+            tmp["required_time"] = ret_time.text
+            tmp["lecture_content"] = ret_category.text
+            tmp["num_of_members"] = num_of_members.text
+            data.append(tmp)
+
+        return data
+
+    @classmethod
+    def get_lec_info(cls, class_id) -> List[dict]:
+        """
+        class_idを受け取って講義情報の辞書のリストを返す関数
+        """
+        info_divs = cls.get_lec_info_divs_by_class(class_id)
+        data = cls.get_lec_info_from_divs(info_divs)
+        return data

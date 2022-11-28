@@ -385,7 +385,6 @@ class TestSB(TestCase):
 # manage.py test administer_data.tests.test_scraping.TestSoftBankLecInfoScraping
 class TestSoftBankLecInfoScraping(TestCase):
 
-
     def _test_scrape_clicked_data(self):
         url = "https://spcr.reserve.mb.softbank.jp/spad-self/reservation/TD20"
         info_selecter = "#middle-category-card-row > div > div > div.new-category-card-header.text-lg-left"
@@ -405,7 +404,7 @@ class TestSoftBankLecInfoScraping(TestCase):
         self.assertTrue(result)
         self.assertEqual(result[0].text, expected_data_text)
 
-    def test_get_lec_info_divs_by_class(self):
+    def _test_get_lec_info_divs_by_class(self):
         class_id = "TD20"
         expected_data_text = "スマホ 体験編"
 
@@ -422,27 +421,34 @@ class TestSoftBankLecInfoScraping(TestCase):
         div = """<div class="col col-12 middle-category-card-col"> <div class="middle-category-card mb-4"><div class="new-category-card-header text-lg-left">スマホ 体験編</div><div class="new-category-card-body"> <div class="category-card-body-title">スマホを触ってみよう</div> <div class="category-card-grid"><div id="tagParent44"><div class="row"><div class="col-lg-8 col-12"><div class="category-card-grid mt-4"><div class="row"><div class="col col-lg-3 col-6"><div class="new-label mb-2">スマホとは</div></div><div class="col col-lg-3 col-6"><div class="new-label mb-2">基本操作</div></div></div></div><div class="category-card-option"><div class="category-card-grid mt-3"><div class="row"><div class="col col-auto mr-2"><div class="category-card-option-item mb-1"><div class="category-card-option-item-icon"><img alt="" src="/spad-self/images/card_time.svg" srcset=""/></div><div class="category-card-option-item-text">所要時間</div><div class="category-card-option-item-value">45分</div></div></div><div class="col col-auto mr-2"><div class="category-card-option-item mb-1"><div class="category-card-option-item-icon"><img alt="" src="/spad-self/images/card_capacity.svg" srcset=""/></div><div class="category-card-option-item-text">定員</div><div class="category-card-option-item-value">4名</div></div></div><div class="col col-auto mr-2"><div class="category-card-option-item mb-1"><div class="category-card-option-item-icon"><img alt="" src="/spad-self/images/card_yen.svg" srcset=""/></div><div class="category-card-option-item-text">料金</div><div class="category-card-option-item-value">無料</div></div></div></div></div></div> <!-- /.category-card-option --></div><div class="col-lg-4 col-12"> <div class="custom-radios"><div class="input-group small-checkbox"><input class="small-checkbox-input" id="checkbox44" name="color1" type="radio" value="checkbox44"/><label class="small-checkbox-card mt-4 mt-lg-0 mb-0" for="checkbox44" id="78"><div class="input-group-prepend"><span class="text-mid-title">この教室を予約</span></div><span class="small-checkbox-icon"></span></label></div></div></div></div> <!-- /.カード --></div></div></div></div></div>"""
 
         test_result_set = self.test_get_lec_info_divs_by_class()
-        
 
         # if self.test_result_set:
         #     tmp = self.test_result_set[0]
         #     div = tmp
         for i, div in enumerate(map(str, test_result_set)):
-            if i==3:break
+            if i == 3: break
             soup = bs4.BeautifulSoup(div, 'html.parser')
 
             time_selector = "div[id^=tagParent] > div > div.col-lg-8.col-12 > div.category-card-option > div > div > div:nth-child(1) > div > div.category-card-option-item-value"
             ret_time = soup.select_one(time_selector)
-            
+
             num_of_members_selector = "div[id^=tagParent] > div > div.col-lg-8.col-12 > div.category-card-option > div > div > div:nth-child(2) > div > div.category-card-option-item-value"
             num_of_members = soup.select_one(num_of_members_selector)
 
             titile_selector = "div.category-card-body-title"
             ret_title = soup.select_one(titile_selector)
-        
+
             print(f"title: {ret_title}")
             print(f"time: {ret_time}")
             print(f"members: {num_of_members}")
+
+    def test_get_lec_info_from_divs(self):
+        class_id = "TD20"
+        info_divs = SBLecInfoScraper.get_lec_info_divs_by_class(class_id)
+        result = SBLecInfoScraper.get_lec_info_from_divs(info_divs)
+
+        print(result)
+        self.assertEqual(len(result), 15)
 
 
 class TestSoftBankLecScheduleScraping(TestCase):
