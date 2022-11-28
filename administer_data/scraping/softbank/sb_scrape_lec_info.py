@@ -1,4 +1,5 @@
 import bs4
+from bs4.element import ResultSet
 import os
 import pickle
 import re
@@ -42,7 +43,7 @@ class SBLecInfoScraper(ScrapingSeleBase):
     @classmethod
     def scrape_data(cls, url: str, selector: str):
         """urlからselectorに該当する要素を全て抽出して返す関数"""
-        ret = []
+        ret = ResultSet(None, [])
         try:
             result = cls.crawl_data(url, selector)
         except Exception as e:
@@ -57,7 +58,7 @@ class SBLecInfoScraper(ScrapingSeleBase):
     @classmethod
     def scrape_clicked_data(cls, url: str, selector: str, button_selector: str):
         """urlからselectorに該当する要素を全て抽出して返す関数"""
-        ret = []
+        ret = ResultSet(None, [])
         try:
             result = cls.crawl_data(url, button_selector, need_to_click=True)
         except Exception as e:
@@ -78,7 +79,7 @@ class SBLecInfoScraper(ScrapingSeleBase):
 
     @classmethod
     def get_lec_info_divs_by_class(cls, class_id):
-        result = []
+        result = ResultSet(None, [])
         url = cls.url_from_format(cls.lec_info_by_class_url_format,
                                   **{"class_id": class_id})
 
@@ -92,6 +93,5 @@ class SBLecInfoScraper(ScrapingSeleBase):
         return result
 
     @classmethod
-    def get_lec_info_from_div(cls, info_divs) -> dict:
-        
+    def get_lec_info_from_div(cls, info_divs:ResultSet) -> dict:
         pass

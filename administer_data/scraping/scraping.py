@@ -1,4 +1,5 @@
 import bs4
+from bs4.element import ResultSet
 import requests
 import sys
 
@@ -41,7 +42,7 @@ class ScrapingBase:
     @classmethod
     def scrape_data(cls, url: str, selector: str):
         """urlからselectorに該当する要素を全て抽出して返す関数"""
-        ret = None
+        ret = ResultSet(None, [])
         try:
             result = cls.crawl_data(url)
         except Exception as e:
@@ -79,7 +80,7 @@ class ScrapingSeleBase(ScrapingBase):
     @classmethod
     def scrape_data(cls, url: str, selector: str):
         """urlからselectorに該当する要素を抽出して返す関数"""
-        ret = None
+        ret = ResultSet(None, [])
         try:
             result = cls.crawl_data(url, selector)
         except Exception as e:
