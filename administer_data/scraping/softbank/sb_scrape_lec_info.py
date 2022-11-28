@@ -40,7 +40,7 @@ class SBLecInfoScraper(ScrapingSeleBase):
         try:
             result = cls.crawl_data(url, button_selecter)
         except Exception as e:
-            print("ERROR_DOWNLOAD:{}".format(e))
+            print("ERROR_DOWNLOAD:{}\n{}".format(url, e))
         else:
             soup = bs4.BeautifulSoup(result, 'html.parser')
             ret = soup.select(selector)

@@ -1,7 +1,9 @@
-import sys, bs4, requests
+import bs4
+import requests
+import sys
+
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -45,7 +47,7 @@ class ScrapingBase:
         try:
             result = cls.crawl_data(url)
         except Exception as e:
-            print("ERROR_DOWNLOAD:{}".format(e))
+            print("ERROR_DOWNLOAD:{}\n{}".format(url, e))
         else:
             soup = bs4.BeautifulSoup(result.content, 'html.parser')
             ret = soup.select(selector)
@@ -83,7 +85,7 @@ class ScrapingSeleBase(ScrapingBase):
         try:
             result = cls.crawl_data(url, selector)
         except Exception as e:
-            print("ERROR_DOWNLOAD\n{}".format(e))
+            print("ERROR_DOWNLOAD:{}\n{}".format(url, e))
         else:
             soup = bs4.BeautifulSoup(result, 'html.parser')
             ret = soup.select(selector)
