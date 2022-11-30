@@ -10,19 +10,19 @@ from administer_data.scraping.softbank.sb_scrape_class_info import SBscraping as
 class BaseDataRecoder():
 
     @classmethod
-    def save_data_to_pkl_file(cls, data: dict, file_path):
+    def save_data_to_pkl_file(cls, data, file_path):
         with open(
                 os.path.join("./administer_data/scraping/data/",
                              file_path + ".pkl"), 'wb') as f:
             pickle.dump(data, f)
 
     @classmethod
-    def load_data_from_pkl_file(cls, file_path) -> dict:
+    def load_data_from_pkl_file(cls, file_path):
         with open(
                 os.path.join('./administer_data/scraping/data/',
                              file_path + ".pkl"), 'rb') as f:
-            dict_pkl = pickle.load(f)
-        return dict_pkl
+            data_pkl = pickle.load(f)
+        return data_pkl
 
     @classmethod
     def save_fixed_data_to_model(cls, src_file="softbank_test"):

@@ -10,11 +10,11 @@ from administer_data.scraping.save_data import BaseDataRecoder
 class SoftBankDataRecorder(BaseDataRecoder):
 
     @classmethod
-    def save_data_to_pkl_file(cls, data: dict, file_path):
+    def save_data_to_pkl_file(cls, data, file_path):
         return super().save_data_to_pkl_file(data, "softbank/" + file_path)
 
     @classmethod
-    def load_data_from_pkl_file(cls, file_path) -> dict:
+    def load_data_from_pkl_file(cls, file_path):
         return super().load_data_from_pkl_file("softbank/" + file_path)
 
     @classmethod
