@@ -4,7 +4,8 @@ import re
 
 from django.test import TestCase
 
-from administer_data.scraping.softbank.sb_savedata import SoftBankDataRecorder
+from administer_data.scraping.softbank.sb_savedata import SoftBankClassDataRecorder
+from administer_data.scraping.softbank.sb_savedata import SoftBankLecDataRecorder
 from administer_data.scraping.softbank.sb_scrape_lec_info import SBLecInfoScraper
 
 
@@ -16,10 +17,20 @@ class TestSbSaveLecData(TestCase):
         file_name = f"softbank_lec_{datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S')}"
 
         dict_xs = SBLecInfoScraper.get_lec_info(class_id)
-        SoftBankDataRecorder.save_data_to_pkl_file(dict_xs, file_name)
+        SBLecInfoScraper.quit_driver()
+        SoftBankLecDataRecorder.save_data_to_pkl_file(dict_xs, file_name)
 
-        loaded_file = SoftBankDataRecorder.load_data_from_pkl_file(file_name)
+        loaded_file = SoftBankLecDataRecorder.load_data_from_pkl_file(file_name)
         self.assertEqual(loaded_file, dict_xs)
+
+    def test_print_lec_pkl_file(self):
+        file_name = "softbank_lec_akabane_2022_11_29_00_13_22"
+        loaded_file = SoftBankLecDataRecorder.load_data_from_pkl_file(file_name)
+        print(type(loaded_file[0]))  # <class 'dict'>
+        print(*loaded_file, sep="\n")  # 内容の表示
+
+    def _test_fix_data(self):
+        pass
 
 
 # python manage.py test administer_data.tests.test_savedata.TestSbSaveClassData
@@ -29,10 +40,10 @@ class TestSbSaveClassData(TestCase):
 
     # python manage.py test administer_data.tests.test_savedata.TestSbSaveClassData.test_create_and_fix_data
     def _test_create_and_fix_data(self):
-        SoftBankDataRecorder.fix_data(self.file_name)
+        SoftBankClassDataRecorder.fix_data(self.file_name)
 
     def _test_save_data(self):
-        SoftBankDataRecorder.save_fixed_data_to_model(self.file_name_fixed)
+        SoftBankClassDataRecorder.save_fixed_data_to_model(self.file_name_fixed)
 
     def reg(self):
         text = "横浜市鶴見区（2）"
@@ -76,7 +87,7 @@ class TestSbSaveClassData(TestCase):
             (('14', '141020'), '横浜市神奈川区（2）'): {}
         }
 
-        SoftBankDataRecorder.save_data_to_pkl_file(dic, self.file_name)
-        load_dic = SoftBankDataRecorder.load_data_from_pkl_file(self.file_name)
+        SoftBankClassDataRecorder.save_data_to_pkl_file(dic, self.file_name)
+        load_dic = SoftBankClassDataRecorder.load_data_from_pkl_file(self.file_name)
 
         self.assertEqual(dic, load_dic)
