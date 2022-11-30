@@ -382,7 +382,7 @@ class TestSB(TestCase):
                 datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S')))
 
 
-# manage.py test administer_data.tests.test_scraping.TestSoftBankLecInfoScraping
+# python manage.py test administer_data.tests.test_scraping.TestSoftBankLecInfoScraping
 class TestSoftBankLecInfoScraping(TestCase):
 
     def _test_scrape_clicked_data(self):

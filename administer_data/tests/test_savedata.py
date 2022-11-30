@@ -1,4 +1,4 @@
-# manage.py test administer_data.tests.test_savedata
+# python manage.py test administer_data.tests.test_savedata
 import datetime
 import re
 
@@ -8,7 +8,7 @@ from administer_data.scraping.softbank.sb_savedata import SoftBankDataRecorder
 from administer_data.scraping.softbank.sb_scrape_lec_info import SBLecInfoScraper
 
 
-# manage.py test administer_data.tests.test_savedata.TestSbSaveLecData
+# python manage.py test administer_data.tests.test_savedata.TestSbSaveLecData
 class TestSbSaveLecData(TestCase):
 
     def _make_pkl_file_from_dict_xs(self):
@@ -22,12 +22,12 @@ class TestSbSaveLecData(TestCase):
         self.assertEqual(loaded_file, dict_xs)
 
 
-# manage.py test administer_data.tests.test_savedata.TestSbSaveClassData
+# python manage.py test administer_data.tests.test_savedata.TestSbSaveClassData
 class TestSbSaveClassData(TestCase):
     file_name = "save_test_sb"
     file_name_fixed = file_name + "_fixed"
 
-    # manage.py test administer_data.tests.test_savedata.TestSbSaveClassData.test_create_and_fix_data
+    # python manage.py test administer_data.tests.test_savedata.TestSbSaveClassData.test_create_and_fix_data
     def _test_create_and_fix_data(self):
         SoftBankDataRecorder.fix_data(self.file_name)
 
