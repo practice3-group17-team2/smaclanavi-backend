@@ -9,6 +9,8 @@ from administer_data.scraping.softbank.sb_scrape_class_info import SBscraping as
 
 class BaseDataRecoder():
 
+    default_src_file = "softbank_test"
+
     @classmethod
     def save_data_to_pkl_file(cls, data, file_path):
         with open(
@@ -25,7 +27,7 @@ class BaseDataRecoder():
         return data_pkl
 
     @classmethod
-    def save_fixed_data_to_model(cls, src_file="softbank_test"):
+    def save_fixed_data_to_model(cls, src_file=default_src_file):
         """ 
         pklファイルに保存されたデータからインスタンスを作成しモデルに保存する関数
         scrapingする関数の呼び出しや情報のUPDATEとかもできたらいいなと思っている
@@ -40,7 +42,7 @@ class BaseDataRecoder():
     #     # sb.save_data_file_pkl(sb_data.data, "softbank_test")
 
     @classmethod
-    def fix_data(cls, src_file="softbank_test"):
+    def fix_data(cls, src_file=default_src_file):
         data = cls.load_data_from_pkl_file(src_file)
         # print(data)
         for key, info_xs in data.items():

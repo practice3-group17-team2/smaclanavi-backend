@@ -8,6 +8,7 @@ from administer_data.scraping.save_data import BaseDataRecoder
 
 
 class SoftBankDataRecorder(BaseDataRecoder):
+    """ save and load """
 
     @classmethod
     def save_data_to_pkl_file(cls, data, file_path):
@@ -17,8 +18,13 @@ class SoftBankDataRecorder(BaseDataRecoder):
     def load_data_from_pkl_file(cls, file_path):
         return super().load_data_from_pkl_file("softbank/" + file_path)
 
+
+class SoftBankClassDataRecorder(SoftBankDataRecorder):
+    """ fix and save to model class data"""
+    default_src_file = "softbank_class_test"
+
     @classmethod
-    def save_fixed_data_to_model(cls, src_file="softbank_test"):
+    def save_fixed_data_to_model(cls, src_file=default_src_file):
         """ 
         pklファイルに保存されたデータからインスタンスを作成しモデルに保存する関数
         scrapingする関数の呼び出しや情報のUPDATEとかもできたらいいなと思っている
@@ -61,7 +67,7 @@ class SoftBankDataRecorder(BaseDataRecoder):
     #     # sb.save_data_file_pkl(sb_data.data, "softbank_test")
 
     @classmethod
-    def fix_data(cls, src_file="softbank_test"):
+    def fix_data(cls, src_file=default_src_file):
         data = cls.load_data_from_pkl_file(src_file)
         # print(data)
         for area, class_info_xs in data.items():
@@ -78,3 +84,15 @@ class SoftBankDataRecorder(BaseDataRecoder):
 
         # print(data)
         cls.save_data_to_pkl_file(data, file_path=src_file + "_fixed")
+
+
+class SoftBankLecDataRecorder(SoftBankDataRecorder):
+    default_src_file = "softbank_lec_test"
+
+    @classmethod
+    def save_fixed_data_to_model(cls, src_file=default_src_file):
+        pass
+
+    @classmethod
+    def fix_data(cls, src_file=default_src_file):
+        pass
