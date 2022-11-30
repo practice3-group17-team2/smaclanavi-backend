@@ -1,16 +1,33 @@
 # manage.py test administer_data.tests.test_savedata
+import datetime
+import re
+
 from django.test import TestCase
 
-import re
 from administer_data.scraping.softbank.sb_savedata import SoftBankDataRecorder
+from administer_data.scraping.softbank.sb_scrape_lec_info import SBLecInfoScraper
 
 
-# manage.py test administer_data.tests.test_savedata.TestSbSaveData
-class TestSbSaveData(TestCase):
+# manage.py test administer_data.tests.test_savedata.TestSbSaveLecData
+class TestSbSaveLecData(TestCase):
+
+    def _make_pkl_file_from_dict_xs(self):
+        class_id = "TD20"
+        file_name = f"softbank_lec_{datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S')}"
+
+        dict_xs = SBLecInfoScraper.get_lec_info(class_id)
+        SoftBankDataRecorder.save_data_to_pkl_file(dict_xs, file_name)
+
+        loaded_file = SoftBankDataRecorder.load_data_from_pkl_file(file_name)
+        self.assertEqual(loaded_file, dict_xs)
+
+
+# manage.py test administer_data.tests.test_savedata.TestSbSaveClassData
+class TestSbSaveClassData(TestCase):
     file_name = "save_test_sb"
     file_name_fixed = file_name + "_fixed"
 
-    # manage.py test administer_data.tests.test_savedata.TestSbSaveData.test_create_and_fix_data
+    # manage.py test administer_data.tests.test_savedata.TestSbSaveClassData.test_create_and_fix_data
     def _test_create_and_fix_data(self):
         SoftBankDataRecorder.fix_data(self.file_name)
 
