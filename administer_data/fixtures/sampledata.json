@@ -112,7 +112,7 @@
             "lecture_content": 1,
             "which_class_held": "d1013537-a869-4d1c-a444-513f6d3be5d9",
             "is_personal_lec": false,
-            "target_unit_type": "Android",
+            "target_unit_type": "an",
             "can_select_date": false
         }
     },
@@ -125,7 +125,7 @@
             "lecture_content": 2,
             "which_class_held": "34a331b6-e224-18a6-f13e-d8dc74ccaeea",
             "is_personal_lec": false,
-            "target_unit_type": "iPhone",
+            "target_unit_type": "ip",
             "can_select_date": false
         }
     },
