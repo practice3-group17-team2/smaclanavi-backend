@@ -149,7 +149,7 @@
             },
             "which_class_held": "12345678-1234-5678-1234-567812345678",
             "is_personal_lec": false,
-            "is_iphone": true,
+            "target_unit_type": "ip", // iphoneを指す識別用の文字列
             "can_select_date": false,
             "created": "2022-10-23T14:22:12.938000Z",
             "updated": "2022-10-29T14:37:03.797000Z",
@@ -414,7 +414,7 @@ patchは実装してるのかしてないのかよくわからないです。す
     },
     "which_class_held": "d1013537-a869-4d1c-a444-513f6d3be5d9",
     "is_personal_lec": false,
-    "is_iphone": true,
+    "target_unit_type": "ip", // iphoneを指す識別用の文字列
     "can_select_date": false,
     "created": "2022-10-23T14:22:12.938000Z",
     "updated": "2022-11-13T02:16:07.745946Z",
@@ -449,7 +449,17 @@ patchは実装してるのかしてないのかよくわからないです。す
 
 `is_personal_lec`：個人向けの講義か否か、bool値  
 
-`is_iphone`：iphoneの講座か否か、bool値  
+`target_unit_type`：講座の対象の機種、文字列
+> 受け入れる文字列が決まっています。  
+> 左の列の値を送信してください、実際に情報を表示する場合は条件分岐にでも使ってください。
+> | 受け入れる文字列 | フォームのoptionに表示される文字列 |
+> | :--- | --- |
+> | "ip" | "iPhone" |
+> | "an" | "Android" |
+> | "ta" | "Tablet" |
+> | "ot" | "Other" |
+(誤字や大文字小文字ではじかれると大変という理由で二文字で識別してます。そのままiphoneとか打った方が楽そうなら修正するので言ってください。)
+
 
 `can_select_date`：日程が選べるタイプの講義か否か、bool値  
 
@@ -477,7 +487,7 @@ patchは実装してるのかしてないのかよくわからないです。す
     },
     "which_class_held": "d1013537-a869-4d1c-a444-513f6d3be5d9",
     "is_personal_lec": false,
-    "is_iphone": false,
+    "target_unit_type": "ip", // iphoneを指す識別用の文字列
     "can_select_date": false
 }
 ```
@@ -493,7 +503,10 @@ patchは実装してるのかしてないのかよくわからないです。す
 具体的な場合としては
 - 存在しないデータを指す`ID`が渡された場合
 - 教室が扱っていない講義の`ID`が渡された場合
-- 教室の講義に対して既に講義情報(lec_infos)インスタンスが存在する場合 (任意の教室の講義に対して、講義開催情報は1対1)  
+- 教室の機種の講義に対して既に講義情報(lec_infos)インスタンスが存在する場合 (任意の教室の機種の講義に対して、講義開催情報は1対1) ( (教室, 講義, 機種)のタプルについてuniqueだと思ってください)  
+
+`target_unit_type`に無効な文字列が指定された場合  有効な文字列は[講義開催情報(lec\_infos)のAPI](#講義開催情報lec_infosのapi)の各フィールドの概要を参考にしてください
+
 
 ## `/lec_infos/<uuid>/`
 ### GET
@@ -507,7 +520,7 @@ patchは実装してるのかしてないのかよくわからないです。す
     },
     "which_class_held": "d1013537-a869-4d1c-a444-513f6d3be5d9",
     "is_personal_lec": false,
-    "is_iphone": true,
+    "target_unit_type": "ip", // iphoneを指す識別用の文字列
     "can_select_date": false
 }
 ```
@@ -515,12 +528,14 @@ patchは実装してるのかしてないのかよくわからないです。す
 
 `schedules`は読み取り専用なのでここから追加、更新などはできない。講義日付(lec_infosdate)を紐づけたい場合は[講義日付(lec_infos/date)のAPI](#講義日付lec_infosdateのapi) を参照
 
-`lecture`、`which_class_held`のそれぞれ`ID`に対して、不都合な`ID`が渡された場合、`400 Bad Request`が返る。  
+`lecture`、`which_class_held`のそれぞれ`ID`に対して、不都合な`ID`が渡された場合、`400 Bad Request`が返る。 
 
 具体的な場合としては
 - 存在しないデータを指す`ID`が渡された場合
 - 教室が扱っていない講義の`ID`が渡された場合
-- 教室の講義に対して既に講義情報(lec_infos)インスタンスが存在する場合 (任意の教室の講義に対して、講義開催情報は1対1)  
+- 教室の機種の講義に対して既に講義情報(lec_infos)インスタンスが存在する場合 (任意の教室の機種の講義に対して、講義開催情報は1対1) ( (教室, 講義, 機種)のタプルについてuniqueだと思ってください)  
+
+`target_unit_type`に無効な文字列が指定された場合  有効な文字列は[講義開催情報(lec\_infos)のAPI](#講義開催情報lec_infosのapi)の各フィールドの概要を参考にしてください
 
 ### DELETE
 \<uuid\>の講義開催情報(lec_infos)インスタンスを削除する
