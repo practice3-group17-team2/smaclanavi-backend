@@ -110,10 +110,10 @@ class Review(AbstractUUIDModel):
 
 
 class UpcomingLecInfos(AbstractUUIDModel):
-    IPHONE = "ip"
-    ANDROID = "an"
-    TABLET = "ta"
-    OTHER = "ot"
+    IPHONE = "iPhone"
+    ANDROID = "Android"
+    TABLET = "Tablet"
+    OTHER = "Other"
 
     lecture_content = models.ForeignKey(Lecture,
                                         on_delete=models.CASCADE,
