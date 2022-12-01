@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='upcominglecinfos',
             name='target_unit_type',
-            field=models.CharField(choices=[('iPhone', 'iPhone'), ('Android', 'Android'), ('Tablet', 'Tablet'), ('Other', 'Other')], default='Other', max_length=20),
+            field=models.CharField(choices=[('ip', 'iPhone'), ('an', 'Android'), ('ta', 'Tablet'), ('ot', 'Other')], default='ot', max_length=20),
         ),
         migrations.AlterField(
             model_name='classinfo',
