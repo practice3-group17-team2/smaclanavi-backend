@@ -235,7 +235,7 @@ class UpcomingLecInfoSerializer(serializers.ModelSerializer):
         model = models.UpcomingLecInfos
         fields = [
             'id', 'lecture', 'which_class_held', 'is_personal_lec',
-            'is_iphone', 'can_select_date', 'created', 'updated', 'schedules'
+            'target_unit_type', 'can_select_date', 'created', 'updated', 'schedules'
         ]
         read_only_fields = ['created', 'updated']
 
@@ -264,12 +264,13 @@ class UpcomingLecInfoSerializer(serializers.ModelSerializer):
         lec_data = validated_data.pop('lecture_content')
         which_class = validated_data.pop('which_class_held')
         lec = models.Lecture.objects.get(**lec_data)
+        target_unit_type = validated_data.pop("target_unit_type")
 
         # print("\n\n\n\n", lec_data["id"], which_class.id, "\n\n\n\n")
 
         # フローコントロールに使うのは良く無さげだけど苦肉の策
         if models.UpcomingLecInfos.objects.filter(
-                lecture_content=lec, which_class_held=which_class).exists():
+                lecture_content=lec, which_class_held=which_class, target_unit_type=target_unit_type).exists():
             raise ValueError(
                 "An instance of what you are trying to create already exists")
         if not lec in which_class.lecture.all():
@@ -278,6 +279,7 @@ class UpcomingLecInfoSerializer(serializers.ModelSerializer):
         up_lecinfo = models.UpcomingLecInfos.objects.create(
             lecture_content=lec,
             which_class_held=which_class,
+            target_unit_type=target_unit_type
             **validated_data)
         return up_lecinfo
 
@@ -285,9 +287,10 @@ class UpcomingLecInfoSerializer(serializers.ModelSerializer):
         lec_data = validated_data.pop("lecture_content")
         lec = models.Lecture.objects.get(id=lec_data["id"])
         which_class = validated_data.pop("which_class_held")
+        target_unit_type = validated_data.pop("target_unit_type")
 
         if models.UpcomingLecInfos.objects.filter(
-                lecture_content=lec, which_class_held=which_class).exists():
+                lecture_content=lec, which_class_held=which_class, target_unit_type=target_unit_type).exists():
             raise ValueError(
                 "An instance of what you are trying to update already exists")
 
@@ -296,4 +299,5 @@ class UpcomingLecInfoSerializer(serializers.ModelSerializer):
 
         instance.lecture_content = lec
         instance.which_class_held = which_class
+        instance.target_unit_type = target_unit_type
         return super().update(instance, validated_data)
