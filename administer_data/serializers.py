@@ -87,9 +87,8 @@ class UpcomingLecInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.UpcomingLecInfos
         fields = [
-            'id', 'lecture_content', 'which_class_held', 'schedules',
-            'is_personal_lec', 'is_iphone', 'can_select_date', 'created',
-            'updated'
+            'id', 'lecture', 'which_class_held', 'is_personal_lec',
+            'target_unit_type', 'can_select_date', 'created', 'updated', 'schedules'
         ]
 
     def get_updated(self, obj):
@@ -104,3 +103,53 @@ class UpcomingLecInfoSerializer(serializers.ModelSerializer):
             if latest_date < s.updated:
                 latest_date = s.updated
         return latest_date
+
+    def create(self, validated_data):
+        """ validated_dataの形式メモ
+        {'id': UUID('b9e0fe00-3f47-4617-8819-ccb8483c5ee4'),\n
+        'lecture_content': OrderedDict([('id', 2)]),\n
+        'which_class_held': <ClassInfo: ClassInfo object (d1013537-a869-4d1c-a444-513f6d3be5d9)>,\n
+        'is_personal_lec': False, 'is_iphone': False,
+        'can_select_date': False, 'schedules': []} 
+        """
+        # print("\n\n\n\n", validated_data)
+        lec_data = validated_data.pop('lecture_content')
+        which_class = validated_data.pop('which_class_held')
+        lec = models.Lecture.objects.get(**lec_data)
+        target_unit_type = validated_data.pop("target_unit_type")
+
+        # print("\n\n\n\n", lec_data["id"], which_class.id, "\n\n\n\n")
+
+        # フローコントロールに使うのは良く無さげだけど苦肉の策
+        if models.UpcomingLecInfos.objects.filter(
+                lecture_content=lec, which_class_held=which_class, target_unit_type=target_unit_type).exists():
+            raise ValueError(
+                "An instance of what you are trying to create already exists")
+        if not lec in which_class.lecture.all():
+            raise ValueError("This classroom does not handle this lecture")
+
+        up_lecinfo = models.UpcomingLecInfos.objects.create(
+            lecture_content=lec,
+            which_class_held=which_class,
+            target_unit_type=target_unit_type
+            **validated_data)
+        return up_lecinfo
+
+    def update(self, instance, validated_data):
+        lec_data = validated_data.pop("lecture_content")
+        lec = models.Lecture.objects.get(id=lec_data["id"])
+        which_class = validated_data.pop("which_class_held")
+        target_unit_type = validated_data.pop("target_unit_type")
+
+        if models.UpcomingLecInfos.objects.filter(
+                lecture_content=lec, which_class_held=which_class, target_unit_type=target_unit_type).exists():
+            raise ValueError(
+                "An instance of what you are trying to update already exists")
+
+        if not lec in which_class.lecture.all():
+            raise ValueError("This classroom does not handle this lecture")
+
+        instance.lecture_content = lec
+        instance.which_class_held = which_class
+        instance.target_unit_type = target_unit_type
+        return super().update(instance, validated_data)

@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         # 最期のmigrationsに接続するように書き換える
-        ('administer_data', '0003_auto_20221023_2138'),
+        ('administer_data', '0004_auto_20221202_0022'),
     ]
 
     operations = [
