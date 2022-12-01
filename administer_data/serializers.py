@@ -131,7 +131,7 @@ class UpcomingLecInfoSerializer(serializers.ModelSerializer):
         up_lecinfo = models.UpcomingLecInfos.objects.create(
             lecture_content=lec,
             which_class_held=which_class,
-            target_unit_type=target_unit_type
+            target_unit_type=target_unit_type,
             **validated_data)
         return up_lecinfo
 
