@@ -21,7 +21,7 @@ class SoftBankDataRecorder(BaseDataRecoder):
 
 class SoftBankClassDataRecorder(SoftBankDataRecorder):
     """ fix and save to model class data"""
-    default_src_file = "softbank_class_test"
+    default_src_file = "test_cls_save"
 
     @classmethod
     def save_fixed_data_to_model(cls, src_file=default_src_file):
@@ -87,7 +87,7 @@ class SoftBankClassDataRecorder(SoftBankDataRecorder):
 
 
 class SoftBankLecDataRecorder(SoftBankDataRecorder):
-    default_src_file = "softbank_lec_test"
+    default_src_file = "test_lec_save"
 
     @classmethod
     def save_fixed_data_to_model(cls, src_file=default_src_file):

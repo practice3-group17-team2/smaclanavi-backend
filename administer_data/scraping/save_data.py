@@ -9,7 +9,7 @@ from administer_data.scraping.softbank.sb_scrape_class_info import SBscraping as
 
 class BaseDataRecoder():
 
-    default_src_file = "softbank_test"
+    default_src_file = "test_base"
 
     @classmethod
     def save_data_to_pkl_file(cls, data, file_path):
