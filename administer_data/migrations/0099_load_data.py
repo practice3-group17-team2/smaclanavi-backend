@@ -9,6 +9,7 @@ def load_fixture(apps, schema_editor):
     call_command('loaddata', path+'min_required.json', app_label='administer_data')
     call_command('loaddata', path+'pref47.json', app_label='administer_data')
     call_command('loaddata', path+'sampledata.json', app_label='administer_data')
+    # call_command('loaddata', path+'tokyo-utf-test.json', app_label='administer_data')
 
 
 class Migration(migrations.Migration):

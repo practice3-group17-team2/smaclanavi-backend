@@ -1,0 +1,2181 @@
+[{
+    "model": "administer_data.city",
+    "pk": 3,
+    "fields": {
+        "city_name": "港区",
+        "prefecture": 14
+    }
+}, {
+    "model": "administer_data.city",
+    "pk": 4,
+    "fields": {
+        "city_name": "中央区",
+        "prefecture": 14
+    }
+}, {
+    "model": "administer_data.city",
+    "pk": 5,
+    "fields": {
+        "city_name": "台東区",
+        "prefecture": 14
+    }
+}, {
+    "model": "administer_data.city",
+    "pk": 6,
+    "fields": {
+        "city_name": "墨田区",
+        "prefecture": 14
+    }
+}, {
+    "model": "administer_data.city",
+    "pk": 7,
+    "fields": {
+        "city_name": "新宿区",
+        "prefecture": 14
+    }
+}, {
+    "model": "administer_data.city",
+    "pk": 8,
+    "fields": {
+        "city_name": "江東区",
+        "prefecture": 14
+    }
+}, {
+    "model": "administer_data.city",
+    "pk": 9,
+    "fields": {
+        "city_name": "品川 区",
+        "prefecture": 14
+    }
+}, {
+    "model": "administer_data.city",
+    "pk": 10,
+    "fields": {
+        "city_name": "目黒区",
+        "prefecture": 14
+    }
+}, {
+    "model": "administer_data.city",
+    "pk": 11,
+    "fields": {
+        "city_name": "大田区",
+        "prefecture": 14
+    }
+}, {
+    "model": "administer_data.city",
+    "pk": 12,
+    "fields": {
+        "city_name": "渋谷区",
+        "prefecture": 14
+    }
+}, {
+    "model": "administer_data.city",
+    "pk": 13,
+    "fields": {
+        "city_name": "世田谷区",
+        "prefecture": 14
+    }
+}, {
+    "model": "administer_data.city",
+    "pk": 14,
+    "fields": {
+        "city_name": "杉並区",
+        "prefecture": 14
+    }
+}, {
+    "model": "administer_data.city",
+    "pk": 15,
+    "fields": {
+        "city_name": "豊島区",
+        "prefecture": 14
+    }
+}, {
+    "model": "administer_data.city",
+    "pk": 16,
+    "fields": {
+        "city_name": "荒川区",
+        "prefecture": 14
+    }
+}, {
+    "model": "administer_data.city",
+    "pk": 17,
+    "fields": {
+        "city_name": "北区",
+        "prefecture": 14
+    }
+}, {
+    "model": "administer_data.city",
+    "pk": 18,
+    "fields": {
+        "city_name": "板橋区",
+        "prefecture": 14
+    }
+}, {
+    "model": "administer_data.city",
+    "pk": 19,
+    "fields": {
+        "city_name": "練馬区",
+        "prefecture": 14
+    }
+}, {
+    "model": "administer_data.city",
+    "pk": 20,
+    "fields": {
+        "city_name": "足立区",
+        "prefecture": 14
+    }
+}, {
+    "model": "administer_data.city",
+    "pk": 21,
+    "fields": {
+        "city_name": "葛飾区",
+        "prefecture": 14
+    }
+}, {
+    "model": "administer_data.city",
+    "pk": 22,
+    "fields": {
+        "city_name": "八王子市",
+        "prefecture": 14
+    }
+}, {
+    "model": "administer_data.city",
+    "pk": 23,
+    "fields": {
+        "city_name": "江戸川区",
+        "prefecture": 14
+    }
+}, {
+    "model": "administer_data.city",
+    "pk": 24,
+    "fields": {
+        "city_name": "立川市",
+        "prefecture": 14
+    }
+}, {
+    "model": "administer_data.city",
+    "pk": 25,
+    "fields": {
+        "city_name": "武蔵野市",
+        "prefecture": 14
+    }
+}, {
+    "model": "administer_data.city",
+    "pk": 26,
+    "fields": {
+        "city_name": "三鷹市",
+        "prefecture": 14
+    }
+}, {
+    "model": "administer_data.city",
+    "pk": 27,
+    "fields": {
+        "city_name": "府中市",
+        "prefecture": 14
+    }
+}, {
+    "model": "administer_data.city",
+    "pk": 28,
+    "fields": {
+        "city_name": "昭島市",
+        "prefecture": 14
+    }
+}, {
+    "model": "administer_data.city",
+    "pk": 29,
+    "fields": {
+        "city_name": "調布市",
+        "prefecture": 14
+    }
+}, {
+    "model": "administer_data.city",
+    "pk": 30,
+    "fields": {
+        "city_name": "小金井市",
+        "prefecture": 14
+    }
+}, {
+    "model": "administer_data.city",
+    "pk": 31,
+    "fields": {
+        "city_name": "小平市",
+        "prefecture": 14
+    }
+}, {
+    "model": "administer_data.city",
+    "pk": 32,
+    "fields": {
+        "city_name": "日野市",
+        "prefecture": 14
+    }
+}, {
+    "model": "administer_data.city",
+    "pk": 33,
+    "fields": {
+        "city_name": "町田市",
+        "prefecture": 14
+    }
+}, {
+    "model": "administer_data.city",
+    "pk": 34,
+    "fields": {
+        "city_name": "東村山市",
+        "prefecture": 14
+    }
+}, {
+    "model": "administer_data.city",
+    "pk": 35,
+    "fields": {
+        "city_name": "国分寺市",
+        "prefecture": 14
+    }
+}, {
+    "model": "administer_data.city",
+    "pk": 36,
+    "fields": {
+        "city_name": "国立市",
+        "prefecture": 14
+    }
+}, {
+    "model": "administer_data.city",
+    "pk": 37,
+    "fields": {
+        "city_name": "東大和市",
+        "prefecture": 14
+    }
+}, {
+    "model": "administer_data.city",
+    "pk": 38,
+    "fields": {
+        "city_name": "東久留米市",
+        "prefecture": 14
+    }
+}, {
+    "model": "administer_data.city",
+    "pk": 39,
+    "fields": {
+        "city_name": "清瀬市",
+        "prefecture": 14
+    }
+}, {
+    "model": "administer_data.city",
+    "pk": 40,
+    "fields": {
+        "city_name": "稲城市",
+        "prefecture": 14
+    }
+}, {
+    "model": "administer_data.city",
+    "pk": 41,
+    "fields": {
+        "city_name": "羽村市",
+        "prefecture": 14
+    }
+}, {
+    "model": "administer_data.city",
+    "pk": 42,
+    "fields": {
+        "city_name": "多摩市",
+        "prefecture": 14
+    }
+}, {
+    "model": "administer_data.city",
+    "pk": 43,
+    "fields": {
+        "city_name": "西東京市",
+        "prefecture": 14
+    }
+}, {
+    "model": "administer_data.classorganizer",
+    "pk": 3,
+    "fields": {
+        "organizer_name": "ソフトバンク"
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "0505780a-9ae2-4b33-a770-ac8f3bdfea19",
+    "fields": {
+        "created": "2022-11-26T06:54:18.228Z",
+        "updated": "2022-11-26T06:54:18.228Z",
+        "class_name": "ソフトバンク八王子",
+        "class_organizer": 3,
+        "phone_number": "042-620-4161",
+        "city": 22,
+        "address": "東京都八王子市中町５‐１０",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T106/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": false,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "078f5794-91fc-4f02-bb80-a81ffa82ac3c",
+    "fields": {
+        "created": "2022-11-26T06:54:18.034Z",
+        "updated": "2022-11-26T06:54:18.034Z",
+        "class_name": "ソフトバンク駒込",
+        "class_organizer": 3,
+        "phone_number": "03-5395-1023",
+        "city": 15,
+        "address": "東 京都豊島区駒込１丁目４２‐２ ライオンズ マンション駒込駅前１０１",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T1A2/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": true,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "0ce472d9-fd97-4be5-91bb-684e6d7fedfb",
+    "fields": {
+        "created": "2022-11-26T06:54:17.977Z",
+        "updated": "2022-11-26T06:54:17.977Z",
+        "class_name": "ソフトバンク阿佐ヶ谷",
+        "class_organizer": 3,
+        "phone_number": "03-5929-8617",
+        "city": 14,
+        "address": "東京都杉並区阿佐谷南１丁目４７‐１２",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T189/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": true,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "0dd86ebb-c71a-4cc8-8bd1-68079bd83d7e",
+    "fields": {
+        "created": "2022-11-26T06:54:18.683Z",
+        "updated": "2022-11-26T06:54:18.683Z",
+        "class_name": "ソフトバンクグリナード永山",
+        "class_organizer": 3,
+        "phone_number": "042-311-3910",
+        "city": 42,
+        "address": "東京都多摩市永山１丁目４ グリナード永山１ 号館２階",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T1G7/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": true,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "0e4d4601-220b-4f36-8e18-4bf7579c04d6",
+    "fields": {
+        "created": "2022-11-26T06:54:17.883Z",
+        "updated": "2022-11-26T06:54:17.883Z",
+        "class_name": "ソフトバンク渋谷",
+        "class_organizer": 3,
+        "phone_number": "03-5459-6625",
+        "city": 12,
+        "address": "東京都渋谷区宇田川町２７‐４ 喜山ビル",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T198/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": true,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "0f7c9a7b-e858-4dda-b4f2-fd72a8e363d7",
+    "fields": {
+        "created": "2022-11-26T06:54:17.861Z",
+        "updated": "2022-11-26T06:54:17.861Z",
+        "class_name": "ソフトバンク蒲田東急プラザ",
+        "class_organizer": 3,
+        "phone_number": "03-3733-5481",
+        "city": 11,
+        "address": "東京都大田区西蒲田７丁目６９‐１ 蒲田東急プラザ７Ｆ",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T187/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": true,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "109e3cf4-55c2-4d14-b343-22285df4375b",
+    "fields": {
+        "created": "2022-11-26T06:54:18.242Z",
+        "updated": "2022-11-26T06:54:18.242Z",
+        "class_name": "ソフトバンクｉｉａｓ高尾",
+        "class_organizer": 3,
+        "phone_number": "042-673-4557",
+        "city": 22,
+        "address": "東京都八王子市東浅川町５５０‐１ ｉｉａｓ高尾２Ｆ",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/TD50/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": true,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "148b323d-538c-42aa-9f5a-43b12feb0541",
+    "fields": {
+        "created": "2022-11-26T06:54:18.598Z",
+        "updated": "2022-11-26T06:54:18.598Z",
+        "class_name": "ソフトバンク東大和向原",
+        "class_organizer": 3,
+        "phone_number": "042-590-0555",
+        "city": 37,
+        "address": "東京都東大和市向原２丁目１‐１",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/TG83/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": false,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "1593c172-7162-4758-bbb0-6065f9ad5ab8",
+    "fields": {
+        "created": "2022-11-26T06:54:18.164Z",
+        "updated": "2022-11-26T06:54:18.164Z",
+        "class_name": "ソフトバンク綾瀬",
+        "class_organizer": 3,
+        "phone_number": "03-5613-1886",
+        "city": 20,
+        "address": "東京都足立区綾瀬３丁目５‐２０ 柏芳ビル参号館１Ｆ",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T1J8/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": false,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "16789e34-1d4d-4ed8-86d8-0b6adc1749f5",
+    "fields": {
+        "created": "2022-11-26T06:54:18.295Z",
+        "updated": "2022-11-26T06:54:18.295Z",
+        "class_name": "ソフトバンク瑞江",
+        "class_organizer": 3,
+        "phone_number": "03-6638-3731",
+        "city": 23,
+        "address": "東京都江戸川区東瑞江１丁目２６ー１５瑞江ジーエスビル１Ｆ",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T172/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": false,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "18487ec4-8f83-4ea2-8f86-395cd28ee2b1",
+    "fields": {
+        "created": "2022-11-26T06:54:17.912Z",
+        "updated": "2022-11-26T06:54:17.912Z",
+        "class_name": "ソフトバンク桜新町",
+        "class_organizer": 3,
+        "phone_number": "03-5451-3011",
+        "city": 13,
+        "address": "東京都世田谷区桜新町１丁目１５‐２０ サンライク桜新町１Ｆ",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T1V4/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": false,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "1d4d53f0-de98-4d64-8be3-a0d3ebaa6e8d",
+    "fields": {
+        "created": "2022-11-26T06:54:18.521Z",
+        "updated": "2022-11-26T06:54:18.521Z",
+        "class_name": "ソフトバンク町田 ジョルナ",
+        "class_organizer": 3,
+        "phone_number": "042-710-6201",
+        "city": 33,
+        "address": "東京都町田市原町田６丁目６‐１４ 町田ジョルナ１Ｆ",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T110/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": false,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "1f6405d0-2035-4b20-af15-990e98bcc175",
+    "fields": {
+        "created": "2022-11-26T06:54:18.177Z",
+        "updated": "2022-11-26T06:54:18.177Z",
+        "class_name": "ソフトバンク竹ノ塚",
+        "class_organizer": 3,
+        "phone_number": "03-5831-1355",
+        "city": 20,
+        "address": "東京都足立区竹の塚６丁目１２‐１１",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T191/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": false,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "1f92af9c-460d-40cb-a8b5-5843b6442f8f",
+    "fields": {
+        "created": "2022-11-26T06:54:18.690Z",
+        "updated": "2022-11-26T06:54:18.690Z",
+        "class_name": "ソフトバンクココリア多摩センター",
+        "class_organizer": 3,
+        "phone_number": "042-355-6333",
+        "city": 42,
+        "address": "東京都多摩市落合１丁目４６‐１ ココリア多摩センター２Ｆ",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T1B7/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": true,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "2320dc72-668f-40b4-892b-9efacb8fa95a",
+    "fields": {
+        "created": "2022-11-26T06:54:17.737Z",
+        "updated": "2022-11-26T06:54:17.737Z",
+        "class_name": "ソフトバンクイトーヨーカドー木場",
+        "class_organizer": 3,
+        "phone_number": "03-6666-5290",
+        "city": 8,
+        "address": "東京都江東区木場１丁目５‐３０ イトーヨーカドー木場店",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/TH87/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": true,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "237ba45f-2c73-4356-b7a6-6311694f4796",
+    "fields": {
+        "created": "2022-11-26T06:54:18.287Z",
+        "updated": "2022-11-26T06:54:18.287Z",
+        "class_name": "ソ フトバンク船堀",
+        "class_organizer": 3,
+        "phone_number": "03-5675-7405",
+        "city": 23,
+        "address": "東京都江戸川区船堀３丁目５‐７ ＴＯＫＩビル１Ｆ",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T139/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": true,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "2527dbaa-71a0-4101-b13a-a2383d951b4d",
+    "fields": {
+        "created": "2022-11-26T06:54:18.280Z",
+        "updated": "2022-11-26T06:54:18.280Z",
+        "class_name": "ソフトバンク葛西",
+        "class_organizer": 3,
+        "phone_number": "03-6808-0861",
+        "city": 23,
+        "address": "東京都江戸川区東葛西６丁目１‐ １２アビタシオン葛西１Ｆ",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T1V2/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": false,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "2d4523d5-0b3e-449b-819a-474fede4d3fd",
+    "fields": {
+        "created": "2022-11-26T06:54:17.890Z",
+        "updated": "2022-11-26T06:54:17.890Z",
+        "class_name": "ソフトバンク表参道",
+        "class_organizer": 3,
+        "phone_number": "03-6406-0711",
+        "city": 12,
+        "address": "東京都渋谷区神宮前１丁目１３‐９ アルテカプラザ１Ｆ",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T1D3/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": false,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "2f5a8e43-c78c-4c06-ab6b-54ec6582e63b",
+    "fields": {
+        "created": "2022-11-26T06:54:17.744Z",
+        "updated": "2022-11-26T06:54:17.744Z",
+        "class_name": "ソフトバンクアリオ北砂",
+        "class_organizer": 3,
+        "phone_number": "03-5665-0341",
+        "city": 8,
+        "address": "東京都江東区北砂２丁目１７番地１号アリオ北砂２階",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T2E3/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": true,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "318cfc4c-3808-4582-83be-d2f8e7387d26",
+    "fields": {
+        "created": "2022-11-26T06:54:18.141Z",
+        "updated": "2022-11-26T06:54:18.141Z",
+        "class_name": "ソフトバンク光が丘",
+        "class_organizer": 3,
+        "phone_number": "03-5967-4171",
+        "city": 19,
+        "address": "東京都練馬区光が丘５丁目１‐１ ＩＭＡ３Ｆ",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T183/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": true,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "34a331b6-e224-18a6-f13e-d8dc74ccaeea",
+    "fields": {
+        "created": "2022-09-15T09:45:52.304Z",
+        "updated": "2022-09-15T09:45:52.304Z",
+        "class_name": "あいうえお",
+        "class_organizer": 1,
+        "phone_number": "",
+        "city": 1,
+        "address": "",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.yahoo.co.jp/",
+        "has_parking": false,
+        "is_barrier_free": false,
+        "lecture": [
+            2
+        ]
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "35344177-e84a-480d-be54-482c471916b0",
+    "fields": {
+        "created": "2022-11-26T06:54:17.867Z",
+        "updated": "2022-11-26T06:54:17.867Z",
+        "class_name": "ソフトバンク蒲田",
+        "class_organizer": 3,
+        "phone_number": "03-6715-9703",
+        "city": 11,
+        "address": "東京都大田区蒲田４丁目１‐１ エクセルダイア蒲田ネクスト１Ｆ",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/TH79/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": true,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "3b327a33-a7b9-433d-b331-d7559ba58910",
+    "fields": {
+        "created": "2022-11-26T06:54:18.106Z",
+        "updated": "2022-11-26T06:54:18.106Z",
+        "class_name": "ソフトバンク高島平",
+        "class_organizer": 3,
+        "phone_number": "03-5922-6690",
+        "city": 18,
+        "address": "東京都板橋区高島平８丁目４‐１ 2 ロイヤル ステージ恵比寿1F",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T1Q9/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": false,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "3b4028e2-0397-4df7-acda-f7c7d443ce6b",
+    "fields": {
+        "created": "2022-11-26T06:54:17.984Z",
+        "updated": "2022-11-26T06:54:17.984Z",
+        "class_name": "ソフトバンク西荻窪",
+        "class_organizer": 3,
+        "phone_number": "03-5303-1915",
+        "city": 14,
+        "address": "東京都杉並区西荻北３丁目２‐７グロリアス西 荻窪１Ｆ",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T1L8/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": false,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "3ee2cd4e-b22a-47a5-893d-e602146fc353",
+    "fields": {
+        "created": "2022-11-26T06:54:17.722Z",
+        "updated": "2022-11-26T06:54:17.722Z",
+        "class_name": "ソフトバンク高田馬場",
+        "class_organizer": 3,
+        "phone_number": "03-3209-7841",
+        "city": 7,
+        "address": "東京都新宿区高田馬場２丁目１３‐２ Ｐｒｉｍｅｇａｔｅ１階",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T132/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": false,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "42dc90c1-2a55-4aa9-ab62-9eb35b53b119",
+    "fields": {
+        "created": "2022-11-26T06:54:18.735Z",
+        "updated": "2022-11-26T06:54:18.735Z",
+        "class_name": "ソフトバンクひばりヶ丘",
+        "class_organizer": 3,
+        "phone_number": "042-439-7256",
+        "city": 43,
+        "address": "東京都西東京市住吉町３丁目１０‐２ 5 HI ＢＡＲＩＴＯＷＥＲ１階",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T1C1/?cid=tpsk_191119_mobile",
+        "has_parking": true,
+        "is_barrier_free": true,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "46e7748d-f693-43f5-a047-3611a3b72235",
+    "fields": {
+        "created": "2022-11-26T06:54:17.708Z",
+        "updated": "2022-11-26T06:54:17.708Z",
+        "class_name": "ソフトバンク新宿西口",
+        "class_organizer": 3,
+        "phone_number": "03-3348-5811",
+        "city": 7,
+        "address": "東京都新宿区西新宿１丁 目１９‐５ 新宿幸容 ビル",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T1G5/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": false,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "4a43f4fd-1843-4375-8d9c-db15b27acf0c",
+    "fields": {
+        "created": "2022-11-26T06:54:17.897Z",
+        "updated": "2022-11-26T06:54:17.897Z",
+        "class_name": "ソフトバンク笹塚",
+        "class_organizer": 3,
+        "phone_number": "03-5302-3681",
+        "city": 12,
+        "address": "東京都渋谷区笹塚２丁目１４‐ 15 ヴェルト 笹塚ツインビル１ 1F",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T196/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": true,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "4c8bb2df-d905-47df-8155-929d1679c3b8",
+    "fields": {
+        "created": "2022-11-26T06:54:18.028Z",
+        "updated": "2022-11-26T06:54:18.028Z",
+        "class_name": "ソフトバンク 巣鴨",
+        "class_organizer": 3,
+        "phone_number": "03-5978-6613",
+        "city": 15,
+        "address": "東京都豊島区巣鴨１丁目１８番８号 巣鴨東宝 ビル１Ｆ",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T1B9/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": false,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "4fa2958a-870b-4021-a880-63481bb5f12e",
+    "fields": {
+        "created": "2022-11-26T06:54:18.171Z",
+        "updated": "2022-11-26T06:54:18.171Z",
+        "class_name": "ソフトバン ク保木間",
+        "class_organizer": 3,
+        "phone_number": "03-5851-0622",
+        "city": 20,
+        "address": "東京都足立区保木間１丁目３３‐１７",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/TG77/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": false,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "505f61f7-4617-46e5-8d6e-546557e52654",
+    "fields": {
+        "created": "2022-11-26T06:54:17.683Z",
+        "updated": "2022-11-26T06:54:17.684Z",
+        "class_name": "ソフトバン クアルカキット錦糸町",
+        "class_organizer": 3,
+        "phone_number": "03-5610-7283",
+        "city": 6,
+        "address": "東京都墨田区錦糸２丁目２‐１ アルカキット錦糸町８階",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T159/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": true,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "5149d629-c830-4727-a4f6-3ca3cf1b752b",
+    "fields": {
+        "created": "2022-11-26T06:54:18.614Z",
+        "updated": "2022-11-26T06:54:18.614Z",
+        "class_name": "ソフトバンク東久留米幸町",
+        "class_organizer": 3,
+        "phone_number": "042-476-8721",
+        "city": 38,
+        "address": "東京都東久留米市幸町５丁目５‐５ メゾンアイエス１Ｆ",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T1M2/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": true,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "522d92d3-0954-4687-925c-a2df96f46192",
+    "fields": {
+        "created": "2022-11-26T06:54:18.357Z",
+        "updated": "2022-11-26T06:54:18.357Z",
+        "class_name": "ソフトバンクイトーヨーカドー武蔵境",
+        "class_organizer": 3,
+        "phone_number": "0422-33-5421",
+        "city": 25,
+        "address": "東京都武蔵野市境南町２丁目３‐６ イトーヨーカドー武蔵境西館４階",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T150/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": true,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "54870663-c403-4649-9631-4bc6e37eb87a",
+    "fields": {
+        "created": "2022-11-26T06:54:17.784Z",
+        "updated": "2022-11-26T06:54:17.784Z",
+        "class_name": "ソフトバンク武蔵小山パルム",
+        "class_organizer": 3,
+        "phone_number": "03-6426-9700",
+        "city": 9,
+        "address": "東京都品川区小山３丁目２１‐１３武蔵小山パ ルムＡ棟",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/TH90/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": false,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "58d7e244-3215-4fdd-9050-dbdbffdfc688",
+    "fields": {
+        "created": "2022-11-26T06:54:18.065Z",
+        "updated": "2022-11-26T06:54:18.065Z",
+        "class_name": "ソフトバンク王子駅前",
+        "class_organizer": 3,
+        "phone_number": "03-6903-0375",
+        "city": 17,
+        "address": "東京都北区王子２丁目３０‐３ ニッセイ王子ビル１階",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/TD43/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": false,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "5b9279f1-3f4f-4cdb-8df4-302d7c666e1b",
+    "fields": {
+        "created": "2022-11-26T06:54:18.302Z",
+        "updated": "2022-11-26T06:54:18.302Z",
+        "class_name": "ソフトバンク小岩昭和通り",
+        "class_organizer": 3,
+        "phone_number": "03-6892-2750",
+        "city": 23,
+        "address": "東京都江戸川区南小岩７丁目２７ー２地場ビル１階",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/TG16/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": true,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "5bb236a6-a2a2-477e-8fb9-aaa83d7cca35",
+    "fields": {
+        "created": "2022-11-26T06:54:18.630Z",
+        "updated": "2022-11-26T06:54:18.630Z",
+        "class_name": "ソフトバンク清瀬",
+        "class_organizer": 3,
+        "phone_number": "042-492-5104",
+        "city": 39,
+        "address": "東京都清瀬市元町１丁目８‐３５ アマルフ ィ",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/TD17/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": true,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "5d00d4e7-c0ed-456f-b945-d3d190f9a2b8",
+    "fields": {
+        "created": "2022-11-26T06:54:17.991Z",
+        "updated": "2022-11-26T06:54:17.991Z",
+        "class_name": "ソフトバンク荻 窪",
+        "class_organizer": 3,
+        "phone_number": "03-5347-4431",
+        "city": 14,
+        "address": "東京都杉並区上荻１丁目１７‐１ シンフォニーシティ荻窪１階",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T182/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": false,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "626625e8-af23-4a5b-818f-947205eeb0ef",
+    "fields": {
+        "created": "2022-11-26T06:54:18.436Z",
+        "updated": "2022-11-26T06:54:18.436Z",
+        "class_name": "ソフトバンクホームズ仙川",
+        "class_organizer": 3,
+        "phone_number": "03-5314-2195",
+        "city": 29,
+        "address": "東京都調布市若葉町２丁目１‐７ ２Ｆ",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/TH99/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": true,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "62e7deac-21f9-4971-af9b-609a7a2d32a0",
+    "fields": {
+        "created": "2022-11-26T06:54:18.206Z",
+        "updated": "2022-11-26T06:54:18.206Z",
+        "class_name": "ソフト バンク亀有",
+        "class_organizer": 3,
+        "phone_number": "03-5629-4661",
+        "city": 21,
+        "address": "東京都葛飾区亀有３丁目３２‐８ 亀有３丁目ビル１階",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T193/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": false,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "65a67b72-e1c8-4630-a744-3ad3fada4ca5",
+    "fields": {
+        "created": "2022-11-26T06:54:17.668Z",
+        "updated": "2022-11-26T06:54:17.668Z",
+        "class_name": "ソフトバンク浅草ＲＯＸ",
+        "class_organizer": 3,
+        "phone_number": "03-5827-0430",
+        "city": 5,
+        "address": "東京都台東区浅草１丁目２５‐１５ 浅草ＲＯＸ １Ｆ",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T168/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": true,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "68b59580-d912-4f36-95a2-84b333a7c8a7",
+    "fields": {
+        "created": "2022-11-26T06:54:18.528Z",
+        "updated": "2022-11-26T06:54:18.528Z",
+        "class_name": "ソフトバンク町田駅前",
+        "class_organizer": 3,
+        "phone_number": "042-710-0027",
+        "city": 33,
+        "address": "東京都町田市原町田６丁目１１‐１１",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T1F2/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": true,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "6ab1eb65-0728-4d0c-b9e9-63a490ae77ea",
+    "fields": {
+        "created": "2022-11-26T06:54:18.331Z",
+        "updated": "2022-11-26T06:54:18.331Z",
+        "class_name": "ソフトバンクららぽーと立川 立飛",
+        "class_organizer": 3,
+        "phone_number": "042-512-6771",
+        "city": 24,
+        "address": "東京都立川市泉町９３５‐１ ららぽーと立川立飛３０４０",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/TG99/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": true,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "6e736265-e5c6-461d-8c83-7664a0f34ce8",
+    "fields": {
+        "created": "2022-11-26T06:54:18.073Z",
+        "updated": "2022-11-26T06:54:18.073Z",
+        "class_name": "ソフトバンク赤羽駅前",
+        "class_organizer": 3,
+        "phone_number": "03-3903-5112",
+        "city": 17,
+        "address": "東京都北区赤羽１丁目１６‐２ ＴＮ‐１ｓｔビ ル１階",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/TD20/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": true,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "7178bc2a-24ac-47f4-8b4a-db9905a569a0",
+    "fields": {
+        "created": "2022-11-26T06:54:18.668Z",
+        "updated": "2022-11-26T06:54:18.668Z",
+        "class_name": "ソフトバンク羽村",
+        "class_organizer": 3,
+        "phone_number": "042-569-8161",
+        "city": 41,
+        "address": "東京都羽村市羽東１丁目２ ３‐２９",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T1Q6/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": true,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "73428803-6acc-47e4-9925-539f48a0cf84",
+    "fields": {
+        "created": "2022-11-26T06:54:18.645Z",
+        "updated": "2022-11-26T06:54:18.645Z",
+        "class_name": "ソフトバンク矢野口",
+        "class_organizer": 3,
+        "phone_number": "042-370-7711",
+        "city": 40,
+        "address": "東京都稲城市矢野口６２９‐ ３ ｓｕｅｒｔｅ 矢野口１階",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T1I8/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": false,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "74bc659c-f924-45ad-974b-70448fa204a4",
+    "fields": {
+        "created": "2022-11-26T06:54:18.271Z",
+        "updated": "2022-11-26T06:54:18.271Z",
+        "class_name": "ソフトバンク西葛西",
+        "class_organizer": 3,
+        "phone_number": "03-5658-4251",
+        "city": 23,
+        "address": "東京都江戸川区西葛西６丁目１３‐７ 第７山秀ビル２Ｆ",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T140/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": false,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "7776b1a5-a0a2-4407-8004-caa45e44268e",
+    "fields": {
+        "created": "2022-11-26T06:54:18.566Z",
+        "updated": "2022-11-26T06:54:18.566Z",
+        "class_name": "ソフトバンク国分寺",
+        "class_organizer": 3,
+        "phone_number": "042-328-1414",
+        "city": 35,
+        "address": "東京都国分寺市本町４丁目１３‐５",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T155/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": true,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "78fc9010-975e-43af-bc07-8da966fd78b5",
+    "fields": {
+        "created": "2022-11-26T06:54:18.199Z",
+        "updated": "2022-11-26T06:54:18.199Z",
+        "class_name": "ソフトバンク青砥駅前",
+        "class_organizer": 3,
+        "phone_number": "03-5680-1125",
+        "city": 21,
+        "address": "東京都葛飾区青戸３丁目３７‐１９",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T100/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": false,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "7af58ec0-1dfc-4314-a93a-2adc1a686d6a",
+    "fields": {
+        "created": "2022-11-26T06:54:18.235Z",
+        "updated": "2022-11-26T06:54:18.235Z",
+        "class_name": " ソフトバンク西八王子",
+        "class_organizer": 3,
+        "phone_number": "042-662-4651",
+        "city": 22,
+        "address": "東京都八王子市千人町２丁目２０‐１デラ パン西八王子駅前ビル１Ｆ",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T108/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": true,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "7d142de6-2f88-4933-a7ec-f22750aea648",
+    "fields": {
+        "created": "2022-11-26T06:54:18.193Z",
+        "updated": "2022-11-26T06:54:18.193Z",
+        "class_name": "ソフトバンク新小岩",
+        "class_organizer": 3,
+        "phone_number": "03-5663-1790",
+        "city": 21,
+        "address": " 東京都葛飾区新小岩１丁目５０‐１ 新小岩Ｓ ビル１Ｆ",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T124/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": true,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "7fa86f3f-bdb8-4802-9466-3d8319358c24",
+    "fields": {
+        "created": "2022-11-26T06:54:18.134Z",
+        "updated": "2022-11-26T06:54:18.134Z",
+        "class_name": "ソフトバンク大泉学園",
+        "class_organizer": 3,
+        "phone_number": "03-5947-5336",
+        "city": 19,
+        "address": "東京都練馬区東大泉１丁目 ３４‐１ 笹仙ビル １Ｆ",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/TD15/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": false,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "7fd347d8-a3c3-486b-a3e0-2fbee6e5c921",
+    "fields": {
+        "created": "2022-11-26T06:54:17.691Z",
+        "updated": "2022-11-26T06:54:17.691Z",
+        "class_name": "ソフ トバンクオリナス錦糸町",
+        "class_organizer": 3,
+        "phone_number": "03-5610-8830",
+        "city": 6,
+        "address": "東京都墨田区太平４丁目２‐１オリナス 2F",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/TH10/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": true,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "816493e7-af51-44f7-ad8c-431289fb3340",
+    "fields": {
+        "created": "2022-11-26T06:54:18.049Z",
+        "updated": "2022-11-26T06:54:18.049Z",
+        "class_name": "ソフトバンク日暮里",
+        "class_organizer": 3,
+        "phone_number": "03-5604-3551",
+        "city": 16,
+        "address": "東京都荒川区西日暮里２丁目１９‐４ たちばなビル１・２Ｆ",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T160/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": false,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "81c5c368-e53d-4701-a59c-af5df5dc4238",
+    "fields": {
+        "created": "2022-11-26T06:54:17.948Z",
+        "updated": "2022-11-26T06:54:17.948Z",
+        "class_name": "ソフトバンク千歳烏山",
+        "class_organizer": 3,
+        "phone_number": "03-5314-6626",
+        "city": 13,
+        "address": "東京都世田谷区南烏山４丁目１２‐５ 並木ビル１Ｆ",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T111/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": true,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "886ab5e3-9c2d-46a2-8a07-b90995bda91d",
+    "fields": {
+        "created": "2022-11-26T06:54:17.799Z",
+        "updated": "2022-11-26T06:54:17.799Z",
+        "class_name": "ソフトバンク目 黒",
+        "class_organizer": 3,
+        "phone_number": "03-3490-9561",
+        "city": 9,
+        "address": "東京都品川区上大崎２丁目１８‐１６ 月乃ビル１階",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T175/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": false,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "89b21b6d-1282-4858-9c00-d09f8ad3536a",
+    "fields": {
+        "created": "2022-11-26T06:54:18.121Z",
+        "updated": "2022-11-26T06:54:18.121Z",
+        "class_name": "ソフトバンク練馬",
+        "class_organizer": 3,
+        "phone_number": "03-5946-5077",
+        "city": 19,
+        "address": "東京都練馬区豊玉北５丁目１７‐７ ネリマビル１Ｆ、Ｂ１Ｆ",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T101/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": false,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "93b749f0-ae99-4877-b8f0-63698cdeb6c2",
+    "fields": {
+        "created": "2022-11-26T06:54:18.443Z",
+        "updated": "2022-11-26T06:54:18.443Z",
+        "class_name": "ソフトバンクＢＲＡＮＣＨ調布",
+        "class_organizer": 3,
+        "phone_number": "042-426-2218",
+        "city": 29,
+        "address": "東京都調布市深大寺 東町７丁目４７‐１ブランチ調布１階",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T1I4/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": true,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "94c2cd84-6b15-4437-96be-49c93f8a7836",
+    "fields": {
+        "created": "2022-11-26T06:54:17.832Z",
+        "updated": "2022-11-26T06:54:17.832Z",
+        "class_name": "ソフトバンク学芸大学",
+        "class_organizer": 3,
+        "phone_number": "03-5768-5966",
+        "city": 10,
+        "address": "東京都目黒区鷹番３丁目２０‐４ 山崎ビル１Ｆ",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T145/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": false,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "979db334-ea94-4fa2-96a5-891ed1089497",
+    "fields": {
+        "created": "2022-11-26T06:54:17.715Z",
+        "updated": "2022-11-26T06:54:17.715Z",
+        "class_name": "ソフトバンク神楽坂",
+        "class_organizer": 3,
+        "phone_number": "03-5229-7150",
+        "city": 7,
+        "address": "東京都新宿区神楽坂６丁目４７ 照井ビル１Ｆ",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T1G0/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": false,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "991b0ae1-0a65-425d-a0e8-a25e3ae795cc",
+    "fields": {
+        "created": "2022-11-26T06:54:18.388Z",
+        "updated": "2022-11-26T06:54:18.389Z",
+        "class_name": "ソフトバンク府中",
+        "class_organizer": 3,
+        "phone_number": "042-362-0021",
+        "city": 27,
+        "address": "東京都府中市宮町１丁目１００武蔵府中ル・シーニュ２階",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T152/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": true,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "9ad0e348-f546-4201-a762-b2215379e8ab",
+    "fields": {
+        "created": "2022-11-26T06:54:17.793Z",
+        "updated": "2022-11-26T06:54:17.793Z",
+        "class_name": "ソフトバンクパークシティ武蔵小山ザモー ル",
+        "class_organizer": 3,
+        "phone_number": "03-5749-1122",
+        "city": 9,
+        "address": "東京都品川区小山３丁目１５‐１ パークシティ武蔵小山ザモール１Ｆ",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T1A0/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": true,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "9b876355-4d05-415f-9470-98b92740c6ac",
+    "fields": {
+        "created": "2022-11-26T06:54:18.098Z",
+        "updated": "2022-11-26T06:54:18.098Z",
+        "class_name": "ソフトバンク志村坂上",
+        "class_organizer": 3,
+        "phone_number": "03-3967-4100",
+        "city": 18,
+        "address": "東京都板橋区小豆沢２丁目１７‐ ７キャッスルマンション志村坂上 １階",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T1O3/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": true,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "9e06a61c-3023-4c21-93fe-88842800f2df",
+    "fields": {
+        "created": "2022-11-26T06:54:17.751Z",
+        "updated": "2022-11-26T06:54:17.751Z",
+        "class_name": "ソフトバンクカメイドクロック",
+        "class_organizer": 3,
+        "phone_number": "03-3636-6692",
+        "city": 8,
+        "address": "東京都江東区亀戸６丁目３１‐６ カメイドクロック３Ｆ",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T131/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": false,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "a1848a65-3b6a-43ea-8620-dbfb0d083822",
+    "fields": {
+        "created": "2022-11-26T06:54:18.550Z",
+        "updated": "2022-11-26T06:54:18.550Z",
+        "class_name": "ソフトバンク新秋津",
+        "class_organizer": 3,
+        "phone_number": "042-399-0071",
+        "city": 34,
+        "address": "東京都東村山市秋津町５丁目１３‐５",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/TD14/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": true,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "a635ba96-f2b4-453d-9b2b-ca77c7f924a5",
+    "fields": {
+        "created": "2022-11-26T06:54:18.417Z",
+        "updated": "2022-11-26T06:54:18.417Z",
+        "class_name": "ソフト バンクモリタウン昭島",
+        "class_organizer": 3,
+        "phone_number": "042-542-0972",
+        "city": 28,
+        "address": "東京都昭島市田中町５６２‐１ モリタウン東館２Ｆ",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T103/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": true,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "a748462b-663a-4277-a7ea-503ffe45e0e9",
+    "fields": {
+        "created": "2022-11-26T06:54:18.490Z",
+        "updated": "2022-11-26T06:54:18.490Z",
+        "class_name": "ソフトバンクイオンモール多摩平の森",
+        "class_organizer": 3,
+        "phone_number": "042-589-2888",
+        "city": 32,
+        "address": "東京都日野市多摩平２丁目４番地 １ ２Ｆ",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T147/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": true,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "a79e0fbb-e732-4aab-8344-9f379ea573fc",
+    "fields": {
+        "created": "2022-11-26T06:54:18.506Z",
+        "updated": "2022-11-26T06:54:18.506Z",
+        "class_name": "ソフトバンク南町田グランベリーパーク",
+        "class_organizer": 3,
+        "phone_number": "042-788-7330",
+        "city": 33,
+        "address": "東京都町田市鶴間３丁目４‐１",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/TH95/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": true,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "ac486fbd-6861-4d0b-980a-5eb91baf5680",
+    "fields": {
+        "created": "2022-11-26T06:54:17.818Z",
+        "updated": "2022-11-26T06:54:17.818Z",
+        "class_name": "ソフトバンク自由が丘南口",
+        "class_organizer": 3,
+        "phone_number": "03-6891-6770",
+        "city": 10,
+        "address": "東京都目黒区自由が丘１丁目８‐ １ ミナミビ ル１Ｆ",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T1V3/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": false,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "b53e28ea-2cf2-49e2-a458-ea3a2bd67341",
+    "fields": {
+        "created": "2022-11-26T06:54:18.727Z",
+        "updated": "2022-11-26T06:54:18.727Z",
+        "class_name": "ソフトバンク保谷",
+        "class_organizer": 3,
+        "phone_number": "042-438-7552",
+        "city": 43,
+        "address": "東京都西東京市東町３丁目１３‐２",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T1J1/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": false,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "b7972240-8b6c-4bb2-be72-2e5801c5d26a",
+    "fields": {
+        "created": "2022-11-26T06:54:18.514Z",
+        "updated": "2022-11-26T06:54:18.514Z",
+        "class_name": "ソフトバンク成瀬",
+        "class_organizer": 3,
+        "phone_number": "042-706-8862",
+        "city": 33,
+        "address": "東京都町田市南成瀬４丁目２‐４",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/TG28/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": true,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "bd535f01-2e22-4831-a91a-04da6c06ed62",
+    "fields": {
+        "created": "2022-11-26T06:54:18.321Z",
+        "updated": "2022-11-26T06:54:18.321Z",
+        "class_name": "ソフトバンク立川南",
+        "class_organizer": 3,
+        "phone_number": "042-528-8777",
+        "city": 24,
+        "address": "東京都立川市柴崎町３丁目６‐１ 立川Ｎビル",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T123/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": true,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "c2677dbb-e502-4001-a760-c63cbff6fccb",
+    "fields": {
+        "created": "2022-11-26T06:54:18.459Z",
+        "updated": "2022-11-26T06:54:18.459Z",
+        "class_name": "ソフトバンク武蔵小金井",
+        "class_organizer": 3,
+        "phone_number": "042-386-6333",
+        "city": 30,
+        "address": "東京都小金井市本町６丁目１４‐４５ｎｏｎｏ ｗａ武蔵小金井１階",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T148/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": true,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "c36e57c3-23ea-402e-b43a-cf856fdba3c0",
+    "fields": {
+        "created": "2022-11-26T06:54:18.014Z",
+        "updated": "2022-11-26T06:54:18.014Z",
+        "class_name": "ソフトバンク池袋西口",
+        "class_organizer": 3,
+        "phone_number": "03-5951-6790",
+        "city": 15,
+        "address": "東京都豊島区西池袋１丁目１６‐１０ 第２三笠ビル",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T195/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": false,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "c428eaf5-e69b-4a71-87d8-f57018752471",
+    "fields": {
+        "created": "2022-11-26T06:54:17.839Z",
+        "updated": "2022-11-26T06:54:17.839Z",
+        "class_name": "ソフトバンク中目黒",
+        "class_organizer": 3,
+        "phone_number": "03-3792-5831",
+        "city": 10,
+        "address": "東京都目黒区上目黒１丁目２０‐５ 和田ビル１Ｆ",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T176/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": true,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "c585a920-92ba-461e-8696-5d30e70a4a88",
+    "fields": {
+        "created": "2022-11-26T06:54:18.128Z",
+        "updated": "2022-11-26T06:54:18.128Z",
+        "class_name": "ソフトバンク石神井公園",
+        "class_organizer": 3,
+        "phone_number": "03-5923-0388",
+        "city": 19,
+        "address": "東京都練馬区石神井町３丁目２５‐１ きくやビル１階",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T1O8/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": false,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "c842e84c-52b0-42de-b67a-c24632e210f0",
+    "fields": {
+        "created": "2022-11-26T06:54:17.963Z",
+        "updated": "2022-11-26T06:54:17.963Z",
+        "class_name": "ソフトバンク方南町駅前",
+        "class_organizer": 3,
+        "phone_number": "03-6867-8700",
+        "city": 14,
+        "address": "東京都杉並区方南２丁目２１‐３ アコード方南ビル１階",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/TD45/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": true,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "c85079c1-3fd2-487d-b816-86e4c9a321ea",
+    "fields": {
+        "created": "2022-11-26T06:54:18.698Z",
+        "updated": "2022-11-26T06:54:18.698Z",
+        "class_name": "ソフトバンク聖蹟桜ヶ丘オーパ",
+        "class_organizer": 3,
+        "phone_number": "042-311-2611",
+        "city": 42,
+        "address": "東京都多摩市関戸４丁目７２番地 聖蹟桜ヶ丘 ＯＰＡ５Ｆ",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T149/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": true,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "c9718a9d-d380-490c-8ffe-5bf70fee86c0",
+    "fields": {
+        "created": "2022-11-26T06:54:18.713Z",
+        "updated": "2022-11-26T06:54:18.713Z",
+        "class_name": "ソフトバンク田無アスタ",
+        "class_organizer": 3,
+        "phone_number": "042-466-7601",
+        "city": 43,
+        "address": "東京都西東京市田無町２丁目１‐１ アスタ２Ｆショッピングプラザ 田無アスタ",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T174/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": true,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "c9ce817e-c97a-4ce1-adca-4e16aa334bb6",
+    "fields": {
+        "created": "2022-11-26T06:54:18.091Z",
+        "updated": "2022-11-26T06:54:18.091Z",
+        "class_name": "ソフトバンク成増",
+        "class_organizer": 3,
+        "phone_number": "03-5967-7371",
+        "city": 18,
+        "address": "東京都板橋区成増１丁目３１‐７ クリーンビル１Ｆ",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T181/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": true,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "ca7cea89-a7af-4bc3-9b84-73082b97d891",
+    "fields": {
+        "created": "2022-11-26T06:54:18.583Z",
+        "updated": "2022-11-26T06:54:18.583Z",
+        "class_name": "ソフトバンク国立",
+        "class_organizer": 3,
+        "phone_number": "042-501-2440",
+        "city": 36,
+        "address": "東京都国立市東１丁目７‐１０ レジディア国立１階",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T190/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": false,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "cb641532-1e69-40c7-9396-70886d1f2262",
+    "fields": {
+        "created": "2022-11-26T06:54:17.825Z",
+        "updated": "2022-11-26T06:54:17.825Z",
+        "class_name": "ソフトバンク都立大学",
+        "class_organizer": 3,
+        "phone_number": "03-5731-0040",
+        "city": 10,
+        "address": "東京都目黒区平町１丁目２５‐１４ 右山ビル",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/TD05/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": false,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "cc626621-61c3-4858-ada9-25fcccd856ef",
+    "fields": {
+        "created": "2022-11-26T06:54:17.940Z",
+        "updated": "2022-11-26T06:54:17.940Z",
+        "class_name": "ソフトバンク下北沢",
+        "class_organizer": 3,
+        "phone_number": "03-6859-1100",
+        "city": 13,
+        "address": "東京都世田谷区北沢２丁目１３‐７ 片野ビル１Ｆ、２Ｆ",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T178/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": false,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "cde85c6d-06a5-4eef-836e-74daf1be4e10",
+    "fields": {
+        "created": "2022-11-26T06:54:17.769Z",
+        "updated": "2022-11-26T06:54:17.769Z",
+        "class_name": "ソフトバンク大森",
+        "class_organizer": 3,
+        "phone_number": "03-3768-7390",
+        "city": 9,
+        "address": "東京都品川区南大井６丁目２８‐１０",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T120/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": false,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "cf66f6b2-c535-44a6-969a-350b4580028c",
+    "fields": {
+        "created": "2022-11-26T06:54:17.933Z",
+        "updated": "2022-11-26T06:54:17.934Z",
+        "class_name": "ソフトバン ク三軒茶屋茶沢通り",
+        "class_organizer": 3,
+        "phone_number": "03-5433-4191",
+        "city": 13,
+        "address": "東京都世田谷区太子堂４丁目２９‐１ 萩原ビル１階",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T1I3/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": true,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "d1013537-a869-4d1c-a444-513f6d3be5d9",
+    "fields": {
+        "created": "2022-09-15T09:45:52.304Z",
+        "updated": "2022-09-15T09:45:52.304Z",
+        "class_name": "TEST CLASS 1",
+        "class_organizer": 2,
+        "phone_number": "xxx-xxx-xxxx",
+        "city": 2,
+        "address": "aaaaaaaaa",
+        "evaluation": 0,
+        "price": 100,
+        "site_url": "https://moocs.iniad.org",
+        "has_parking": false,
+        "is_barrier_free": false,
+        "lecture": [
+            1,
+            2
+        ]
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "d1037fbb-9732-4ea1-a173-2309396382bf",
+    "fields": {
+        "created": "2022-11-26T06:54:17.926Z",
+        "updated": "2022-11-26T06:54:17.926Z",
+        "class_name": "ソフ トバンク三軒茶屋",
+        "class_organizer": 3,
+        "phone_number": "03-5486-7050",
+        "city": 13,
+        "address": "東京都世田谷区太子堂４丁目３‐２ 三軒茶屋ビル１Ｆ",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T144/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": false,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "d416c3cf-c64d-4951-a560-34bee36a2b59",
+    "fields": {
+        "created": "2022-11-26T06:54:17.635Z",
+        "updated": "2022-11-26T06:54:17.635Z",
+        "class_name": "ソフトバンク六本木",
+        "class_organizer": 3,
+        "phone_number": "03-5775-5011",
+        "city": 3,
+        "address": "東京都港区六本木４丁目９‐７ 三菱ＵＦＪ銀行六本木支店ビル１Ｆ",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T248/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": true,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "db389286-bb53-4628-8e51-415efd51520e",
+    "fields": {
+        "created": "2022-11-26T06:54:17.919Z",
+        "updated": "2022-11-26T06:54:17.920Z",
+        "class_name": "ソフトバンク成城学園",
+        "class_organizer": 3,
+        "phone_number": "03-3417-8181",
+        "city": 13,
+        "address": "東京都世田谷区成城２丁目４０‐５ ヴェルドミール成城１Ｆ",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T118/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": false,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "dc40d6b6-58c5-44be-9367-e23d11571458",
+    "fields": {
+        "created": "2022-11-26T06:54:17.971Z",
+        "updated": "2022-11-26T06:54:17.971Z",
+        "class_name": "ソフトバンク高円寺",
+        "class_organizer": 3,
+        "phone_number": "03-5929-1891",
+        "city": 14,
+        "address": "東京都杉並区高円寺南４丁目７‐１０ 高円寺ビル１Ｆ",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T138/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": false,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "e04f86a0-7a82-4424-b009-01e790656657",
+    "fields": {
+        "created": "2022-11-26T06:54:18.652Z",
+        "updated": "2022-11-26T06:54:18.652Z",
+        "class_name": "ソフトバンク若葉台",
+        "class_organizer": 3,
+        "phone_number": "042-350-7277",
+        "city": 40,
+        "address": "東京都稲城市若葉台２丁目４‐２ フレスポ若葉台２階",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T1E3/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": true,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "e123f217-da21-4f39-9574-252949d77b78",
+    "fields": {
+        "created": "2022-11-26T06:54:18.475Z",
+        "updated": "2022-11-26T06:54:18.475Z",
+        "class_name": "ソフトバンク花小金井",
+        "class_organizer": 3,
+        "phone_number": "042-451-9530",
+        "city": 31,
+        "address": "東京都小平市花小金井南町１ 丁目２７‐２２  Ｒ・Ｙビルディングサウス１Ｆ",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T1O2/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": false,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "e4e54d11-ef8c-4f40-ac35-c753e5ee3615",
+    "fields": {
+        "created": "2022-11-26T06:54:18.534Z",
+        "updated": "2022-11-26T06:54:18.534Z",
+        "class_name": "ソフトバンク鶴川",
+        "class_organizer": 3,
+        "phone_number": "042-708-1922",
+        "city": 33,
+        "address": "東京都町田市能ヶ谷２丁目１２‐５４ メゾンナツウメ１階",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/TD21/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": true,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "e5900938-629b-48de-becd-635717bc7100",
+    "fields": {
+        "created": "2022-11-26T06:54:17.777Z",
+        "updated": "2022-11-26T06:54:17.777Z",
+        "class_name": "ソフトバンク阪急大井町ガーデン",
+        "class_organizer": 3,
+        "phone_number": "03-3778-6400",
+        "city": 9,
+        "address": "東京都品川区大井１丁目５０‐５阪急大井町ガ ーデン２階",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T119/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": false,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "ea2edaed-e05b-4c9b-9a86-1d5b23276445",
+    "fields": {
+        "created": "2022-11-26T06:54:18.348Z",
+        "updated": "2022-11-26T06:54:18.348Z",
+        "class_name": "ソフトバンク吉祥寺サンロード",
+        "class_organizer": 3,
+        "phone_number": "0422-21-7911",
+        "city": 25,
+        "address": "東京都武蔵野市吉祥寺本町１丁目９‐８",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T1J3/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": false,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "f1d0af96-8dc1-492f-a3c5-2d7e03b7c75c",
+    "fields": {
+        "created": "2022-11-26T06:54:18.221Z",
+        "updated": "2022-11-26T06:54:18.221Z",
+        "class_name": "ソフトバンクフォレストモール南大沢",
+        "class_organizer": 3,
+        "phone_number": "042-677-7773",
+        "city": 22,
+        "address": "東京都八王子市南大沢２丁目２５ フォレスト モール南大沢１階",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T1L0/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": true,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "f4e4a6f7-3a1a-4436-adf3-0af7fdfb3811",
+    "fields": {
+        "created": "2022-11-26T06:54:18.006Z",
+        "updated": "2022-11-26T06:54:18.006Z",
+        "class_name": "ソフトバンク池袋東口駅前",
+        "class_organizer": 3,
+        "phone_number": "03-6384-7151",
+        "city": 15,
+        "address": "東京都豊島区南池袋 １丁目２６‐６Ｔｈｅ Ｓ Ｈ ｏｎｅ １Ｆ、２Ｆ",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/TJ01/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": false,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "f59eddf8-4957-4a04-932a-37260ff0b9e4",
+    "fields": {
+        "created": "2022-11-26T06:54:18.021Z",
+        "updated": "2022-11-26T06:54:18.021Z",
+        "class_name": "ソフトバンク大塚",
+        "class_organizer": 3,
+        "phone_number": "03-5961-3351",
+        "city": 15,
+        "address": "東京都豊島区北大塚２丁目１６‐８ バロックコート大塚１０１号",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T1A3/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": true,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "f6340345-f7ef-4c7b-967b-880999b37695",
+    "fields": {
+        "created": "2022-11-26T06:54:18.373Z",
+        "updated": "2022-11-26T06:54:18.373Z",
+        "class_name": "ソフトバンク三鷹",
+        "class_organizer": 3,
+        "phone_number": "0422-40-2200",
+        "city": 26,
+        "address": "東京都三鷹市下連雀３丁目２７‐１３ 正栄ビル１Ｆ",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T137/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": true,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "f9ef2776-f7fe-4977-9a87-fd2f0a31402a",
+    "fields": {
+        "created": "2022-11-26T06:54:17.652Z",
+        "updated": "2022-11-26T06:54:17.652Z",
+        "class_name": "ソフトバンク銀座",
+        "class_organizer": 3,
+        "phone_number": "03-6252-3333",
+        "city": 4,
+        "address": "東京都中央区銀座５丁目７番８号",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/TD31/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": false,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.classinfo",
+    "pk": "fb8c7521-ad79-48ea-99af-6c47d6427703",
+    "fields": {
+        "created": "2022-11-26T06:54:18.157Z",
+        "updated": "2022-11-26T06:54:18.157Z",
+        "class_name": "ソフトバンクアリオ西新井",
+        "class_organizer": 3,
+        "phone_number": "03-5888-3133",
+        "city": 20,
+        "address": "東京都足立区西新井栄 町１丁目２０番１号 アリオ西新井２階",
+        "evaluation": 0,
+        "price": 0,
+        "site_url": "https://www.softbank.jp/shop/search/detail/T1L2/?cid=tpsk_191119_mobile",
+        "has_parking": false,
+        "is_barrier_free": true,
+        "lecture": []
+    }
+}, {
+    "model": "administer_data.review",
+    "pk": "2de04071-2026-fcbb-d730-79a13d39c173",
+    "fields": {
+        "created": "2022-09-15T09:45:52.304Z",
+        "updated": "2022-09-15T09:45:52.304Z",
+        "class_info": "d1013537-a869-4d1c-a444-513f6d3be5d9",
+        "review_text": "foo bar",
+        "faves": 0,
+        "author": "hio"
+    }
+}, {
+    "model": "administer_data.review",
+    "pk": "c23cbcc5-dd70-6968-517b-cac2eb80fa4f",
+    "fields": {
+        "created": "2022-09-15T09:45:52.304Z",
+        "updated": "2022-09-15T09:45:52.304Z",
+        "class_info": "d1013537-a869-4d1c-a444-513f6d3be5d9",
+        "review_text": "hogehoge",
+        "faves": 0,
+        "author": "konno"
+    }
+}, {
+    "model": "administer_data.upcominglecinfos",
+    "pk": "65483c22-7287-4d71-8531-5bd91023ce53",
+    "fields": {
+        "created": "2022-12-01T15:29:48.974Z",
+        "updated": "2022-12-01T15:29:48.974Z",
+        "lecture_content": 2,
+        "which_class_held": "34a331b6-e224-18a6-f13e-d8dc74ccaeea",
+        "is_personal_lec": false,
+        "target_unit_type": "ip",
+        "can_select_date": false
+    }
+}, {
+    "model": "administer_data.upcominglecinfos",
+    "pk": "c51ec2f8-306e-4a4d-b516-cfc55125744c",
+    "fields": {
+        "created": "2022-10-23T14:22:12.938Z",
+        "updated": "2022-10-23T14:22:12.938Z",
+        "lecture_content": 1,
+        "which_class_held": "d1013537-a869-4d1c-a444-513f6d3be5d9",
+        "is_personal_lec": false,
+        "target_unit_type": "an",
+        "can_select_date": false
+    }
+}, {
+    "model": "administer_data.lecschedule",
+    "pk": "34bd1208-3b81-4861-9328-51b53d7c61b2",
+    "fields": {
+        "created": "2022-10-23T14:32:54.981Z",
+        "updated": "2022-10-23T14:32:54.981Z",
+        "lec_info": "c51ec2f8-306e-4a4d-b516-cfc55125744c",
+        "date": "2022-10-23T14:32:50Z"
+    }
+}, {
+    "model": "administer_data.lecschedule",
+    "pk": "d2c002de-4a19-4675-91c4-a2191132af4a",
+    "fields": {
+        "created": "2022-10-23T14:37:03.797Z",
+        "updated": "2022-10-23T14:37:03.797Z",
+        "lec_info": "c51ec2f8-306e-4a4d-b516-cfc55125744c",
+        "date": "2022-10-31T12:00:00Z"
+    }
+}]
