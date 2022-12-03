@@ -31,7 +31,6 @@ class Prefecture(models.Model):
         # return f"<Prefecture: {self.pref_name}>"
         return '%s object (%s)' % (self.__class__.__name__, self.pref_name)
 
-
 class City(models.Model):
     city_name = models.CharField(max_length=20, unique=True)
     # pref instance(pk=1) = 未設定用
@@ -52,8 +51,7 @@ class Lecture(models.Model):
 
     def __str__(self):
         # return f"<Lecture: {self.lecture_content}>"
-        return '%s object (%s)' % (self.__class__.__name__,
-                                   self.lecture_content)
+        return '%s object (%s)' % (self.__class__.__name__, self.lecture_content)
 
 
 class ClassOrganizer(models.Model):
@@ -62,8 +60,7 @@ class ClassOrganizer(models.Model):
 
     def __str__(self) -> str:
         # return f"<ClassOrganizer: {self.organizer_name}>"
-        return '%s object (%s)' % (self.__class__.__name__,
-                                   self.organizer_name)
+        return '%s object (%s)' % (self.__class__.__name__, self.organizer_name)
 
 
 class ClassInfo(AbstractUUIDModel):
@@ -78,9 +75,7 @@ class ClassInfo(AbstractUUIDModel):
                              on_delete=models.SET_DEFAULT,
                              default=1)
     address = models.CharField(max_length=100, blank=True, default='')
-    lecture = models.ManyToManyField(Lecture,
-                                     related_name="class_info",
-                                     blank=True)
+    lecture = models.ManyToManyField(Lecture, related_name="class_info")
     evaluation = models.IntegerField(blank=True, default=0)
     price = models.IntegerField(blank=True, default=0)
     site_url = models.URLField(blank=True, default='')
@@ -105,8 +100,7 @@ class Review(AbstractUUIDModel):
 
     def __str__(self) -> str:
         # return f"<Review: {self.review_text[:5]}>"
-        return '%s object (%s)' % (self.__class__.__name__,
-                                   self.review_text[:5])
+        return '%s object (%s)' % (self.__class__.__name__, self.review_text[:5])
 
 
 class UpcomingLecInfos(AbstractUUIDModel):
@@ -138,9 +132,7 @@ class UpcomingLecInfos(AbstractUUIDModel):
 
     def __str__(self) -> str:
         # return f'<UpcomeLecInfos object ({self.lecture_content.lecture_content}, {self.which_class_held.class_name})>'
-        return '%s object (%s, %s)' % (self.__class__.__name__,
-                                       self.lecture_content.lecture_content,
-                                       self.which_class_held.class_name)
+        return '%s object (%s, %s)' % (self.__class__.__name__, self.lecture_content.lecture_content, self.which_class_held.class_name)
 
 
 class LecSchedule(AbstractUUIDModel):
@@ -151,5 +143,4 @@ class LecSchedule(AbstractUUIDModel):
 
     def __str__(self) -> str:
         # return f"<LecSchedule: {self.lec_info}>"
-        return '%s object (%s, %s)' % (self.__class__.__name__, self.date,
-                                       self.lec_info)
+        return '%s object (%s, %s)' % (self.__class__.__name__, self.date, self.lec_info)
