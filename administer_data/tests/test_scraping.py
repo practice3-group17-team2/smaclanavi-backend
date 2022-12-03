@@ -443,13 +443,25 @@ class TestSoftBankLecInfoScraping(TestCase):
             print(f"time: {ret_time}")
             print(f"members: {num_of_members}")
 
-    def test_get_lec_info_from_divs(self):
+    def _test_get_lec_info_from_divs(self):
         class_id = "TD20"
         info_divs = SBLecInfoScraper.get_lec_info_divs_by_class(class_id)
         result = SBLecInfoScraper.get_lec_info_from_divs(info_divs)
 
         print(result)
         self.assertEqual(len(result), 15)
+    
+    def _test__get_class_id_and_uuid(self):
+        result = SBLecInfoScraper._get_class_id_and_uuid()
+        print(result)
+    
+    def test_get_overall_lec_info(self):
+        result = SBLecInfoScraper.get_overall_lec_info(debug=True)
+        print(*result.items(), sep="\n")
+
+        self.assertTrue(result)
+        self.assertEqual(len(result), 3)
+        
 
 
 class TestSoftBankLecScheduleScraping(TestCase):

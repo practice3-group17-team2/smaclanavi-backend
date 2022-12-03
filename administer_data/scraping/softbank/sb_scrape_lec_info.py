@@ -13,6 +13,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+from administer_data import models
 from administer_data.scraping.scraping import ScrapingBase
 from administer_data.scraping.scraping import ScrapingSeleBase
 
@@ -136,10 +137,51 @@ class SBLecInfoScraper(ScrapingSeleBase):
         return data
 
     @classmethod
-    def get_lec_info(cls, class_id) -> List[dict]:
+    def get_lec_info_by_class(cls, class_id) -> List[dict]:
         """
         class_idを受け取って講義情報の辞書のリストを返す関数
         """
         info_divs = cls.get_lec_info_divs_by_class(class_id)
         data = cls.get_lec_info_from_divs(info_divs)
         return data
+
+    @classmethod
+    def _get_class_id_and_uuid(self) -> List[tuple]:
+        """
+        URLの教室識別用のIDとモデル内のUUIDのタプルのリストを返す
+        class_id:TD20
+        i.id: d10みたいなuuid
+        """
+        result = []
+        re_class_id = re.compile("detail/(.+)/")
+        org_sb = models.ClassOrganizer.objects.get(organizer_name="ソフトバンク")
+        objs = models.ClassInfo.objects.filter(class_organizer=org_sb)
+        # print(objs[:5])
+        for i in objs:
+            class_id = re_class_id.split(i.site_url)[1]
+            result.append((class_id, str(i.id)))
+        return result
+
+    @classmethod
+    def get_overall_lec_info(cls, debug=False):
+        """
+        データベースに入っているソフトバンクの店舗全体に対して情報を取得し、結果の辞書を返す
+        {class_info.id(uuid):[
+                {講義の情報},
+                {講義の情報}
+        ]}
+        debug = Trueの場合長さ3の結果が返る
+        """
+        result_dic = {}
+        ids = cls._get_class_id_and_uuid()
+
+        if debug==True:
+            ids = ids[:3]
+
+        for class_id, uuid_ in ids:
+            tmp = cls.get_lec_info_by_class(class_id)
+            result_dic[uuid_] = tmp
+
+        return result_dic
+
+
