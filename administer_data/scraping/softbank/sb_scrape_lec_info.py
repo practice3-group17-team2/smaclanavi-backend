@@ -181,6 +181,7 @@ class SBLecInfoScraper(ScrapingSeleBase):
         for class_id, uuid_ in ids:
             tmp = cls.get_lec_info_by_class(class_id)
             result_dic[uuid_] = tmp
+            time.sleep(0.05)
 
         return result_dic
 

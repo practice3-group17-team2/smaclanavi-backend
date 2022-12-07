@@ -14,11 +14,11 @@ class TestSbSaveLecData(TestCase):
     file_name = "test_lec_save"
 
     def _make_pkl_file_from_dict_xs(self):
-        class_id = "TD20"
+        # class_id = "TD20"
         # file_name = f"lec_{datetime.datetime.now().strftime('%y_%m_%d_%H_%M')}"
         file_name = self.file_name
 
-        dict_xs = SBLecInfoScraper.get_lec_info(class_id)
+        dict_xs = SBLecInfoScraper.get_overall_lec_info(debug=True)
         SBLecInfoScraper.quit_driver()
         SoftBankLecDataRecorder.save_data_to_pkl_file(dict_xs, file_name)
 
