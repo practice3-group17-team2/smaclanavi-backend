@@ -467,7 +467,7 @@ class TestSoftBankLecInfoScraping(TestCase):
 class TestSoftBankLecScheduleScraping(TestCase):
     pass
 
-
+# python manage.py test administer_data.tests.test_scraping.TestURLNeedSele
 class TestURLNeedSele(TestCase):
     """ 
     manage.py test administer_data.tests.test_scraping.TestURLNeedSele
@@ -493,7 +493,7 @@ class TestURLNeedSele(TestCase):
         "au": {}
     }
 
-    url = urls["softbank"]["lec_info"]["tmp"]
+    url = urls["softbank"]["class_info"]["shop_urls"]
 
     selectors = {
         "softbank": {
@@ -520,14 +520,9 @@ class TestURLNeedSele(TestCase):
         "au": {}
     }
 
-    selector = selectors["softbank"]["lec_info"]["category_card"]
-    button_selecter = selectors["softbank"]["lec_info"]["button_selecter"]
+    selector = selectors["softbank"]["class_info"]["shop_urls"]
 
-    # print(url, selector, button_selecter, sep="\n\n")
-
-    # result_with_selenium = ScrapingSeleBase.scrape_data(url, selector)
-    result_with_selenium = SBLecInfoScraper.scrape_clicked_data(
-        url, selector, button_selecter)
+    result_with_selenium = ScrapingSeleBase.scrape_data(url, selector)
     result_without_selenium = ScrapingBase.scrape_data(url, selector)
     ScrapingSeleBase.quit_driver()
 
@@ -550,12 +545,19 @@ class TestURLNeedSele(TestCase):
         """
         print(f"Test debug print:{self.result_with_selenium}\n")
 
-        print(self.result_with_selenium[0].text)
+        # print(self.result_with_selenium[0].text)
 
         self.assertFalse(self.result_without_selenium,
                          msg="you can scrape without selenium")
         self.assertTrue(self.result_with_selenium,
                         msg="you couldn't scrape with selenium")
+
+    def test_are_equal_pyppeteer_and_selenium(self):
+        """
+        pyppeteerとseleniumの比較用
+        """
+        print(f"Test debug print:{self.result_with_selenium}\n---\n{self.result_without_selenium}")
+        self.assertEqual(self.result_with_selenium, self.result_without_selenium)
 
     def _test_selenium(self):
         """
