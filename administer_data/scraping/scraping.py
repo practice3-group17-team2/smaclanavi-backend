@@ -3,6 +3,9 @@ from bs4.element import ResultSet
 import requests
 import sys
 
+from pyppeteer import launch
+import asyncio
+
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
@@ -33,22 +36,28 @@ class ScrapingBase:
         return url
 
     @classmethod
-    def crawl_data(cls, url: str):
-        #result = requests.get(url, timeout=TIMEOUT, headers=HEADER)
-        result = requests.get(url, timeout=cls.TIMEOUT, headers=cls.HEADER)
-        result.raise_for_status()
-        return result
+    async def crawl_data(cls, url: str, selecter):
+        browser = await launch()
+        page = await browser.newPage()
+        await page.goto(url)
+        # selecterの要素が読まれるまで待機
+        await page.waitForSelector(selecter, visible=True)
+        html = await page.content()
+        await browser.close()
+        return html
 
     @classmethod
     def scrape_data(cls, url: str, selector: str):
         """urlからselectorに該当する要素を全て抽出して返す関数"""
         ret = ResultSet(None, [])
         try:
-            result = cls.crawl_data(url)
+            # result = cls.crawl_data(url)
+            html = asyncio.get_event_loop().run_until_complete(cls.crawl_data(url, selector))
         except Exception as e:
             print("ERROR_DOWNLOAD:{}\n{}".format(url, e))
         else:
-            soup = bs4.BeautifulSoup(result.content, 'html.parser')
+            # soup = bs4.BeautifulSoup(result.content, 'html.parser')
+            soup = bs4.BeautifulSoup(html, 'html.parser')
             ret = soup.select(selector)
         return ret
 
