@@ -26,10 +26,11 @@ class TestSbSaveLecData(TestCase):
         self.assertEqual(loaded_file, dict_xs)
 
     def test_print_lec_pkl_file(self):
-        file_name = "lec_22_12_02_07_22"
+        # file_name = "lec_22_12_02_07_22"
+        file_name = "test_lec_save_sb_all"
         loaded_file = SoftBankLecDataRecorder.load_data_from_pkl_file(file_name)
-        print(type(loaded_file[0]))  # <class 'dict'>
-        print(*loaded_file, sep="\n")  # 内容の表示
+        # print(type(loaded_file[0]))  # <class 'dict'>
+        print(*loaded_file.items(), sep="\n")  # 内容の表示
 
     def _test_fix_data(self):
         pass

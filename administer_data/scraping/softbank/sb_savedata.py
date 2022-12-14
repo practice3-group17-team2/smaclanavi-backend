@@ -90,6 +90,14 @@ class SoftBankLecDataRecorder(SoftBankDataRecorder):
     default_src_file = "test_lec_save"
 
     @classmethod
+    def create_lecture_instance(cls):
+        """ 講義の保存のためにタグ付け的な役割のものを作成しないといけない """
+        ls = ["スマホ 体験編", "画面の見方", "マップ＆カメラ", "ネット＆アプリ", "より快適な設定"]
+        
+        for txt in ls:
+            models.Lecture.objects.get_or_create(lecture_content=txt, is_target_old=False)
+
+    @classmethod
     def save_fixed_data_to_model(cls, src_file=default_src_file):
         pass
 
