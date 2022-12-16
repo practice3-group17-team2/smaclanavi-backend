@@ -1,0 +1,57 @@
+[{
+    "model": "administer_data.lecture",
+    "pk": 14,
+    "fields": {
+        "created": "2022-12-16T08:03:58.039Z",
+        "lecture_content": "スマホ 体験編",
+        "is_target_old": false
+    }
+}, {
+    "model": "administer_data.lecture",
+    "pk": 15,
+    "fields": {
+        "created": "2022-12-16T08:03:58.053Z",
+        "lecture_content": "画面の見方",
+        "is_target_old": false
+    }
+}, {
+    "model": "administer_data.lecture",
+    "pk": 16,
+    "fields": {
+        "created": "2022-12-16T08:03:58.064Z",
+        "lecture_content": "マップ＆カメラ",
+        "is_target_old": false
+    }
+}, {
+    "model": "administer_data.lecture",
+    "pk": 17,
+    "fields": {
+        "created": "2022-12-16T08:03:58.075Z",
+        "lecture_content": "ネット＆アプリ",
+        "is_target_old": false
+    }
+}, {
+    "model": "administer_data.lecture",
+    "pk": 18,
+    "fields": {
+        "created": "2022-12-16T08:03:58.086Z",
+        "lecture_content": "より快適な設定",
+        "is_target_old": false
+    }
+}, {
+    "model": "administer_data.lecture",
+    "pk": 19,
+    "fields": {
+        "created": "2022-12-16T08:03:58.097Z",
+        "lecture_content": "アプリを使ってみよう",
+        "is_target_old": false
+    }
+}, {
+    "model": "administer_data.lecture",
+    "pk": 20,
+    "fields": {
+        "created": "2022-12-16T08:03:58.109Z",
+        "lecture_content": "タブレット",
+        "is_target_old": false
+    }
+}]
