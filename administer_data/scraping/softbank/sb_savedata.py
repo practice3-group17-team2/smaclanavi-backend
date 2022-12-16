@@ -134,11 +134,11 @@ class SoftBankLecDataRecorder(SoftBankDataRecorder):
                     lecture_content__contains=txt)
                 held_class = models.ClassInfo.objects.get(id=classinfo_id)
 
-                if re.match(data["lecture_content"], "iPhone"):
+                if re.search("iPhone", data["lecture_content"]):
                     unit = "ip"
-                elif re.match(data["lecture_content"], "Android"):
+                elif re.search("Android", data["lecture_content"]):
                     unit = "an"
-                elif re.match(data["lecture_content"], "タブレット"):
+                elif re.search("タブレット", data["lecture_content"]):
                     unit = "ta"
                 else:
                     unit = "ot"
