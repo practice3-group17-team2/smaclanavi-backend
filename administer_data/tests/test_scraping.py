@@ -668,7 +668,7 @@ class TestSBgetShopURLs(TestCase):
         # '/shop/search/detail/TD20/?cid=tpsk_191119_mobile']
         self.assertEqual(result, expected_ls)
 
-
+# python manage.py test administer_data.tests.test_scraping.TestSBgetShopInfo
 class TestSBgetShopInfo(TestCase):
 
     def test_scrape_shop_info(self):
