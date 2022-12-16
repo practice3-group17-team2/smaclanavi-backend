@@ -92,7 +92,7 @@ class SoftBankLecDataRecorder(SoftBankDataRecorder):
     @classmethod
     def create_lecture_instance(cls):
         """ 講義の保存のためにタグ付け的な役割のものを作成しないといけない """
-        ls = ["スマホ 体験編", "画面の見方", "マップ＆カメラ", "ネット＆アプリ", "より快適な設定"]
+        ls = ["スマホ 体験編", "画面の見方", "マップ＆カメラ", "ネット＆アプリ", "より快適な設定", "アプリを使ってみよう", "タブレット"]
 
         for txt in ls:
             models.Lecture.objects.get_or_create(lecture_content=txt,
@@ -106,7 +106,7 @@ class SoftBankLecDataRecorder(SoftBankDataRecorder):
         n_classes_data = cls.load_data_from_pkl_file(src_file)
         # word_xs = ["画面"]
         # unit_type_xs = ["iPhone", "Android", "タブレット"]
-        print(n_classes_data)
+        # print(n_classes_data)
 
         for classinfo_id, lec_data_xs in n_classes_data.items():
             for data in lec_data_xs:
@@ -121,6 +121,10 @@ class SoftBankLecDataRecorder(SoftBankDataRecorder):
                     txt = "ネット"
                 elif re.search("設定", data["lec_title"]):
                     txt = "設定"
+                elif re.match("アプリ", data["lec_title"]):
+                    txt = "アプリを使ってみよう"
+                elif re.search("タブレット", data["lec_title"]):
+                    txt = "タブレット"
                 else:
                     print("以下の講義の検索キーワードは無効です")
                     print(f"{classinfo_id}:\n {data}\n---\n")
