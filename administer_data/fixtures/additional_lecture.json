@@ -1,6 +1,6 @@
 [{
     "model": "administer_data.lecture",
-    "pk": 14,
+    "pk": 4,
     "fields": {
         "created": "2022-12-16T08:03:58.039Z",
         "lecture_content": "スマホ 体験編",
@@ -8,7 +8,7 @@
     }
 }, {
     "model": "administer_data.lecture",
-    "pk": 15,
+    "pk": 5,
     "fields": {
         "created": "2022-12-16T08:03:58.053Z",
         "lecture_content": "画面の見方",
@@ -16,7 +16,7 @@
     }
 }, {
     "model": "administer_data.lecture",
-    "pk": 16,
+    "pk": 6,
     "fields": {
         "created": "2022-12-16T08:03:58.064Z",
         "lecture_content": "マップ＆カメラ",
@@ -24,7 +24,7 @@
     }
 }, {
     "model": "administer_data.lecture",
-    "pk": 17,
+    "pk": 7,
     "fields": {
         "created": "2022-12-16T08:03:58.075Z",
         "lecture_content": "ネット＆アプリ",
@@ -32,7 +32,7 @@
     }
 }, {
     "model": "administer_data.lecture",
-    "pk": 18,
+    "pk": 8,
     "fields": {
         "created": "2022-12-16T08:03:58.086Z",
         "lecture_content": "より快適な設定",
@@ -40,7 +40,7 @@
     }
 }, {
     "model": "administer_data.lecture",
-    "pk": 19,
+    "pk": 9,
     "fields": {
         "created": "2022-12-16T08:03:58.097Z",
         "lecture_content": "アプリを使ってみよう",
@@ -48,7 +48,7 @@
     }
 }, {
     "model": "administer_data.lecture",
-    "pk": 20,
+    "pk": 10,
     "fields": {
         "created": "2022-12-16T08:03:58.109Z",
         "lecture_content": "タブレット",
