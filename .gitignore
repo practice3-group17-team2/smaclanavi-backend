@@ -12,3 +12,4 @@ activate.*
 administer_data/scraping/data
 aboutAPI.md
 *.html
+*.txt
