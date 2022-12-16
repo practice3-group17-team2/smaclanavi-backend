@@ -87,20 +87,68 @@ class SoftBankClassDataRecorder(SoftBankDataRecorder):
 
 
 class SoftBankLecDataRecorder(SoftBankDataRecorder):
-    default_src_file = "test_lec_save"
+    # default_src_file = "test_lec_save"
 
     @classmethod
     def create_lecture_instance(cls):
         """ 講義の保存のためにタグ付け的な役割のものを作成しないといけない """
         ls = ["スマホ 体験編", "画面の見方", "マップ＆カメラ", "ネット＆アプリ", "より快適な設定"]
-        
+
         for txt in ls:
-            models.Lecture.objects.get_or_create(lecture_content=txt, is_target_old=False)
+            models.Lecture.objects.get_or_create(lecture_content=txt,
+                                                 is_target_old=False)
 
     @classmethod
-    def save_fixed_data_to_model(cls, src_file=default_src_file):
+    def save_fixed_data_to_model(cls, src_file) -> None:
+        """
+        fixedかどうかはわからん
+        """
+        n_classes_data = cls.load_data_from_pkl_file(src_file)
+        # word_xs = ["画面"]
+        # unit_type_xs = ["iPhone", "Android", "タブレット"]
+        print(n_classes_data)
+
+        for classinfo_id, lec_data_xs in n_classes_data.items():
+            for data in lec_data_xs:
+                # lec_titleについてmodels.Lectureの検索語彙を変えるために分岐
+                if re.search("触ってみよう", data["lec_title"]):
+                    txt = "体験編"
+                elif re.search("画面", data["lec_title"]):
+                    txt = "画面"
+                elif re.search("マップ", data["lec_title"]):
+                    txt = "マップ"
+                elif re.search("ネット", data["lec_title"]):
+                    txt = "ネット"
+                elif re.search("設定", data["lec_title"]):
+                    txt = "設定"
+                else:
+                    print("以下の講義の検索キーワードは無効です")
+                    print(f"{classinfo_id}:\n {data}\n---\n")
+                    continue
+
+                created_lec = models.Lecture.objects.get(
+                    lecture_content__contains=txt)
+                held_class = models.ClassInfo.objects.get(id=classinfo_id)
+
+                if re.match(data["lecture_content"], "iPhone"):
+                    unit = "ip"
+                elif re.match(data["lecture_content"], "Android"):
+                    unit = "an"
+                elif re.match(data["lecture_content"], "タブレット"):
+                    unit = "ta"
+                else:
+                    unit = "ot"
+
+                models.UpcomingLecInfos.objects.get_or_create(
+                    lecture_content=created_lec,
+                    which_class_held=held_class,
+                    target_unit_type=unit,
+                    defaults={
+                        "is_personal_lec": False,
+                        "can_select_date": False
+                    })
         pass
 
     @classmethod
-    def fix_data(cls, src_file=default_src_file):
+    def fix_data(cls, src_file):
         pass
